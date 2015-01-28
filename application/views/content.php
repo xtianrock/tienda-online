@@ -10,8 +10,8 @@
     <h3>Productos destacados</h3>
     <ul>
         <?php foreach($destacados->result() as $item):?>
-            <li><?php echo $item->productos_id_producto;?></li>
-            <li><?php echo $item->productos_categoria_id_cat;?></li>
+            <li><?php echo $item->id_producto;?></li>
+            <li><?php echo $item->categoria_id;?></li>
         <?php endforeach;?>
     </ul>
 </nav>

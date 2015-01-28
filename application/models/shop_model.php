@@ -20,16 +20,17 @@ class Shop_model extends CI_Model{
     public function obtenerDestacados()
     {
         $resultados=$this->db->get('destacado');
-
-      /*  echo '<table border="1">';
-        foreach ($resultados->result() as $fila)
+        echo $resultados->num_rows();
+        foreach ($resultados->result() as $elemento)
         {
-            echo '<tr>';
-            echo '<td>'.$fila->productos_id_producto.'</td>';
-            echo '<td>'.$fila->productos_categoria_id_cat.'</td>';
-            echo '</tr>';
+            echo ' producto';
+            $productos=$this->db->select('*')->from('productos')->where('id_producto',$elemento->productos_id_producto);
+
+            echo '<pre>';
+            print_r($productos);
+            echo '</pre>';
         }
-        echo '</table>';*/
+
         return $resultados;
     }
 

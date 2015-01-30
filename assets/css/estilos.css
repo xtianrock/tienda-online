@@ -1,0 +1,39 @@
+html,body
+{
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+#header {
+
+    height: 15%;
+    width: 100%;
+    color: #000000;
+    background-color: #b3da49
+}
+#menu {
+    float: left;
+    height:75%;
+    width: 20%;
+    color: #000000;
+    background-color: rgba(254, 255, 99, 0.77)
+}
+#content {
+    float: right;
+    height:75%;
+    width: 80%;
+    color: #000000;
+    background-color: #a0ff89
+}
+#footer {
+
+    bottom:10px;
+    height: 10%;
+    width: 100%;
+    color: #000000;
+    background-color: #c18664
+}
+.imagen_producto{
+    height: 200px;
+    width: 200px;
+}

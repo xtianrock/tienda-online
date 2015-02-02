@@ -29,6 +29,12 @@ class Shop_model extends CI_Model{
         return $productos;
     }
 
+    public function obtenerCategorias()
+    {
+      return $this->db->select('nombre_cat')->from('categoria')->get();
+
+    }
+
     function insert_entry()
     {
         $this->title   = $_POST['title']; // por favor leer la nota de abajo

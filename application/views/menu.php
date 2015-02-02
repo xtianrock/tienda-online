@@ -6,6 +6,3 @@
  * Time: 16:47
  */
 ?>
-<nav id="menu">
-    <p>Menu</p>
-</nav>

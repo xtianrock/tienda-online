@@ -19,6 +19,7 @@ class Shop_model extends CI_Model{
 
     public function obtenerDestacados()
     {
+        $productos=array();
         $resultados=$this->db->get('destacado');
         foreach ($resultados->result() as $elemento)
         {

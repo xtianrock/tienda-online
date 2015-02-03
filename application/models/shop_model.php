@@ -29,6 +29,11 @@ class Shop_model extends CI_Model{
         return $productos;
     }
 
+    public function obtenerProductos()
+    {
+        return $this->db->get('productos');
+    }
+
     public function obtenerCategorias()
     {
       return $this->db->select('nombre_cat')->from('categoria')->get();

@@ -34,8 +34,8 @@ html,body
     background-color: #c18664
 }
 .imagen_producto{
-    height: 200px;
-    width: 200px;
+    max-height: 300px;
+
 }
 
 /* make sidebar nav vertical */
@@ -59,3 +59,5 @@ html,body
         padding-bottom: 12px;
     }
 }
+
+.row-margin { margin-top:40px; }

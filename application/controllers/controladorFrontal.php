@@ -19,9 +19,10 @@ class ControladorFrontal extends CI_Controller {
     {
         $datos['destacados']=$this->shop_model->obtenerDestacados();
         $datos['categorias']=$this->shop_model->obtenerCategorias();
+        $datos['productos']=$this->shop_model->obtenerProductos();
 
         $this->load->view('header');
-        $this->load->view('menu');
+        $this->load->view('menu',$datos);
         $this->load->view('content',$datos);
         $this->load->view('footer');
     }

@@ -6,38 +6,7 @@
  * Time: 16:32
  */
 ?>
-<div class="row">
-    <div class="col-sm-2">
-        <div class="sidebar-nav">
-            <div class="navbar navbar-default" role="navigation">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-navbar-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <span class="visible-xs navbar-brand">Sidebar menu</span>
-                </div>
-                <div class="navbar-collapse collapse sidebar-navbar-collapse">
-                    <ul class="nav navbar-nav">
-                        <li class="active"><a href="#">Menu Item 1</a></li>
-                        <li><a href="#">Menu Item 2</a></li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
-                            <ul class="dropdown-menu">
-                                <?php foreach($categorias->result() as $item):?>
-                                    <li><a href="#"><?php echo $item->nombre_cat;?></a></li>
-                                <?php endforeach;?>
-                            </ul>
-                        </li>
-                        <li><a href="#">Menu Item 4</a></li>
-                        <li><a href="#">Reviews <span class="badge">1,118</span></a></li>
-                    </ul>
-                </div><!--/.nav-collapse -->
-            </div>
-        </div>
-    </div>
+
     <div class="col-sm-9">
         <div class="jumbotron">
             <h2>Productos destacados</h2>
@@ -49,7 +18,7 @@
                             <li><?php echo $item->nombre_producto;?></li>
                             <li><?php echo $item->precio_producto;?></li>
                             <li><?php echo $item->descripcion;?></li>
-                            <img class="imagen_producto" src="<?=$this->config->item('base_url')?>/assets/img/byron.JPG" >
+                            <img class="imagen_producto" src="<?=$this->config->item('base_url')?>/assets/img/<?php echo $item->imagen_producto;?>" >
                         </ul>
                     </div>
                 <?php endforeach;?>
@@ -57,8 +26,50 @@
             <p><a class="btn btn-primary btn-lg" href="#" role="button">Ver todos</a></p>
         </div>
     </div>
-</div>
 
+$num = 1;
+$breaker = 3; //How many cols inside a row?
+
+foreach($a as $b) {
+
+if ($num == 1) echo '<div class="row">'; //First col, so open the row.
+
+    echo '<div class="col-sm-4">Test</div>';
+
+    $num++;
+
+    if ($num > $breaker) { echo '</div>'; $num = 1; } // The num arrived at the break-point. Close the row!
+
+}
+
+<div class="col-sm-12">
+    <div class="jumbotron">
+        <h2>Todos los productos</h2>
+
+            <?php $num = 1;
+            $breaker = 3;
+            foreach($productos->result() as $item):
+            if ($num == 1) echo '<div class="row row-margin">';?>
+                <div class="col-xs-4">
+                    <ul>
+                        <li><?php echo $item->id_producto;?></li>
+                        <li><?php echo $item->nombre_producto;?></li>
+                        <li><?php echo $item->precio_producto;?></li>
+                        <li><?php echo $item->descripcion;?></li>
+                        <img class="imagen_producto" src="<?=$this->config->item('base_url')?>/assets/img/<?php echo $item->imagen_producto;?>" >
+                    </ul>
+                </div>
+            <?php $num++;
+                if ($num > $breaker)
+            {
+                echo '</div>';
+                $num = 1;
+            }
+            endforeach;?>
+        </div>
+        <p><a class="btn btn-primary btn-lg" href="#" role="button">Ver todos</a></p>
+    </div>
+</div>
 
 
 

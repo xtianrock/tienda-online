@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 02-02-2015 a las 03:13:45
+-- Tiempo de generación: 03-02-2015 a las 02:34:43
 -- Versión del servidor: 5.6.21
 -- Versión de PHP: 5.6.3
 
@@ -33,14 +33,19 @@ CREATE TABLE IF NOT EXISTS `categoria` (
   `anuncio_cat` text,
   `visible` tinyint(1) DEFAULT NULL,
   `cod_cat` varchar(45) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `categoria`
 --
 
 INSERT INTO `categoria` (`id_cat`, `nombre_cat`, `descripcion_cat`, `anuncio_cat`, `visible`, `cod_cat`) VALUES
-(1, 'categoria 1', 'desc', NULL, 1, 'cat1');
+(1, 'Playsets', 'Consigue las tus 4 copias de las cartas mas jugadas!', NULL, 1, 'playset'),
+(2, 'Sobres', 'Sobres sueltos de las ultimas ampliaciones.', NULL, 1, 'sobre'),
+(3, 'Tapetes', 'Nada mas agradable que jugar sobre un buen tapete. Consigue el tuyo con tu ilustración favorita.', NULL, 1, 'tapete'),
+(4, 'Fundas', 'Protege tus cartas con nuestra amplia variedad de fundas.', NULL, 1, 'funda'),
+(5, 'Archivadores', 'La mejor manera de organizar y transportar nuestrar cartas.', NULL, 1, 'archivador'),
+(6, 'Deck boxes', 'Indispensable para transportar tus barajas!', NULL, 1, 'deckbox');
 
 -- --------------------------------------------------------
 
@@ -115,16 +120,29 @@ CREATE TABLE IF NOT EXISTS `productos` (
   `categoria_id_cat` int(11) NOT NULL,
   `visible` tinyint(1) DEFAULT NULL,
   `cod_producto` varchar(15) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `productos`
 --
 
 INSERT INTO `productos` (`id_producto`, `nombre_producto`, `precio_producto`, `descuento`, `imagen_producto`, `iva_producto`, `descripcion`, `anuncio`, `stock`, `categoria_id_cat`, `visible`, `cod_producto`) VALUES
-(1, 'producto1', '42.00', NULL, 'Byron', NULL, 'desc', NULL, 10, 1, 1, 'pro1'),
-(2, 'producto2', '74.00', NULL, NULL, NULL, 'desc', NULL, 41, 1, 1, 'pro2'),
-(3, 'producto3', '85.00', NULL, NULL, NULL, 'desc', NULL, 41, 1, 1, 'pro3');
+(1, 'Tarmogoyf x4', '500.00', NULL, 'tarmogoyf.jpg', NULL, 'Playset de Tarmogoyf NM', NULL, 6, 1, 1, 'tarmogoyf'),
+(2, 'Liliana del velo x4', '220.00', NULL, 'liliana_del_velo.jpg', NULL, 'Playset de Liliana del velo NM', NULL, 13, 1, 1, 'liliana'),
+(3, 'Fuerza de voluntad x4', '245.00', NULL, 'fuerza_de_voluntad.jpg', NULL, 'Playset de fuerza de voluntad Ex+', NULL, 10, 1, 1, 'Fow'),
+(4, 'Laguna ardiente x4', '160.00', NULL, 'laguna_ardiente.jpg', NULL, 'Playset de Laguna ardiente NM', NULL, 25, 1, 1, 'laguna'),
+(5, 'Relampago (player rewards promo) x4', '75.00', NULL, 'relampago_promo.jpg', NULL, 'Playset de relampago promocional NM', NULL, 8, 1, 1, 'relampago'),
+(6, 'Camino al exilio x4', '30.00', NULL, 'camino_al_exilio.jpg', NULL, 'Playset de camino al exilio NM', NULL, 41, 1, 1, 'camino'),
+(7, 'Geist de san traft x4', '65.00', NULL, 'geist_de_san_traft.jpg', NULL, 'Playset de Geist de san traft NM', NULL, 23, 1, 1, 'geist'),
+(10, 'Sobre de Destino reescrito', '3.50', NULL, 'sobre_destino_reescrito.jpg', NULL, 'Sobre de Destino reescrito en español, cada sobre contiene 12 cartas comunes, 3 cartas infrecuentes y una carta rara o mitica.', NULL, 85, 2, 1, 'fate_booster'),
+(11, 'Sobre de khans de Tarkir', '3.50', NULL, 'sobre_khans_de_tarkir.jpg', NULL, 'Sobre de khans de Tarkir en español, cada sobre contiene 12 cartas comunes, 3 cartas infrecuentes y una carta rara o mitica.', NULL, 120, 2, 1, 'khans_booster'),
+(12, 'Sobre de magic 2015', '3.00', NULL, 'sobre_m15.jpg', NULL, 'Sobre de magic 2015 en español, cada sobre contiene 12 cartas comunes, 3 cartas infrecuentes y una carta rara o mitica.', NULL, 74, 2, 1, 'm15_booster'),
+(13, 'Sobre Theros', '2.50', NULL, 'sobre_theros.jpg', NULL, 'Sobre de Theros en español, cada sobre contiene 12 cartas comunes, 3 cartas infrecuentes y una carta rara o mitica.', NULL, 56, 2, 1, 'booster_theros'),
+(14, 'Sobre de Regreso a Ravnica', '2.50', NULL, 'sobre_regreso_a_ravnica.jpg', NULL, 'Sobre de Regreso a Ravnica en español, cada sobre contiene 12 cartas comunes, 3 cartas infrecuentes y una carta rara o mitica.', NULL, 23, 2, 1, 'booster_ravnica'),
+(15, 'Dragon Shield Blue', '6.85', NULL, 'tapete_dragon_shield_blue.jpg', NULL, 'Tapete Dragon Shield Arcane Dragons: Blue Playmat', NULL, 15, 3, 1, 'playmat_dsblue'),
+(16, 'Ultra Pro: Tapete Artist Gallery (Negro)', '8.00', NULL, 'tapete_artist_gallery.jpg', NULL, 'Tapete Ultra Pro: Tapete Artist Gallery (Negro)', NULL, 12, 3, 1, 'playmat_artist'),
+(17, 'Tapete Magiccardmarket "Wooden Board"', '9.50', NULL, 'tapete_mkm_wooded.jpg', NULL, 'Tapete Magiccardmarket "Wooden Board"', NULL, 74, 3, 1, 'playmat_wood'),
+(18, 'Dragon Shield - Red Zone Playmat', '8.00', NULL, 'tapete_redzone.jpg', NULL, 'Tapete Dragon Shield modelo Red Zone Playmat', NULL, 41, 3, 1, 'playmat_redzone');
 
 -- --------------------------------------------------------
 
@@ -212,7 +230,7 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `categoria`
 --
 ALTER TABLE `categoria`
-MODIFY `id_cat` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+MODIFY `id_cat` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT de la tabla `pedido`
 --
@@ -222,7 +240,7 @@ MODIFY `id_pedido` int(11) NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT de la tabla `productos`
 --
 ALTER TABLE `productos`
-MODIFY `id_producto` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+MODIFY `id_producto` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=19;
 --
 -- AUTO_INCREMENT de la tabla `usuario`
 --

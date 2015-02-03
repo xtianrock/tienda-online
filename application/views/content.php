@@ -27,20 +27,6 @@
         </div>
     </div>
 
-$num = 1;
-$breaker = 3; //How many cols inside a row?
-
-foreach($a as $b) {
-
-if ($num == 1) echo '<div class="row">'; //First col, so open the row.
-
-    echo '<div class="col-sm-4">Test</div>';
-
-    $num++;
-
-    if ($num > $breaker) { echo '</div>'; $num = 1; } // The num arrived at the break-point. Close the row!
-
-}
 
 <div class="col-sm-12">
     <div class="jumbotron">

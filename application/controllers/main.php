@@ -19,8 +19,9 @@ class Main extends CI_Controller {
 
     public function index()
     {
-
-        $this->templates->load('template_tienda', 'home', $this->datos);
+        $this->data["pageTitle"] = "Home";
+        $this->load->view('home', $this->data);
+       // $this->templates->load('template_tienda', 'home', $this->datos);
     }
     public function categoria($idCategoria)
     {

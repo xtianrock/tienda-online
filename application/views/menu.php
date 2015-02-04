@@ -5,6 +5,7 @@
  * Date: 26/01/2015
  * Time: 16:47
  */
+$this->load->helper('url');
 ?>
 <div class="row">
     <div class="col-sm-2">
@@ -27,7 +28,7 @@
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Categorias <b class="caret"></b></a>
                             <ul class="dropdown-menu">
                                 <?php foreach($categorias->result() as $item):?>
-                                    <li><a href="#"><?php echo $item->nombre_cat;?></a></li>
+                                    <li><?= anchor('main/categoria/'.$item->id_cat,$item->nombre_cat);?></li>
                                 <?php endforeach;?>
                             </ul>
                         </li>

@@ -7,9 +7,6 @@
  */
 class Shop_model extends CI_Model{
 
-    var $title   = '';
-    var $content = '';
-    var $date    = '';
 
     function __construct()
     {
@@ -29,33 +26,22 @@ class Shop_model extends CI_Model{
         return $productos;
     }
 
-    public function obtenerProductos()
+    public function obtenerProductos($categoria=null)
     {
-        return $this->db->get('productos');
+       return $this->db->from('productos')->where('categoria_id_cat',$categoria)->get();
+    }
+
+    public function nombreCategoria($categoria=null)
+    {
+        return $this->db->select('nombre_cat')->from('categoria')->where('id_cat',$categoria)->get()->row();
     }
 
     public function obtenerCategorias()
     {
-      return $this->db->select('nombre_cat')->from('categoria')->get();
+      return $this->db->from('categoria')->get();
 
     }
 
-    function insert_entry()
-    {
-        $this->title   = $_POST['title']; // por favor leer la nota de abajo
-        $this->content = $_POST['content'];
-        $this->date    = time();
 
-        $this->db->insert('entries', $this);
-    }
-
-    function update_entry()
-    {
-        $this->title   = $_POST['title'];
-        $this->content = $_POST['content'];
-        $this->date    = time();
-
-        $this->db->update('entries', $this, array('id', $_POST['id']));
-    }
 
 }

@@ -9,7 +9,7 @@
 
  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-    class Template
+    class Templates
     {
         var $ci;
 

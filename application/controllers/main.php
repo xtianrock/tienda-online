@@ -20,14 +20,14 @@ class Main extends CI_Controller {
     public function index()
     {
 
-        $this->template->load('template_tienda', 'home', $this->datos);
+        $this->templates->load('template_tienda', 'home', $this->datos);
     }
     public function categoria($idCategoria)
     {
 
         $this->datos['productos']=$this->shop_model->obtenerProductos($idCategoria);
         $this->datos['categoria']=$this->shop_model->nombreCategoria($idCategoria);
-        $this->template->load('template_tienda', 'productos', $this->datos);
+        $this->templates->load('template_tienda', 'productos', $this->datos);
     }
 
 } 

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 03-02-2015 a las 02:34:43
+-- Tiempo de generación: 05-02-2015 a las 04:26:31
 -- Versión del servidor: 5.6.21
 -- Versión de PHP: 5.6.3
 
@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `categoria` (
   `anuncio_cat` text,
   `visible` tinyint(1) DEFAULT NULL,
   `cod_cat` varchar(45) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `categoria`
@@ -120,7 +120,7 @@ CREATE TABLE IF NOT EXISTS `productos` (
   `categoria_id_cat` int(11) NOT NULL,
   `visible` tinyint(1) DEFAULT NULL,
   `cod_producto` varchar(15) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `productos`
@@ -142,7 +142,24 @@ INSERT INTO `productos` (`id_producto`, `nombre_producto`, `precio_producto`, `d
 (15, 'Dragon Shield Blue', '6.85', NULL, 'tapete_dragon_shield_blue.jpg', NULL, 'Tapete Dragon Shield Arcane Dragons: Blue Playmat', NULL, 15, 3, 1, 'playmat_dsblue'),
 (16, 'Ultra Pro: Tapete Artist Gallery (Negro)', '8.00', NULL, 'tapete_artist_gallery.jpg', NULL, 'Tapete Ultra Pro: Tapete Artist Gallery (Negro)', NULL, 12, 3, 1, 'playmat_artist'),
 (17, 'Tapete Magiccardmarket "Wooden Board"', '9.50', NULL, 'tapete_mkm_wooded.jpg', NULL, 'Tapete Magiccardmarket "Wooden Board"', NULL, 74, 3, 1, 'playmat_wood'),
-(18, 'Dragon Shield - Red Zone Playmat', '8.00', NULL, 'tapete_redzone.jpg', NULL, 'Tapete Dragon Shield modelo Red Zone Playmat', NULL, 41, 3, 1, 'playmat_redzone');
+(18, 'Dragon Shield - Red Zone Playmat', '8.00', NULL, 'tapete_redzone.jpg', NULL, 'Tapete Dragon Shield modelo Red Zone Playmat', NULL, 41, 3, 1, 'playmat_redzone'),
+(19, '100 KMC Perfect Sized Sleeves', '3.40', NULL, 'perfect_size.jpg', NULL, 'Dobla la proteccion de tus cartas con estas fundas ajustadas que puedes usar con tus fundas normales.', NULL, 50, 4, 1, 'kmc_perfect'),
+(20, 'KMC Full Sized Sleeves - Matte Black', '5.20', NULL, 'kmc_mat_black.jpg', NULL, 'Máxima protección y calidad para tus cartas con las nuevas KMC Full Sized Sleeves - Matte Black', NULL, 40, 4, 1, 'kmc_mat_black'),
+(21, '100 Dragon Shield Sleeves - Red', '6.50', NULL, 'dragon_shield_red.jpg', NULL, 'Protege tus cartas con las nuevas fundas dragon shield.', NULL, 80, 4, 1, 'sleeves_ds_red'),
+(22, '80 Fundas MTG Cardback', '8.00', NULL, 'fundas_mtg_back.jpg', NULL, 'Fantasticas fundas con la imagen del reverso de una carta, lo mas parecido a jugar sin fundas pero con toda la protección.', NULL, 20, 4, 1, 'sleeves_mtg'),
+(23, 'Ultra-Pro: 25 Toploaders Estándar', '2.50', NULL, 'toploaders.jpg', NULL, 'Maxima proteccion para trasnportar y realizar envios de cartas', NULL, 63, 4, 1, 'toploaders'),
+(24, '50 Fundas Ultra Pro Doge', '3.00', NULL, 'ultra_pro_doge.jpg', NULL, 'Protege tu baraja con estas divertidas fundas con la calidad de Ultra pro', NULL, 15, 4, 1, 'ultra_pro_doge'),
+(25, '100 Dragon Shield Sleeves - Pink', '6.50', NULL, 'dragon_shield_pink.jpg', NULL, 'Porque ellas también juegan!', NULL, 20, 4, 1, 'sleeves_ds_pink'),
+(26, 'Carpeta FOUR Playset', '24.00', NULL, 'carpeta_playset.jpg', NULL, 'Guarda tus cartas organizandolas por playsets, capacidad para 480 cartas.', NULL, 12, 5, 1, 'playset_binder'),
+(27, 'Ultra Pro Collectors Portfolio - 4-Pocket Nav', '2.50', NULL, 'carpeta_ultrapro_4.jpg', NULL, 'Lo mejor para llevar nuestro cambio sin ocupar demasiado espacio. Capacidad 80 cartas.', NULL, 31, 5, 1, 'carpeta_up_4'),
+(28, 'Ultra Pro Collectors Portfolio - 9-Pocket Nav', '5.00', NULL, 'carpeta_ultrapro_9.jpg', NULL, 'Lleva tus cartas siempre contigo con los archivadores de 9 bolsillos UltraPro.\r\nCapacidad 180 cartas.', NULL, 25, 5, 1, 'carpeta_up_9'),
+(29, 'Ultra-Pro: "Pro-Binder" (Azul)', '15.00', NULL, 'pro_binder_blue.jpg', NULL, 'Máxima protección y calidad. incluye goma elástica para cerrar.', NULL, 10, 5, 1, 'pro_binder_blue'),
+(30, 'Album "Black Lotus"', '13.00', NULL, 'carpeta_black_lotus.jpg', NULL, 'Álbum con ilustración de unas las cartas mas míticas. Capacidad 80 cartas.', NULL, 5, 5, 1, 'binder_lotus'),
+(31, 'Ultra-Pro: "Pro-Deck Box" 100+ (Negro)', '2.50', NULL, 'deck_box_100+.jpg', NULL, 'Caja para guardar el mazo con capacidad para mas de 100 cartas.', NULL, 40, 6, 1, 'deckbox_100'),
+(32, 'Ultra-Pro Solid Red Deckbox', '1.50', NULL, 'deck_box_red_solid.jpg', NULL, 'Caja para guardar el mazo con capacidad para 75 cartas', NULL, 70, 6, 1, 'deckbox_red'),
+(33, 'Ultra-Pro: Mana Flip Box (Negro)', '10.00', NULL, 'mana_flip_black.jpg', NULL, 'Caja para mazos de cuero sintetico y gran capacidad.', NULL, 4, 6, 1, 'flip_box_black'),
+(34, 'Ultra-Pro: Matte Dual Flip Box (Blanco)', '18.00', NULL, 'dual_flip_box_white.jpg', NULL, 'Fantastica caja de cuero sintetico para dos barajas.', NULL, 6, 6, 1, 'dual_flip_box'),
+(35, 'Mana Symbol Deckbox (Azul)', '2.50', NULL, 'mana_symbol_blue.jpg', NULL, 'Caja para mazo de 75 cartas ilustrada con símbolo de maná.', NULL, 15, 6, 1, 'island_deckbox');
 
 -- --------------------------------------------------------
 
@@ -230,7 +247,7 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `categoria`
 --
 ALTER TABLE `categoria`
-MODIFY `id_cat` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
+MODIFY `id_cat` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT de la tabla `pedido`
 --
@@ -240,7 +257,7 @@ MODIFY `id_pedido` int(11) NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT de la tabla `productos`
 --
 ALTER TABLE `productos`
-MODIFY `id_producto` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=19;
+MODIFY `id_producto` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=36;
 --
 -- AUTO_INCREMENT de la tabla `usuario`
 --

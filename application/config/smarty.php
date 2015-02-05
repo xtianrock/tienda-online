@@ -51,3 +51,7 @@ $config['smarty_template_ext'] = 'tpl';
 |
 */
 $config['smarty_compile_dir'] = APPPATH . 'cache/smarty/';
+
+
+$config['base_url']	= 'http://localhost/tienda-online/';
+

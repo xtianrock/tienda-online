@@ -19,8 +19,13 @@ class Main extends CI_Controller {
 
     public function index()
     {
-        $this->data["pageTitle"] = "Home";
-        $this->load->view('home', $this->data);
+        $smarty = new Smarty;
+        $smarty->assign($this->datos);
+        $smarty->setTemplateDir(FCPATH.'application/views/templates');
+
+        $smarty->display('home.tpl');
+
+
        // $this->templates->load('template_tienda', 'home', $this->datos);
     }
     public function categoria($idCategoria)
@@ -28,7 +33,13 @@ class Main extends CI_Controller {
 
         $this->datos['productos']=$this->shop_model->obtenerProductos($idCategoria);
         $this->datos['categoria']=$this->shop_model->nombreCategoria($idCategoria);
-        $this->templates->load('template_tienda', 'productos', $this->datos);
+
+
+        $smarty = new Smarty;
+        $smarty->assign($this->datos);
+        $smarty->setTemplateDir(FCPATH.'application/views/templates');
+        $smarty->display('home.tpl');
+        //$this->templates->load('template_tienda', 'productos', $this->datos);
     }
 
 } 

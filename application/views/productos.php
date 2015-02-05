@@ -8,7 +8,7 @@
 ?>
 <div class="col-sm-12">
     <div class="jumbotron">
-        <h2>Mostrando <?=$categoria->nombre_cat?></h2>
+        <h2>Mostrando {$categoria->nombre_cat}</h2>
             <?php $num = 1;
             $breaker = 3;
             foreach($productos->result() as $item):

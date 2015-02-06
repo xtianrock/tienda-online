@@ -14,7 +14,7 @@ class Shop_model extends CI_Model{
         $this->load->database('default');
     }
 
-    public function obtenerDestacados()
+    public function getDestacados()
     {
         $productos=array();
         $resultados=$this->db->get('destacado');
@@ -26,19 +26,24 @@ class Shop_model extends CI_Model{
         return $productos;
     }
 
-    public function obtenerProductos($categoria=null)
+    public function getProductos($categoria=null)
     {
        return $this->db->from('productos')->where('categoria_id_cat',$categoria)->get();
     }
 
-    public function nombreCategoria($categoria=null)
+    public function getNombreCategoria($categoria=null)
     {
         return $this->db->select('nombre_cat')->from('categoria')->where('id_cat',$categoria)->get()->row();
     }
 
-    public function obtenerCategorias()
+    public function getCategorias()
     {
       return $this->db->from('categoria')->get();
+
+    }
+    public function getProvincias()
+    {
+        return $this->db->from('provincias')->get();
 
     }
 

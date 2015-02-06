@@ -12,11 +12,18 @@ html,body
     background-color: #b3da49
 }
 #menu {
-    float: left;
-    height:75%;
-    width: 20%;
-    color: #000000;
-    background-color: rgba(254, 255, 99, 0.77)
+
+    width: 70%;
+}
+#destacados .imagen_producto {
+    max-height: 200px;
+
+}
+#login {
+    width: 300px;
+}
+#registro {
+    width: 350px;
 }
 #content {
     float: right;

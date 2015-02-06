@@ -1,9 +1,10 @@
 
 {extends 'master.tpl'}
 
+{block name="menu"}{/block}
 
 	{block name=contenido}
-		<div class="col-sm-12">
+		<div class="col-sm-10 col-sm-offset-1">
 			<div class="jumbotron">
 				<h2>Mostrando {$categoria->nombre_cat}</h2>
 				{$num = 1}

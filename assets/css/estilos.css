@@ -23,7 +23,7 @@ html,body
     width: 300px;
 }
 #registro {
-    width: 350px;
+    width: 450px;
 }
 #content {
     float: right;
@@ -42,7 +42,20 @@ html,body
 }
 .imagen_producto{
     max-height: 300px;
+}
 
+.inputs-izquierda
+{
+    float: left;
+}
+
+.inputs-derecha
+{
+    float: right;
+}
+.form-control
+{
+   margin-bottom: 20px;
 }
 
 /* make sidebar nav vertical */

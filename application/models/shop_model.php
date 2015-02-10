@@ -44,7 +44,6 @@ class Shop_model extends CI_Model{
     public function getProvincias()
     {
         return $this->db->from('provincias')->get();
-
     }
 
 

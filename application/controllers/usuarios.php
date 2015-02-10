@@ -17,7 +17,7 @@ class Usuarios extends CI_Controller
         ),
         array(
             'field' => 'password',
-            'label' => 'Contaseña',
+            'label' => 'Contraseña',
             'rules' => 'required'
         ),
         array(
@@ -82,18 +82,24 @@ class Usuarios extends CI_Controller
 
     public function registro()
     {
+
+        $this->load->helper('form');
         $this->form_validation->set_rules($this->validacion);
-        $this->datos['errores_validacion']=validation_errors();
-        $this->datos['provincias'] = $this->shop_model->getProvincias();
-        $this->datos['post']= $_POST;
+
+        $this->datos['provincias'] = $this->shop_model->getProvincias()->result_array();
+
+
+
         if ($this->form_validation->run() == FALSE)
         {
+            $this->datos['errores_validacion']=validation_errors();
             $this->smarty->assign($this->datos);
             $this->smarty->display('registro.tpl');
         }
         else
         {
-            $this->load->view('formsuccess');
+            $this->smarty->assign($this->datos);
+            $this->smarty->display('form_correcto.tpl');
         }
 
     }

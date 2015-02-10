@@ -4,6 +4,7 @@
     {/block}
 {block name=contenido}
 
+
     {$errores_validacion}
 
     <div id="registro" class="container">
@@ -12,36 +13,37 @@
             <h2 class="form-signin-heading">Introduce tus datos</h2>
             <div class="inputs-izquierda">
                 <label for="inputUsuario" class="">Usuario</label>
-                <input name="usuario" type="text" id="inputUsuario" class="form-control" placeholder="Usuario" value="{$post['usuario']}" autofocus>
+                <input name="usuario" type="text" id="inputUsuario" class="form-control" placeholder="Usuario" value="{ci helper='form' function='set_value' value='usuario'}" autofocus>
 
                 <label for="inputEmail" class="control-label">Email</label>
-                <input name="mail" type="text" id="inputEmail" class="form-control" placeholder="Email" {$post['mail']} autofocus>
+                <input name="mail" type="text" id="inputEmail" class="form-control" placeholder="Email" value="{ci helper='form' function='set_value' value='mail'}"  autofocus>
 
                 <label for="inputApellidos" class="control-label">Apellidos</label>
-                <input name="apellidos" type="text" id="inputApellidos" class="form-control" placeholder="Apellidos" {$post['apellidos']} autofocus>
+                <input name="apellidos" type="text" id="inputApellidos" class="form-control" placeholder="Apellidos" value="{ci helper='form' function='set_value' value='apellidos'}" autofocus>
 
                 <label for="inputDireccion" class="control-label">Direccion</label>
-                <input name="direccion" type="text" id="inputDireccion" class="form-control" placeholder="Direccion" {$post['direccion']}>
+                <input name="direccion" type="text" id="inputDireccion" class="form-control" placeholder="Direccion" value="{ci helper='form' function='set_value' value='direccion'}">
 
                 <label for="inputProvincia" class="control-label">Provincia</label >
-                <select name="provincia" id="inputProvincia" class="form-control" {$post['provincia']}>
-                    {foreach $provincias->result() as $item}
-                        <option value="{$item->id_provincia}">{$item->nombre_provincia}</option>
+                <select name="provincia" id="inputProvincia" class="form-control">
+                    <option value="{ci helper='form' function='set_value' value='provincia'}">{$provincias[{ci helper='form' function='set_value' value='provincia'}-1]['nombre_provincia']}</option>
+                    {foreach $provincias as $item}
+                        <option value="{$item['id_provincia']}">{$item['nombre_provincia']}</option>
                     {/foreach}
                 </select>
             </div>
             <div class="inputs-derecha">
                 <label for="inputPassword" class="control-label">Contraseña</label>
-                <input name="password" type="password" id="inputPassword" class="form-control" placeholder="Contraserña" {$post['password']} >
+                <input name="password" type="password" id="inputPassword" class="form-control" placeholder="Contraseña" value="{ci helper='form' function='set_value' value='password'}"  >
 
                 <label for="inputNombre" class="control-label">Nombre</label>
-                <input name="nombre" type="text" id="inputNombre" class="form-control" placeholder="Nombre" {$post['nombre']}>
+                <input name="nombre" type="text" id="inputNombre" class="form-control" placeholder="Nombre" value="{ci helper='form' function='set_value' value='nombre'}" >
 
                 <label for="inputDni" class="control-label">Dni</label>
-                <input name="dni" type="text" id="inputDni" class="form-control" placeholder="Dni" {$post['dni']}>
+                <input name="dni" type="text" id="inputDni" class="form-control" placeholder="Dni" value="{ci helper='form' function='set_value' value='dni'}" >
 
                 <label for="inputCp" class="control-label">Codigo postal</label>
-                <input name="cp" type="text" id="inputCp" class="form-control" placeholder="Codigo postal" {$post['cp']}>
+                <input name="cp" type="text" id="inputCp" class="form-control" placeholder="Codigo postal" value="{ci helper='form' function='set_value' value='cp'}">
             </div>
 
             <a href="{$smarty.const.BASEURL}index.php/usuarios/registro"><button class="btn btn-lg btn-primary btn-block" type="submit">Registrarse</button></a>

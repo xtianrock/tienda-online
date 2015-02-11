@@ -4,7 +4,7 @@
     {/block}
 {block name=contenido}
 
-    {$errores_validacion}
+
 
     <div id="registro" class="container">
 

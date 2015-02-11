@@ -6,7 +6,7 @@
  * Time: 16:36
  */
 
-class Main extends CI_Controller {
+class Main extends MY_Controller {
 
     public function __construct()
     {
@@ -15,8 +15,7 @@ class Main extends CI_Controller {
         $this->load->model('shop_model');
         $this->datos['destacados']=$this->shop_model->getDestacados();
         $this->datos['categorias']=$this->shop_model->getCategorias();
-        $this->smarty = new Smarty;
-        $this->smarty->setTemplateDir(FCPATH.'application/views/templates');
+
     }
 
     public function index()

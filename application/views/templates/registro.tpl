@@ -26,9 +26,13 @@
 
                 <label for="inputProvincia" class="control-label">Provincia</label >
                 <select name="provincia" id="inputProvincia" class="form-control">
-                    <option value="{ci helper='form' function='set_value' value='provincia'}">{$provincias[{ci helper='form' function='set_value' value='provincia'}-1]['nombre_provincia']}</option>
+
                     {foreach $provincias as $item}
-                        <option value="{$item['id_provincia']}">{$item['nombre_provincia']}</option>
+                        {if {ci helper='form' function='set_value' value='provincia' default='0'}==$item['id_provincia']}
+                            <option value="{$item['id_provincia']}" selected>{$item['nombre_provincia']}</option>
+                        {else}
+                            <option value="{$item['id_provincia']}">{$item['nombre_provincia']}</option>
+                        {/if}
                     {/foreach}
                 </select>
             </div>

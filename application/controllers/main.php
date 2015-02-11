@@ -11,29 +11,21 @@ class Main extends MY_Controller {
     public function __construct()
     {
         parent::__construct();
-        // Su propio código de constructor
-        $this->load->model('shop_model');
-        $this->datos['destacados']=$this->shop_model->getDestacados();
-        $this->datos['categorias']=$this->shop_model->getCategorias();
-
+        $this->datos['destacados']=$this->Modelo_tienda->getDestacados();
+        $this->smarty->assign($this->datos);
     }
 
     public function index()
     {
-        $this->smarty->assign($this->datos);
         $this->smarty->display('home.tpl');
     }
     public function categoria($idCategoria)
     {
-        $this->datos['productos']=$this->shop_model->getProductos($idCategoria);
-        $this->datos['categoria']=$this->shop_model->getNombreCategoria($idCategoria);
+        $this->datos['productos']=$this->Modelo_tienda->getProductos($idCategoria);
+        $this->datos['categoria']=$this->Modelo_tienda->getNombreCategoria($idCategoria);
         $this->smarty->assign($this->datos);
         $this->smarty->display('productos.tpl');
     }
-    public function login()
-    {
-        $this->smarty->assign($this->datos);
-        $this->smarty->display('login.tpl');
-    }
+
 
 } 

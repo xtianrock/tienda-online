@@ -33,7 +33,7 @@
         'rules' => 'required|callback_validarDireccion'
     ),
     array(
-        'field' => 'provincia',
+        'field' => 'provincias_id_provincia',
         'label' => 'Provincia',
         'rules' => 'required|numeric|less_than[53]|graeter_than[0]'
     ),

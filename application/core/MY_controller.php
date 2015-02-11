@@ -11,7 +11,8 @@ class MY_Controller extends CI_Controller
     function __construct()
     {
         parent::__construct();
-
+        $this->load->model('Modelo_tienda');
+        $this->datos['categorias'] = $this->Modelo_tienda->getCategorias();
         $this->smarty = new Smarty;
         $this->smarty->setTemplateDir(FCPATH . 'application/views/templates');
         // other common stuff; for example you may want a global cart, login/logout, etc.
@@ -86,7 +87,7 @@ class MY_Controller extends CI_Controller
         }
         else
         {
-            $this->form_validation->set_message('validarPassword','El campo %s debe contener al menos una letra y un numero');
+            $this->form_validation->set_message('validarPassword','El campo %s debe contener al menos una letra mayuscula, una minuscula y un numero');
             return FALSE;
         }
     }

@@ -5,7 +5,7 @@
  * Date: 27/01/2015
  * Time: 18:22
  */
-class Shop_model extends CI_Model{
+class modelo_tienda extends CI_Model{
 
 
     function __construct()

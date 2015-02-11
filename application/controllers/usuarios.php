@@ -11,29 +11,25 @@ class Usuarios extends MY_Controller
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('shop_model');
+        $this->load->model('Modelo_usuarios');
         $this->load->library('form_validation');
-        $this->datos['categorias'] = $this->shop_model->getCategorias();
-
+        $this->load->library('input');
+        $this->smarty->assign($this->datos);
     }
 
     public function index()
     {
-        $this->smarty->assign($this->datos);
         $this->smarty->display('login.tpl');
     }
 
     public function login()
     {
-        $this->smarty->assign($this->datos);
         $this->smarty->display('login.tpl');
     }
 
     public function registro()
     {
-
-        $this->datos['provincias'] = $this->shop_model->getProvincias()->result_array();
-
+        $this->datos['provincias'] = $this->Modelo_tienda->getProvincias()->result_array();
 
         if ($this->form_validation->run() == FALSE)
         {
@@ -43,6 +39,7 @@ class Usuarios extends MY_Controller
         }
         else
         {
+            $this->Modelo_usuarios->addUser($this->input->post());
             $this->smarty->assign($this->datos);
             $this->smarty->display('form_correcto.tpl');
         }

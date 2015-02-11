@@ -25,7 +25,7 @@
                 <input name="direccion" type="text" id="inputDireccion" class="form-control" placeholder="Direccion" value="{ci helper='form' function='set_value' value='direccion'}">
 
                 <label for="inputProvincia" class="control-label">Provincia</label >
-                <select name="provincia" id="inputProvincia" class="form-control">
+                <select name="provincias_id_provincia" id="inputProvincia" class="form-control">
 
                     {foreach $provincias as $item}
                         {if {ci helper='form' function='set_value' value='provincia' default='0'}==$item['id_provincia']}

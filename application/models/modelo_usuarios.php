@@ -16,17 +16,26 @@ class Modelo_usuarios extends CI_Model{
 
     public function addUser($datos)
     {
-        if($this->db->select('usuario')->from('usuario')->where('usuario',$datos['usuario'])->get()->row())
-        {
-            echo 'ya existe ese usuario';
-        }
+        $this->db->set($datos);
+        $this->db->set('password',password_hash($datos['password'],PASSWORD_DEFAULT));
+        $this->db->set('rol','Usuario');
+        $this->db->set('activo','1');
+        $this->db->insert('usuario');
+        return "El usuario ".$datos['usuario'].' ha sido creado con exito, ahora ya puede autentificarse usando su nombre de usuario y contraseña.';
+    }
+
+    public function userExist($user)
+    {
+        return $this->db->select('usuario')->from('usuario')->where('usuario',$user)->get()->row();
+    }
+
+    public function login($datos)
+    {
+        $datosUsuario=$this->db->select('usuario, password')->from('usuario')->where('usuario',$datos['usuario'])->get()->row();
+        if(password_verify($datos['password'],$datosUsuario->password))
+            return TRUE;
         else
-        {
-            $this->db->set($datos);
-            $this->db->set('rol','Usuario');
-            $this->db->set('activo','1');
-            $this->db->insert('usuario');
-        }
+            return FALSE;
     }
 
 } 

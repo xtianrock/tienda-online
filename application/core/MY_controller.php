@@ -21,7 +21,7 @@ class MY_Controller extends CI_Controller
 
     function  validarUsuario($input)
     {
-        if (preg_match('/^[a-zA-Z0-9üÜáéíóúÁÉÍÓÚñÑ]+[a-zA-Z0-9üÜáéíóúÁÉÍÓÚñÑ@_-]*$/',$input))
+        if (preg_match('/^[a-zA-Z0-9üÜáéíóúÁÉÍÓÚñÑ]+[@\.a-zA-Z0-9üÜáéíóúÁÉÍÓÚñÑ@_\-ª]*$/',$input))
         {
             return TRUE;
         }

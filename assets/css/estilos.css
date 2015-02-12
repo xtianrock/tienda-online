@@ -21,6 +21,7 @@ html,body
 }
 #login {
     width: 300px;
+    margin: 0 auto;
 }
 #registro {
     width: 450px;

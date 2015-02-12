@@ -5,7 +5,7 @@
 {block name=contenido}
 
 
-    {$errores_validacion}
+    {if isset($mensaje)}{$mensaje}{/if}
 
     <div id="registro" class="container">
 
@@ -50,7 +50,7 @@
                 <input name="cp" type="text" id="inputCp" class="form-control" placeholder="Codigo postal" value="{ci helper='form' function='set_value' value='cp'}">
             </div>
 
-            <a href="{$smarty.const.BASEURL}index.php/usuarios/registro"><button class="btn btn-lg btn-primary btn-block" type="submit">Registrarse</button></a>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Registrarse</button>
 
         </form>
 

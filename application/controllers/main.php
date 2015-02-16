@@ -47,9 +47,6 @@ class Main extends MY_Controller {
     {
         $this->datos['titulo']='Carrito';
         $this->datos['articulos']=$this->cart->contents();
-        echo '<pre>';
-        print_r($this->session->userdata('usuario'));
-        echo '</pre>';
         $this->datos['total']=$this->cart->total();
         $this->smarty->assign($this->datos);
         $this->smarty->display('carrito.tpl');
@@ -84,9 +81,11 @@ class Main extends MY_Controller {
         //redirigimos mostrando un mensaje con las sesiones flashdata
         //de codeigniter confirmando que hemos agregado el producto
         $this->session->set_flashdata('agregado', 'El producto fue agregado correctamente');
+        /*
         echo '<pre>';
         print_r($this->cart->contents());
         echo '</pre>';
+        */
         redirect( $_POST['uri'], 'refresh');
 
     }

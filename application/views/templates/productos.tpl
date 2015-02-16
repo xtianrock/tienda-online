@@ -2,6 +2,7 @@
 {extends 'master.tpl'}
 
 {block name="menu"}{/block}
+{block name="destacados"}{/block}
 
 	{block name=contenido}
 		<div class="col-sm-10 col-sm-offset-1">

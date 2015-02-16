@@ -37,7 +37,10 @@ class Usuarios extends MY_Controller
                 'usuario' => $this->input->post('usuario'),
                 'logueado' => TRUE
             );
-            $this->session->sess_destroy();
+            if($this->session->userdata('usuario'))
+            {
+                $this->cart->destroy();
+            }
             $this->session->set_userdata($datos_usuario);
             redirect('main');
         }

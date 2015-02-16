@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.2.7.1
+-- version 4.2.11
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 09-02-2015 a las 17:05:16
--- Versión del servidor: 5.6.20
--- Versión de PHP: 5.5.15
+-- Tiempo de generación: 16-02-2015 a las 04:20:19
+-- Versión del servidor: 5.6.21
+-- Versión de PHP: 5.6.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `categoria` (
   `anuncio_cat` text,
   `visible` tinyint(1) DEFAULT NULL,
   `cod_cat` varchar(45) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `categoria`
@@ -45,7 +45,7 @@ INSERT INTO `categoria` (`id_cat`, `nombre_cat`, `descripcion_cat`, `anuncio_cat
 (3, 'Tapetes', 'Nada mas agradable que jugar sobre un buen tapete. Consigue el tuyo con tu ilustración favorita.', NULL, 1, 'tapete'),
 (4, 'Fundas', 'Protege tus cartas con nuestra amplia variedad de fundas.', NULL, 1, 'funda'),
 (5, 'Archivadores', 'La mejor manera de organizar y transportar nuestrar cartas.', NULL, 1, 'archivador'),
-(6, 'Deck boxes', 'Indispensable para transportar tus barajas!', NULL, 1, 'deckbox');
+(6, 'Deck_boxes', 'Indispensable para transportar tus barajas!', NULL, 1, 'deckbox');
 
 -- --------------------------------------------------------
 
@@ -99,7 +99,7 @@ CREATE TABLE IF NOT EXISTS `pedido` (
   `dni` char(9) DEFAULT NULL,
   `direccion` varchar(100) DEFAULT NULL,
   `cp` char(5) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -120,7 +120,7 @@ CREATE TABLE IF NOT EXISTS `productos` (
   `categoria_id_cat` int(11) NOT NULL,
   `visible` tinyint(1) DEFAULT NULL,
   `cod_producto` varchar(15) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=36 ;
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `productos`
@@ -131,7 +131,7 @@ INSERT INTO `productos` (`id_producto`, `nombre_producto`, `precio_producto`, `d
 (2, 'Liliana del velo x4', '220.00', NULL, 'liliana_del_velo.png', NULL, 'Playset de Liliana del velo NM', NULL, 13, 1, 1, 'liliana'),
 (3, 'Fuerza de voluntad x4', '245.00', NULL, 'fuerza_de_voluntad.png', NULL, 'Playset de fuerza de voluntad Ex+', NULL, 10, 1, 1, 'Fow'),
 (4, 'Laguna ardiente x4', '160.00', NULL, 'laguna_ardiente.png', NULL, 'Playset de Laguna ardiente NM', NULL, 25, 1, 1, 'laguna'),
-(5, 'Relampago (player rewards promo) x4', '75.00', NULL, 'relampago_promo.png', NULL, 'Playset de relampago promocional NM', NULL, 8, 1, 1, 'relampago'),
+(5, 'Relampago promocional x4', '75.00', NULL, 'relampago_promo.png', NULL, 'Playset de relampago promocional NM', NULL, 8, 1, 1, 'relampago'),
 (6, 'Camino al exilio x4', '30.00', NULL, 'camino_al_exilio.png', NULL, 'Playset de camino al exilio NM', NULL, 41, 1, 1, 'camino'),
 (7, 'Geist de san traft x4', '65.00', NULL, 'geist_de_san_traft.png', NULL, 'Playset de Geist de san traft NM', NULL, 23, 1, 1, 'geist'),
 (10, 'Sobre de Destino reescrito', '3.50', NULL, 'sobre_destino_reescrito.png', NULL, 'Sobre de Destino reescrito en español, cada sobre contiene 12 cartas comunes, 3 cartas infrecuentes y una carta rara o mitica.', NULL, 85, 2, 1, 'fate_booster'),
@@ -140,7 +140,7 @@ INSERT INTO `productos` (`id_producto`, `nombre_producto`, `precio_producto`, `d
 (13, 'Sobre Theros', '2.50', NULL, 'sobre_theros.png', NULL, 'Sobre de Theros en español, cada sobre contiene 12 cartas comunes, 3 cartas infrecuentes y una carta rara o mitica.', NULL, 56, 2, 1, 'booster_theros'),
 (14, 'Sobre de Regreso a Ravnica', '2.50', NULL, 'sobre_regreso_a_ravnica.png', NULL, 'Sobre de Regreso a Ravnica en español, cada sobre contiene 12 cartas comunes, 3 cartas infrecuentes y una carta rara o mitica.', NULL, 23, 2, 1, 'booster_ravnica'),
 (15, 'Dragon Shield Blue', '6.85', NULL, 'tapete_dragon_shield_blue.png', NULL, 'Tapete Dragon Shield Arcane Dragons: Blue Playmat', NULL, 15, 3, 1, 'playmat_dsblue'),
-(16, 'Ultra Pro: Tapete Artist Gallery (Negro)', '8.00', NULL, 'tapete_artist_gallery.png', NULL, 'Tapete Ultra Pro: Tapete Artist Gallery (Negro)', NULL, 12, 3, 1, 'playmat_artist'),
+(16, 'Ultra Pro: Tapete Artist Gallery Negro', '8.00', NULL, 'tapete_artist_gallery.png', NULL, 'Tapete Ultra Pro: Tapete Artist Gallery (Negro)', NULL, 12, 3, 1, 'playmat_artist'),
 (17, 'Tapete Magiccardmarket "Wooden Board"', '9.50', NULL, 'tapete_mkm_wooded.png', NULL, 'Tapete Magiccardmarket "Wooden Board"', NULL, 74, 3, 1, 'playmat_wood'),
 (18, 'Dragon Shield - Red Zone Playmat', '8.00', NULL, 'tapete_redzone.png', NULL, 'Tapete Dragon Shield modelo Red Zone Playmat', NULL, 41, 3, 1, 'playmat_redzone'),
 (19, '100 KMC Perfect Sized Sleeves', '3.40', NULL, 'perfect_size.jpg', NULL, 'Dobla la proteccion de tus cartas con estas fundas ajustadas que puedes usar con tus fundas normales.', NULL, 50, 4, 1, 'kmc_perfect'),
@@ -153,13 +153,13 @@ INSERT INTO `productos` (`id_producto`, `nombre_producto`, `precio_producto`, `d
 (26, 'Carpeta FOUR Playset', '24.00', NULL, 'carpeta_playset.png', NULL, 'Guarda tus cartas organizandolas por playsets, capacidad para 480 cartas.', NULL, 12, 5, 1, 'playset_binder'),
 (27, 'Ultra Pro Collectors Portfolio - 4-Pocket Nav', '2.50', NULL, 'carpeta_ultrapro_4.png', NULL, 'Lo mejor para llevar nuestro cambio sin ocupar demasiado espacio. Capacidad 80 cartas.', NULL, 31, 5, 1, 'carpeta_up_4'),
 (28, 'Ultra Pro Collectors Portfolio - 9-Pocket Nav', '5.00', NULL, 'carpeta_ultrapro_9.png', NULL, 'Lleva tus cartas siempre contigo con los archivadores de 9 bolsillos UltraPro.\r\nCapacidad 180 cartas.', NULL, 25, 5, 1, 'carpeta_up_9'),
-(29, 'Ultra-Pro: "Pro-Binder" (Azul)', '15.00', NULL, 'pro_binder_blue.png', NULL, 'Máxima protección y calidad. incluye goma elástica para cerrar.', NULL, 10, 5, 1, 'pro_binder_blue'),
+(29, 'Ultra-Pro: "Pro-Binder" Azul', '15.00', NULL, 'pro_binder_blue.png', NULL, 'Máxima protección y calidad. incluye goma elástica para cerrar.', NULL, 10, 5, 1, 'pro_binder_blue'),
 (30, 'Album "Black Lotus"', '13.00', NULL, 'carpeta_black_lotus.png', NULL, 'Álbum con ilustración de unas las cartas mas míticas. Capacidad 80 cartas.', NULL, 5, 5, 1, 'binder_lotus'),
-(31, 'Ultra-Pro: "Pro-Deck Box" 100+ (Negro)', '2.50', NULL, 'deck_box_100+.png', NULL, 'Caja para guardar el mazo con capacidad para mas de 100 cartas.', NULL, 40, 6, 1, 'deckbox_100'),
+(31, 'Ultra-Pro: "Pro-Deck Box" 100+ Negro', '2.50', NULL, 'deck_box_100+.png', NULL, 'Caja para guardar el mazo con capacidad para mas de 100 cartas.', NULL, 40, 6, 1, 'deckbox_100'),
 (32, 'Ultra-Pro Solid Red Deckbox', '1.50', NULL, 'deck_box_red_solid.png', NULL, 'Caja para guardar el mazo con capacidad para 75 cartas', NULL, 70, 6, 1, 'deckbox_red'),
-(33, 'Ultra-Pro: Mana Flip Box (Negro)', '10.00', NULL, 'mana_flip_black.png', NULL, 'Caja para mazos de cuero sintetico y gran capacidad.', NULL, 4, 6, 1, 'flip_box_black'),
+(33, 'Ultra-Pro: Mana Flip Box', '10.00', NULL, 'mana_flip_black.png', NULL, 'Caja para mazos de cuero sintetico y gran capacidad.', NULL, 4, 6, 1, 'flip_box_black'),
 (34, 'Ultra-Pro: Matte Dual Flip Box (Blanco)', '18.00', NULL, 'dual_flip_box_white.png', NULL, 'Fantastica caja de cuero sintetico para dos barajas.', NULL, 6, 6, 1, 'dual_flip_box'),
-(35, 'Mana Symbol Deckbox (Azul)', '2.50', NULL, 'mana_symbol_blue.png', NULL, 'Caja para mazo de 75 cartas ilustrada con símbolo de maná.', NULL, 15, 6, 1, 'island_deckbox');
+(35, 'Mana Symbol Deckbox', '2.50', NULL, 'mana_symbol_blue.png', NULL, 'Caja para mazo de 75 cartas ilustrada con símbolo de maná.', NULL, 15, 6, 1, 'island_deckbox');
 
 -- --------------------------------------------------------
 
@@ -238,9 +238,9 @@ INSERT INTO `provincias` (`id_provincia`, `nombre_provincia`) VALUES
 
 CREATE TABLE IF NOT EXISTS `usuario` (
 `id_usuario` int(11) NOT NULL,
-  `nombre_usuario` varchar(80) NOT NULL,
-  `contrasenia` char(40) DEFAULT NULL,
-  `email` varchar(128) DEFAULT NULL,
+  `usuario` varchar(80) NOT NULL,
+  `password` char(255) DEFAULT NULL,
+  `mail` varchar(128) DEFAULT NULL,
   `nombre` varchar(80) DEFAULT NULL,
   `apellidos` varchar(80) DEFAULT NULL,
   `dni` char(9) DEFAULT NULL,
@@ -249,7 +249,33 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   `provincias_id_provincia` int(11) NOT NULL,
   `rol` enum('Administrador','Usuario') DEFAULT NULL,
   `activo` tinyint(1) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `usuario`
+--
+
+INSERT INTO `usuario` (`id_usuario`, `usuario`, `password`, `mail`, `nombre`, `apellidos`, `dni`, `direccion`, `cp`, `provincias_id_provincia`, `rol`, `activo`) VALUES
+(2, 'CAbesaa', 'asdQW234', 'mconceglieri@hotmail.com', 'María Franco Conceglieri', 'Vizcaino', '49109707s', 'gorrion nº 38', '21116', 1, 'Usuario', 1),
+(28, 'fsamaria_222', 'asdaAS1', 'xtianrock89@gmail.com', 'cristian vizcaino', 'vizcaino', '23456232d', 'gorrion nº 38', '01110', 1, 'Usuario', 1),
+(29, 'afsamaria_222', 'asdaAS1', 'xtianrock89@gmail.com', 'cristian vizcaino', 'vizcaino', '23456232d', 'gorrion nº 38', '01110', 1, 'Usuario', 1),
+(30, 'paquito', 'a636a76f3de37e9d22f80d6387a5192bfb7db8d3', 'xtianrock89@gmail.com', 'cristian vizcaino', 'Vizcaino', '12345677-', 'gorrion nº 38', '01110', 1, 'Usuario', 1),
+(32, 'asdasd', '5f2af073dedb155b9c707082a01a3c4ffc613075', 'xtianrock89@gmail.com', 'Cristian', 'Vizcaino', '49109707s', 'Avenida Bulevar de los Azaharaes nº 27', '21110', 5, 'Usuario', 1),
+(33, 'asdasdl', '5f2af073dedb155b9c707082a01a3c4ffc613075', 'xtianrock89@gmail.com', 'Cristian', 'Vizcaino', '49109707s', 'Avenida Bulevar de los Azaharaes nº 27', '21110', 1, 'Usuario', 1),
+(34, 'asdasdll', '5f2af073dedb155b9c707082a01a3c4ffc613075', 'xtianrock89@gmail.com', 'Cristian', 'Vizcaino', '49109707s', 'Avenida Bulevar de los Azaharaes nº 27', '21110', 1, 'Usuario', 1),
+(35, 'yghasdasdll', '5f2af073dedb155b9c707082a01a3c4ffc613075', 'xtianrock89@gmail.com', 'Cristian', 'Vizcaino', '49109707s', 'Avenida Bulevar de los Azaharaes nº 27', '21110', 1, 'Usuario', 1),
+(36, 'yghasd', '5f2af073dedb155b9c707082a01a3c4ffc613075', 'xtianrock89@gmail.com', 'Cristian', 'Vizcaino', '49109707s', 'Avenida Bulevar de los Azaharaes nº 27', '21110', 1, 'Usuario', 1),
+(37, 'xtianrock', '3cb09344b36f0cc98f9c036793e8ac31506b06e1', 'xtianrock89@gmail.com', 'cristian vizcaino', 'Vizcaino', '49109707s', 'gorrion nº 38', '01110', 1, 'Usuario', 1),
+(38, 'xtianrockasd', '3cb09344b36f0cc98f9c036793e8ac31506b06e1', 'xtianrock89@gmail.com', 'cristian vizcaino', 'Vizcaino', '49109707s', 'gorrion nº 38', '01110', 1, 'Usuario', 1),
+(39, 'xtianrockasdv', '3cb09344b36f0cc98f9c036793e8ac31506b06e1', 'xtianrock89@gmail.com', 'cristian vizcaino', 'Vizcaino', '49109707s', 'gorrion nº 38', '01110', 1, 'Usuario', 1),
+(40, 'dxtianrockasdv', '3cb09344b36f0cc98f9c036793e8ac31506b06e1', 'xtianrock89@gmail.com', 'cristian vizcaino', 'Vizcaino', '49109707s', 'gorrion nº 38', '01110', 1, 'Usuario', 1),
+(41, 'cristian', '38c0e100dce95d9a1fa19b82abec0e1f08d1d19a', 'xtian_c_v@hotmail.com', 'cristian vizcaino', 'Vizcaino', '49109707s', 'gorrion nº 38', '01110', 1, 'Usuario', 1),
+(42, 'cabesa', '3cb09344b36f0cc98f9c036793e8ac31506b06e1', 'mconceglieri@hotmail.com', 'María Franco Conceglieri', 'Vizcaino dfsadf', '49109707s', 'Avenida Bulevar de los Azaharaes nº 27', '21110', 1, 'Usuario', 1),
+(43, 'estiercol', '$2y$10$jEwsCP87js2hUYZoKWEigO9ZS7Nb5s7C/cMJkOBEwtKDRazZJR92e', 'mconceglieri@hotmail.com', 'María Franco Conceglieri', 'Vizcaino', '49109707s', 'Avenida Bulevar de los Azaharaes nº 27', '21110', 1, 'Usuario', 1),
+(44, 'xtianrock89', '$2y$10$weheyOFsUBMKqXYP1g2vvODz61P./XYn9ddq0nNbgvbLEEoVdAY5C', 'xtianrock89@gmail.com', 'cristian', 'Vizcaino', '49109707s', 'gorrion nº 38', '01110', 1, 'Usuario', 1),
+(45, 'asdfqwefd', '$2y$10$IpCtIH6nMSU1SDCPGSuiS.J4sGFxb/cRSVgDG8JmOgv63lTMH3Dtu', 'mconceglieri@hotmail.com', 'María Franco Conceglieri', 'Vizcaino dfsadf', '49109707s', 'Avenida Bulevar de los Azaharaes nº 27', '21110', 1, 'Usuario', 1),
+(46, 'qwerasd', '$2y$10$ciBVlB4qKXM4Cf8tRU5N7eJmez676FTij3CBiQe.4.ZArtbRTYeFa', 'mconceglieri@hotmail.com', 'María Franco Conceglieri', 'Vizcaino dfsadf', '12345677-', 'Avenida Bulevar de los Azaharaes nº 27', '21110', 4, 'Usuario', 1),
+(47, 'qwerasdxsa', '$2y$10$60KeoMzq9MlHisZweMbF9uRIWoboMpxaH5PXIIcuYpGSAyKl7dHSm', 'mconceglieri@hotmail.com', 'María Franco Conceglieri', 'Vizcaino dfsadf', '12345677-', 'Avenida Bulevar de los Azaharaes nº 27', '21110', 1, 'Usuario', 1);
 
 --
 -- Índices para tablas volcadas
@@ -295,7 +321,7 @@ ALTER TABLE `provincias`
 -- Indices de la tabla `usuario`
 --
 ALTER TABLE `usuario`
- ADD PRIMARY KEY (`id_usuario`), ADD UNIQUE KEY `nombre_usuario_UNIQUE` (`nombre_usuario`), ADD KEY `fk_usuario_provincias1_idx` (`provincias_id_provincia`);
+ ADD PRIMARY KEY (`id_usuario`), ADD UNIQUE KEY `nombre_usuario_UNIQUE` (`usuario`), ADD KEY `fk_usuario_provincias1_idx` (`provincias_id_provincia`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -320,7 +346,7 @@ MODIFY `id_producto` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=36;
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=48;
 --
 -- Restricciones para tablas volcadas
 --

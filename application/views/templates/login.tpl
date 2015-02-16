@@ -11,6 +11,7 @@
 			<div class="row">
 
 				<div id="usuario_creado" class="col-ms-3">
+					<p>{$usuario_insertado}</p>
 					<p class="form-signin-heading">{if isset($mensaje)}{$mensaje}{/if}</p>
 				</div>
 
@@ -21,7 +22,7 @@
 						</label>
 						<input name="usuario" type="text" id="inputName" class="form-control" placeholder="Usuario" value="{ci helper='form' function='set_value' value='usuario'}" autofocus>
 						<label for="inputPassword" class="sr-only">Contraseña</label>
-						<input name="password" type="text" id="inputPassword" class="form-control" placeholder="Contraserña" value="{ci helper='form' function='set_value' value='password'}" >
+						<input name="password" type="password" id="inputPassword" class="form-control" placeholder="Contraserña" value="{ci helper='form' function='set_value' value='password'}" >
 						<div class="checkbox">
 							<label>
 								<input type="checkbox" value="remember-me"> Recordar usuario

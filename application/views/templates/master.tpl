@@ -1,7 +1,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>{block name=title}Default Page Title{/block}</title>
+    <title>{block name=title}{$titulo}{/block}</title>
     {block name=head}
         <link rel="stylesheet" href="{$smarty.const.BASEURL}/assets/css/estilos.css">
         <!-- Latest compiled and minified CSS -->
@@ -21,7 +21,7 @@
             <div class="col-xs-3">
                 <h1>Tienda Online</h1>
             </div>
-            <div class="col-xs-9">
+            <div class="col-xs-7">
                 <ul class="nav nav-pills">
                     <li role="presentation" class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">
@@ -29,15 +29,19 @@
                         </a>
                         <ul class="dropdown-menu" role="menu">
                             {foreach $categorias->result() as $item}
-                                <li><a href="{$smarty.const.BASEURL}index.php/main/categoria/{$item->id_cat}">{$item->nombre_cat}</a></li>
+                                <li><a href="{$smarty.const.BASEURL}index.php/main/productos/{$item->nombre_cat}">{$item->nombre_cat}</a></li>
                             {/foreach}
                         </ul>
                     </li>
                     <li><a href="{$smarty.const.BASEURL}index.php/usuarios/login">Login</a></li>
-                    <li><a href="#">Elemento2</a></li>
+                    <li><a href="{$smarty.const.BASEURL}index.php/main/carrito">Carrito</a></li>
                     <li><a href="#">Elemento3</a></li>
                     <li><a href="#">Elemento4</a></li>
                 </ul>
+            </div>
+            <div class="col-xs-2">
+                <p>{$session}</p>
+                <a href="{$smarty.const.BASEURL}index.php/usuarios/logout">Salir</a>
             </div>
         </div>
     </div>

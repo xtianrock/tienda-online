@@ -32,7 +32,7 @@ class Modelo_usuarios extends CI_Model{
     public function login($datos)
     {
         $datosUsuario=$this->db->select('usuario, password')->from('usuario')->where('usuario',$datos['usuario'])->get()->row();
-        if(password_verify($datos['password'],$datosUsuario->password))
+        if($datosUsuario && password_verify($datos['password'],$datosUsuario->password))
             return TRUE;
         else
             return FALSE;

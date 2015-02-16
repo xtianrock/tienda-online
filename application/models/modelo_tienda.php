@@ -26,16 +26,32 @@ class modelo_tienda extends CI_Model{
         return $productos;
     }
 
+    public function getProducto($id_producto)
+    {
+        return $this->db->from('productos')->where('id_producto',$id_producto)->get()->row();
+    }
+
     public function getProductos($categoria=null)
     {
-       return $this->db->from('productos')->where('categoria_id_cat',$categoria)->get();
+        if($categoria)
+        {
+            return $this->db->from('productos')->where('categoria_id_cat',$categoria)->get();
+        }
+        else
+        {
+            return $this->db->from('productos')->get();
+        }
     }
 
-    public function getNombreCategoria($categoria=null)
+    public function getNombreCategoria($categoria)
     {
-        return $this->db->select('nombre_cat')->from('categoria')->where('id_cat',$categoria)->get()->row();
+        return $this->db->select('nombre_cat')->from('categoria')->where('id_cat',$categoria)->get()->row()->nombre_cat;
     }
 
+    public function getCatByName($categoria)
+    {
+        return $this->db->select('id_cat')->from('categoria')->where('nombre_cat',$categoria)->get()->row()->id_cat;
+    }
     public function getCategorias()
     {
       return $this->db->from('categoria')->get();

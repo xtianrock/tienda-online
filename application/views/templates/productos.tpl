@@ -14,16 +14,16 @@
 				{foreach $productos->result() as $item}
 					{if $num == 1}<div class="row row-margin">{/if}
 					<div class="col-xs-4">
-						<ul>
-							<form class="form-signin" action="{$smarty.const.BASEURL}index.php/main/addproduct/" method="post" accept-charset="utf-8"/>
-							<a href="{$smarty.const.BASEURL}index.php/main/productos/{$categoria}/{$item->id_producto}"><button class="btn" type="button">{$item->nombre_producto}</button></a>
-							<li>{$item->precio_producto}</li>
-							<img class="imagen_producto" src="{$smarty.const.BASEURL}/assets/img/{$item->imagen_producto}">
-							<input type="hidden" name="id_producto" value="{$item->id_producto}">
-							<input type="hidden" name="uri" value="{$uri}">
-							<a href="{$smarty.const.BASEURL}index.php/main/addProduct"><button class="btn btn-lg btn-primary btn-block" type="submit">Añadir a la cesta</button></a>
-							</form>
-						</ul>
+						<form class="form-signin" action="{$smarty.const.BASEURL}index.php/main/addproduct/" method="post" accept-charset="utf-8"/>
+						<a href="{$smarty.const.BASEURL}index.php/main/productos/{$categoria}/{$item->id_producto}"><button class="btn" type="button">{$item->nombre_producto}</button></a>
+						</br>
+						<input class="cantidad" type="number" min="1" max="{$item->stock}" name="cantidad" value="1"/>
+						<p>{$item->precio_producto} €</p>
+						<img class="imagen_producto" src="{$smarty.const.BASEURL}/assets/img/{$item->imagen_producto}">
+						<input type="hidden" name="id_producto" value="{$item->id_producto}">
+						<input type="hidden" name="uri" value="{$uri}">
+						<a href="{$smarty.const.BASEURL}index.php/main/addProduct"><button class="btn btn-lg btn-primary btn-block" type="submit">Añadir a la cesta</button></a>
+						</form>
 					</div>
 					{$num=$num+1}
 					{if $num > $breaker}

@@ -42,8 +42,7 @@ html,body
     background-color: #c18664
 }
 .imagen_producto{
-    max-height: 300px;
-    max-width: 250px;
+    height: 300px;
 }
 
 .inputs-izquierda
@@ -59,7 +58,15 @@ html,body
 {
    margin-bottom: 20px;
 }
-
+.cantidad
+{
+    width: 50px;
+}
+.jumbo
+{
+    padding: 100px;
+    background: #5a0099;
+}
 /* make sidebar nav vertical */
 @media (min-width: 768px) {
     .sidebar-nav .navbar .navbar-collapse {

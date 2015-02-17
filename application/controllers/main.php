@@ -37,7 +37,7 @@ class Main extends MY_Controller {
             $this->datos['uri']= $this->uri->uri_string();
             $this->datos['categoria']=$categoria;
             $this->datos['productos'] = $this->Modelo_tienda->getProductos($idCategoria);
-            $this->datos['titulo'] =str_replace('_',' ',$categoria);
+            $this->datos['titulo'] =$categoria;
             $this->smarty->assign($this->datos);
             $this->smarty->display('productos.tpl');
         }
@@ -45,6 +45,17 @@ class Main extends MY_Controller {
 
     public function carrito()
     {
+        if($this->input->post())  //Modifico las cantidades de los articulos
+        {
+            foreach ($this->input->post() as $id=>$cantidad)
+            {
+                $data[]=array(
+                    'rowid'=>$id,
+                    'qty'=>$cantidad
+                );
+            }
+            $this->cart->update($data);
+        }
         $this->datos['titulo']='Carrito';
         $this->datos['articulos']=$this->cart->contents();
         $this->datos['total']=$this->cart->total();
@@ -54,40 +65,44 @@ class Main extends MY_Controller {
 
     public function addProduct()
     {
-
         $id_producto = $this->input->post('id_producto');
         $producto = $this->Modelo_tienda->getProducto($id_producto);
-        $cantidad = 1;
-        //obtenemos el contenido del carrito
+        $cantidad =  $this->input->post('cantidad');
         $carrito = $this->cart->contents();
-
-        foreach ($carrito as $item) {
-            //si el id del producto es igual que uno que ya tengamos
-            //en la cesta le sumamos uno a la cantidad
-            if ($item['id'] == $id_producto) {
+        foreach ($carrito as $item) {           //si el id del producto es igual que uno que ya
+            if ($item['id'] == $id_producto) {  //tengamos en la cesta le sumamos uno a la cantidad
                 $cantidad = 1 + $item['qty'];
             }
         }
-        //cogemos los productos en un array para insertarlos en el carrito
+        //Meto los productos en un array para insertarlos en el carrito
         $datos = array(
             'id' => $id_producto,
             'qty' => $cantidad,
             'price' => $producto->precio_producto,
             'name' => $producto->nombre_producto
         );
-
-        //insertamos al carrito
         $this->cart->insert($datos);
-        //redirigimos mostrando un mensaje con las sesiones flashdata
-        //de codeigniter confirmando que hemos agregado el producto
         $this->session->set_flashdata('agregado', 'El producto fue agregado correctamente');
-        /*
-        echo '<pre>';
-        print_r($this->cart->contents());
-        echo '</pre>';
-        */
-        redirect( $_POST['uri'], 'refresh');
+       // redirect( $_POST['uri'], 'refresh');
+    }
 
+    public function compra()
+    {
+        if(!$this->session->userdata('logueado'))
+        {
+            $this->session->set_flashdata('requiere_login','Es necesario que inicie sesión para continuar con el proceso de compra');
+            redirect('usuarios/login');
+        }
+        else
+        {
+            $this->datos['cliente']=$this->Modelo_usuarios->obtenerUsuario($this->session->userdata('usuario'));
+            $this->datos['provincia']=$this->Modelo_tienda->getNombreProvincia($this->datos['cliente']->provincias_id_provincia);
+            $this->datos['articulos']=$this->cart->contents();
+            $this->datos['total']=$this->cart->total();
+            $this->datos['titulo']='Resumen de compra';
+            $this->smarty->assign($this->datos);
+            $this->smarty->display('resumen_compra.tpl');
+        }
     }
 
 

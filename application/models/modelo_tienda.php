@@ -45,12 +45,12 @@ class modelo_tienda extends CI_Model{
 
     public function getNombreCategoria($categoria)
     {
-        return $this->db->select('nombre_cat')->from('categoria')->where('id_cat',$categoria)->get()->row()->nombre_cat;
+        return $this->db->from('categoria')->where('id_cat',$categoria)->get()->row()->nombre_cat;
     }
 
     public function getCatByName($categoria)
     {
-        return $this->db->select('id_cat')->from('categoria')->where('nombre_cat',$categoria)->get()->row()->id_cat;
+        return $this->db->from('categoria')->where('nombre_cat',$categoria)->get()->row()->id_cat;
     }
     public function getCategorias()
     {
@@ -60,6 +60,10 @@ class modelo_tienda extends CI_Model{
     public function getProvincias()
     {
         return $this->db->from('provincias')->get();
+    }
+    public function getNombreProvincia($id)
+    {
+        return $this->db->from('provincias')->where('id_provincia',$id)->get()->row()->nombre_provincia;
     }
 
 

@@ -12,6 +12,7 @@
 
 				<div id="usuario_creado" class="col-ms-3">
 					<p>{$usuario_insertado}</p>
+					<p>{$requiere_login}</p>
 					<p class="form-signin-heading">{if isset($mensaje)}{$mensaje}{/if}</p>
 				</div>
 

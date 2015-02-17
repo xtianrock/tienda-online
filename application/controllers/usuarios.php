@@ -22,7 +22,8 @@ class Usuarios extends MY_Controller
 
     public function login()
     {
-        $this->datos['usuario_insertado']=$this->session->flashdata('mensaje');
+        $this->datos['usuario_insertado']=$this->session->flashdata('usuario_insertado');
+        $this->datos['requiere_login']=$this->session->flashdata('requiere_login');
         if ($this->form_validation->run('login') == FALSE)
         {
             $this->datos['mensaje']=validation_errors();
@@ -57,7 +58,7 @@ class Usuarios extends MY_Controller
             $this->datos['mensaje']=validation_errors();
             $vista='registro.tpl';
         }
-        else if($this->Modelo_usuarios->userExist($this->input->post('usuario')))
+        else if($this->Modelo_usuarios->obtenerUsuario($this->input->post('usuario')))
         {
             $this->datos['mensaje']="Ya existe un usuario con el nombre de usuario ".$this->input->post('usuario').'.';
             $vista='registro.tpl';
@@ -65,7 +66,7 @@ class Usuarios extends MY_Controller
         else
         {
             $mensaje=$this->Modelo_usuarios->addUser($this->input->post());
-            $this->session->set_flashdata('mensaje',$mensaje);
+            $this->session->set_flashdata('usuario_insertado',$mensaje);
             redirect('usuarios/login');
         }
         $this->smarty->assign($this->datos);

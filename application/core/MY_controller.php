@@ -11,7 +11,6 @@ class MY_Controller extends CI_Controller
     function __construct()
     {
         parent::__construct();
-        $this->load->model('Modelo_tienda');
         $this->datos['categorias'] = $this->Modelo_tienda->getCategorias();
 
 

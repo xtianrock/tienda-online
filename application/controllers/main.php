@@ -83,7 +83,7 @@ class Main extends MY_Controller {
         );
         $this->cart->insert($datos);
         $this->session->set_flashdata('agregado', 'El producto fue agregado correctamente');
-       // redirect( $_POST['uri'], 'refresh');
+        redirect( $_POST['uri'], 'refresh');
     }
 
     public function compra()

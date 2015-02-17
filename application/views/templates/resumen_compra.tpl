@@ -22,7 +22,7 @@
 									<tr>
 										<td>{$item['name']}</td>
 										<td>{$item['price']}</td>
-										<td><input class="cantidad" type="number" min="0" name="{$item['rowid']}" value="{$item['qty']}"/></td>
+                                        <td>{$item['qty']}</td>
 									</tr>
 								{/foreach}
 								<tr id="total">

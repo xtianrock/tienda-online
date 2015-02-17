@@ -360,7 +360,7 @@ $config['proxy_ips'] = '';
 
 
 $config['application_dir']=BASEPATH.'/application';
-define ('BASEURL','http://localhost/tienda-online/');
+define ('BASEURL',$config['base_url']);
 
 
 /*

@@ -24,9 +24,13 @@ class Modelo_usuarios extends CI_Model{
         return "El usuario ".$datos['usuario'].' ha sido creado con exito, ahora ya puede autentificarse usando su nombre de usuario y contraseña.';
     }
 
-    public function obtenerUsuario($user)
+    public function getUserByName($name)
     {
-        return $this->db->from('usuario')->where('usuario',$user)->get()->row();
+        return $this->db->from('usuario')->where('usuario',$name)->get()->row();
+    }
+    public function getUserById($id)
+    {
+        return $this->db->from('usuario')->where('id_usuario',$id)->get()->row();
     }
 
     public function login($datos)

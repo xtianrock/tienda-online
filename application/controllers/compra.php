@@ -46,45 +46,59 @@ class Compra extends MY_Controller {
 
     public function factura()
     {
+        $datosEmpresa=Array(
+            'nombre'=>'Mtg Store S.L.',
+            'dni'=>'B-01234567',
+            'mail'=>'MtgStore.com',
+            'direccion'=>'Avd Francisco Rojas nº132',
+            'cp'=>'21465'
+        );
+
         $pdf = new PDF();
         $pdf->AliasNbPages();
         $pdf->AddPage();
         $pdf->SetFont('Times','',12);
-
         $pdf->SetLineWidth(0.5);
         $pdf->SetFillColor(192);
-        $pdf->RoundedRect(15, 40, 85, 50, 3.5, 'DF');
-        $pdf->SetXY(20,30);
-        $pdf->Cell(20,10,'Datos Vendedor:',0,1);
-        $pdf->Line(21,37,49,37);
-        $pdf->SetXY(20,40);
-        $pdf->Cell(20,10,'Mtg Store S.L.',0,1);
-        $pdf->SetXY(20,50);
-        $pdf->Cell(20,10,'B-01234567',0,1);
-        $pdf->SetXY(20,60);
-        $pdf->Cell(20,10,'MtgStore.com',0,1);
-        $pdf->SetXY(20,70);
-        $pdf->Cell(20,10,'Avd Francisco Rojas nº132',0,1);
-        $pdf->SetXY(20,80);
-        $pdf->Cell(20,10,'21485 Huelva',0,1);
-        $pdf->RoundedRect(110, 40, 85, 50, 3.5, 'DF');
-        $pdf->SetXY(115,30);
-        $pdf->Cell(20,10,'Datos Cliente:',0,1);
-        $pdf->Line(116,37,140,37);
-        $pdf->SetXY(115,40);
-        $pdf->Cell(20,10,'Cristian Vizcaino Alvarez',0,1);
-        $pdf->SetXY(115,50);
-        $pdf->Cell(20,10,'49109707-s',0,1);
-        $pdf->SetXY(115,60);
-        $pdf->Cell(20,10,'xtianrock89@gmail.com',0,1);
-        $pdf->SetXY(115,70);
-        $pdf->Cell(20,10,'C/ Gorrion nº 38 Aljaraque',0,1);
-        $pdf->SetXY(115,80);
-        $pdf->Cell(20,10,'21110 Huelva',0,1);
-        $pdf->RoundedRect(15, 110, 120, 30, 3.5, 'DF');
-        $pdf->SetXY(20,100);
+        $datosComprador=$this->Modelo_venta->getPedido(1);
+
+        $pdf->datosVenta(15,40,$datosEmpresa);
+        $pdf->datosVenta(105,40,$datosComprador);
+
+
+
+        $pdf->RoundedRect(15, 105, 85, 10, 3.5, 'DF');
+        $pdf->SetXY(20,95);
         $pdf->Cell(20,10,'Datos factura:',0,1);
-        $pdf->Line(21,107,44,107);
+        $pdf->Line(21,102,44,102);
+        $pdf->SetXY(20,105);
+        $pdf->Cell(20,10,'Id factura:  546218',0,1);
+        $pdf->SetXY(60,105);
+        $pdf->Cell(20,10,'Fecha: 21/02/2015',0,1);
+        $pdf->RoundedRect(15, 120, 180, 150, 3.5, 'DF');
+        $pdf->SetXY(20,120);
+        $pdf->Cell(20,10,'Cod producto',0,1);
+        $pdf->SetXY(50,120);
+        $pdf->Cell(20,10,'Nombre',0,1);
+        $pdf->SetXY(120,120);
+        $pdf->Cell(20,10,'Precio',0,1);
+        $pdf->SetXY(140,120);
+        $pdf->Cell(20,10,'Cantidad',0,1);
+        $pdf->SetXY(165,120);
+        $pdf->Cell(20,10,'Subtotal',0,1);
+        for ($i=0;$i<10;$i++)
+        {
+            $pdf->SetXY(20,130+($i*10));
+            $pdf->Cell(20,10,'blackSleeves',0,1);
+            $pdf->SetXY(50,130+($i*10));
+            $pdf->Cell(20,10,'Fundas ultra pro black',0,1);
+            $pdf->SetXY(120,130+($i*10));
+            $pdf->Cell(20,10,'30e',0,1);
+            $pdf->SetXY(145,130+($i*10));
+            $pdf->Cell(20,10,'41',0,1);
+            $pdf->SetXY(168,130+($i*10));
+            $pdf->Cell(20,10,'4521',0,1);
+        }
         $pdf->Output();
     }
 

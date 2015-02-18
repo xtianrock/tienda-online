@@ -67,5 +67,25 @@ class Pdf extends FPDF
         $this->_out(sprintf('%.2F %.2F %.2F %.2F %.2F %.2F c ', $x1*$this->k, ($h-$y1)*$this->k,
             $x2*$this->k, ($h-$y2)*$this->k, $x3*$this->k, ($h-$y3)*$this->k));
     }
+
+
+
+    function datosVenta($x,$y,$datos)
+    {
+        $this->RoundedRect($x, $y, 85, 50, 3.5, 'DF');
+        $this->SetXY($x+5,$y-10);
+        $this->Cell(20,10,'Datos Vendedor:',0,1);
+        $this->Line($x+6,$y-3,$x+31,$y-3);
+        $this->SetXY($x+5,$y);
+        $this->Cell(20,10,$datos['nombre'],0,1);
+        $this->SetXY($x+5,$y+10);
+        $this->Cell(20,10,$datos['dni'],0,1);
+        $this->SetXY($x+5,$y+20);
+        $this->Cell(20,10,$datos['mail'],0,1);
+        $this->SetXY($x+5,$y+30);
+        $this->Cell(20,10,$datos['direccion'],0,1);
+        $this->SetXY($x+5,$y+40);
+        $this->Cell(20,10,$datos['cp'],0,1);
+    }
 }
 

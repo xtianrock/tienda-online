@@ -19,8 +19,9 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-3">
-                <h1>Tienda Online</h1>
+                <img id="logo_tienda" src="{$smarty.const.BASEURL}/assets/img/logo_tienda.png" alt=""/>
             </div>
+
             <div class="col-xs-7">
                 <ul class="nav nav-pills">
                     <li role="presentation" class="dropdown">

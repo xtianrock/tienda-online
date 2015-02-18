@@ -11,6 +11,11 @@ html,body
     color: #000000;
     background-color: #b3da49
 }
+#logo_tienda
+{
+    width: 250px;
+    vertical-align: middle;
+}
 #menu {
 
     width: 70%;

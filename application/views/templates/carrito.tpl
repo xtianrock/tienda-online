@@ -38,7 +38,7 @@
 						</tr>
 					</table>
 					<button class="btn btn-lg btn-primary btn-block" type="submit">Actualizar</button>
-					<a href="{$smarty.const.BASEURL}index.php/main/compra"><button class="btn btn-lg btn-primary btn-block" type="button">Completar compra</button></a>
+					<a href="{$smarty.const.BASEURL}index.php/pedido/compra"><button class="btn btn-lg btn-primary btn-block" type="button">Completar compra</button></a>
 
 				</form>
 			</div>

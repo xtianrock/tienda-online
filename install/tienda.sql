@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 18-02-2015 a las 17:04:04
+-- Tiempo de generación: 18-02-2015 a las 20:22:50
 -- Versión del servidor: 5.6.20
 -- Versión de PHP: 5.5.15
 
@@ -78,17 +78,19 @@ CREATE TABLE IF NOT EXISTS `linea_pedido` (
   `productos_categoria_id_cat` int(11) NOT NULL,
   `pedido_id_pedido` int(11) NOT NULL,
   `cantidad` varchar(45) DEFAULT NULL,
-  `precio` decimal(6,2) DEFAULT NULL
+  `precio` decimal(6,2) DEFAULT NULL,
+  `subtotal` decimal(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `linea_pedido`
 --
 
-INSERT INTO `linea_pedido` (`productos_id_producto`, `productos_categoria_id_cat`, `pedido_id_pedido`, `cantidad`, `precio`) VALUES
-(1, 1, 1, '12', '20.00'),
-(2, 1, 1, '10', '15.00'),
-(3, 1, 1, '2', '45.00');
+INSERT INTO `linea_pedido` (`productos_id_producto`, `productos_categoria_id_cat`, `pedido_id_pedido`, `cantidad`, `precio`, `subtotal`) VALUES
+(2, 1, 23, '1', '220.00', '220.00'),
+(10, 2, 23, '1', '3.50', '3.50'),
+(12, 2, 23, '1', '3.00', '3.00'),
+(18, 3, 23, '1', '8.00', '8.00');
 
 -- --------------------------------------------------------
 
@@ -109,14 +111,14 @@ CREATE TABLE IF NOT EXISTS `pedido` (
   `dni` char(9) DEFAULT NULL,
   `direccion` varchar(100) DEFAULT NULL,
   `cp` char(5) DEFAULT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=24 ;
 
 --
 -- Volcado de datos para la tabla `pedido`
 --
 
 INSERT INTO `pedido` (`id_pedido`, `estado`, `cantidad`, `fecha_pedido`, `fecha_entrega`, `usuario_id_usuario`, `nombre`, `apellidos`, `mail`, `dni`, `direccion`, `cp`) VALUES
-(1, 'Pendiente', 3, '2015-02-18', '2015-02-25', 44, 'Cristian', 'Vizcaino Alvarez', 'xtianrock89@gmail.com', '49109707s', 'C/gorrion 38 Aljaraque', '21110');
+(23, 'Pendiente', 4, '2015-02-18', NULL, 44, 'cristian', 'Vizcaino', 'xtianrock89@gmail.com', '49109707s', 'gorrion nº 38', '01110');
 
 -- --------------------------------------------------------
 
@@ -353,7 +355,7 @@ MODIFY `id_cat` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 -- AUTO_INCREMENT de la tabla `pedido`
 --
 ALTER TABLE `pedido`
-MODIFY `id_pedido` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+MODIFY `id_pedido` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=24;
 --
 -- AUTO_INCREMENT de la tabla `productos`
 --

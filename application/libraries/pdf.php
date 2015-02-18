@@ -87,5 +87,45 @@ class Pdf extends FPDF
         $this->SetXY($x+5,$y+40);
         $this->Cell(20,10,$datos['cp'],0,1);
     }
+
+    function datosFactura($x,$y,$datos)
+    {
+        $this->RoundedRect($x, $y, 85, 10, 3.5, 'DF');
+        $this->SetXY($x+5,$y-10);
+        $this->Cell(20,10,'Datos Factura:',0,1);
+        $this->Line($x+6,$y-3,$x+31,$y-3);
+        $this->SetXY($x+5,$y);
+        $this->Cell(20,10,'Id pedido: '.$datos['id_pedido'],0,1);
+        $this->SetXY($x+35,$y);
+        $this->Cell(20,10,'Fecha: '.$datos['fecha_pedido'],0,1);
+    }
+
+    function resumen($x,$y)
+    {
+        $this->RoundedRect($x, $y, 180, 150, 3.5, 'DF');
+        $this->SetXY($x+5,$y);
+        $this->Cell(20,10,'Cod producto',0,1);
+        $this->SetXY($x+35,$y);
+        $this->Cell(20,10,'Nombre',0,1);
+        $this->SetXY($x+105,$y);
+        $this->Cell(20,10,'Precio',0,1);
+        $this->SetXY($x+125,$y);
+        $this->Cell(20,10,'Cantidad',0,1);
+        $this->SetXY($x+150,$y);
+        $this->Cell(20,10,'Subtotal',0,1);
+    }
+    function lineapedido($x,$datos,$linea)
+    {
+        $this->SetXY(20,$x);
+        $this->Cell(20,10,$datos->cod_producto,0,1);
+        $this->SetXY(50,$x);
+        $this->Cell(20,10,$datos->nombre_producto,0,1);
+        $this->SetXY(120,$x);
+        $this->Cell(20,10,$linea->precio,0,1);
+        $this->SetXY(145,$x);
+        $this->Cell(20,10,$linea->cantidad,0,1);
+        $this->SetXY(168,$x);
+        $this->Cell(20,10,$linea->subtotal,0,1);
+    }
 }
 

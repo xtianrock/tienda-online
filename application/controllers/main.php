@@ -86,24 +86,7 @@ class Main extends MY_Controller {
         redirect( $_POST['uri'], 'refresh');
     }
 
-    public function compra()
-    {
-        if(!$this->session->userdata('logueado'))
-        {
-            $this->session->set_flashdata('requiere_login','Es necesario que inicie sesión para continuar con el proceso de compra');
-            redirect('usuarios/login');
-        }
-        else
-        {
-            $this->datos['cliente']=$this->Modelo_usuarios->obtenerUsuario($this->session->userdata('usuario'));
-            $this->datos['provincia']=$this->Modelo_tienda->getNombreProvincia($this->datos['cliente']->provincias_id_provincia);
-            $this->datos['articulos']=$this->cart->contents();
-            $this->datos['total']=$this->cart->total();
-            $this->datos['titulo']='Resumen de compra';
-            $this->smarty->assign($this->datos);
-            $this->smarty->display('resumen_compra.tpl');
-        }
-    }
+
 
 
 } 

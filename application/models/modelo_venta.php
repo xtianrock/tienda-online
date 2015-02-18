@@ -19,6 +19,26 @@ class modelo_venta extends CI_Model{
       return $this->db->from('pedido')->where('id_pedido',$id)->get()->row_array();
    }
 
+    public function getLineaPedido($id)
+    {
+        return $this->db->from('linea_pedido')->where('pedido_id_pedido',$id)->get()->result();
+    }
+
+    public function addPedido($datos)
+    {
+        $this->db->set($datos);
+        $this->db->set('estado','pendiente');
+        $this->db->insert('pedido');
+        return 'la compra se ha realizado con exito';
+    }
+
+    public function addLineaPedido($datos)
+    {
+        $this->db->set($datos);
+        $this->db->insert('linea_pedido');
+        return 'la compra se ha realizado con exito';
+    }
+
 
 
 }

@@ -70,6 +70,20 @@ class modelo_tienda extends CI_Model{
         return $this->db->from('provincias')->where('id_provincia',$id)->get()->row()->nombre_provincia;
     }
 
+    public function actualizarStock($datos,$condicion)
+    {
+        $this->db->update_batch('productos', $datos, $condicion);
+    }
+
+    public function getStock()
+    {
+        return $this->db->select('id_producto,stock')->from('productos')->get()->result();
+    }
+    public function getStockById($id)
+    {
+        return $this->db->select('stock')->from('productos')->where('id_producto',$id)->get()->row()->stock;
+    }
+
 
 
 }

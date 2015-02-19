@@ -19,15 +19,25 @@ class Pedido extends MY_Controller {
 
     public function procesarCompra()
     {
+        $datosStock=array();
+        $datosLinea=array();
+        $this->load->helper('stock');
         if (!$this->cart->contents())
         {
             echo 'carrito vacio';
+        }
+        elseif($articulosSinStock=faltaStock($this->cart->contents(),$this->Modelo_tienda->getStock()))
+        {
+            echo 'falta stock de los siguientes articulos....';
+            echo'<pre>';
+            print_r($articulosSinStock);
+            echo'</pre>';
         }
         else
         {
             //Genero el array con los datos que le pasaremos a la funcion insertar pedido.
             $usuario=$this->Modelo_usuarios->getUserByName($this->session->userdata('usuario'));
-            $datos=array(
+            $datosPedido=array(
                 'cantidad'=> $this->cart->total_items(),
                 'fecha_pedido'=>date('Y-m-d'),
                 'usuario_id_usuario'=>$usuario->id_usuario,
@@ -38,12 +48,13 @@ class Pedido extends MY_Controller {
                 'direccion'=>$usuario->direccion,
                 'cp'=>$usuario->cp,
             );
-            $this->Modelo_venta->addPedido($datos);
+            //añado el pedido
+            $this->Modelo_venta->addPedido($datosPedido);
             $idPedido=$this->db->insert_id();
             foreach ($this->cart->contents() as $articulo)
             {
-
-                $datos=array(
+                //Guardo los datos en un array que usaré para insertar las lineas mediante insert_batch
+                $datosLinea[]=array(
                     'productos_id_producto'=>$articulo['id'],
                     'productos_categoria_id_cat'=>$this->Modelo_tienda->getCategoriaProducto($articulo['id']),
                     'pedido_id_pedido'=>$idPedido,
@@ -51,14 +62,21 @@ class Pedido extends MY_Controller {
                     'precio'=>$articulo['price'],
                     'subtotal'=>$articulo['subtotal']
                 );
-                $this->Modelo_venta->addLineaPedido($datos);
+                $stock=$this->Modelo_tienda->getStockById($articulo['id']);
+                $stock-=$articulo['qty'];
+                //Guardo los datos en un array que usaré para actualizar el stock mediante update_batch
+                $datosStock[] = array(
+                    'id_producto' => $articulo['id'] ,
+                    'stock' => $stock
+                );
             }
+            $this->Modelo_venta->addLineaPedido($datosLinea);
+            $this->Modelo_tienda->actualizarStock($datosStock,'id_producto');
         }
     }
 
     public function correo()
     {
-
         $this->email->initialize();
         $this->email->from('xtianrock89@gmail.com', 'Prueba Autom�tica desde CI');
         $this->email->to('saraalamillo93@gmail.com');

@@ -34,8 +34,7 @@ class modelo_venta extends CI_Model{
 
     public function addLineaPedido($datos)
     {
-        $this->db->set($datos);
-        $this->db->insert('linea_pedido');
+        $this->db->insert_batch('linea_pedido', $datos);
         return 'la compra se ha realizado con exito';
     }
 

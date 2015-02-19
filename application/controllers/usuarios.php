@@ -75,6 +75,8 @@ class Usuarios extends MY_Controller
 
     public function logout()
     {
+        $array_sesiones = array('usuario' => '', 'logueado' => '');
+        $this->session->unset_userdata($array_sesiones);
         $this->session->sess_destroy();
         redirect('main');
     }

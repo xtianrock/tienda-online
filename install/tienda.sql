@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.2.7.1
+-- version 4.2.11
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 18-02-2015 a las 20:22:50
--- Versión del servidor: 5.6.20
--- Versión de PHP: 5.5.15
+-- Tiempo de generación: 19-02-2015 a las 04:19:05
+-- Versión del servidor: 5.6.21
+-- Versión de PHP: 5.6.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `categoria` (
   `anuncio_cat` text,
   `visible` tinyint(1) DEFAULT NULL,
   `cod_cat` varchar(45) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `categoria`
@@ -87,10 +87,8 @@ CREATE TABLE IF NOT EXISTS `linea_pedido` (
 --
 
 INSERT INTO `linea_pedido` (`productos_id_producto`, `productos_categoria_id_cat`, `pedido_id_pedido`, `cantidad`, `precio`, `subtotal`) VALUES
-(2, 1, 23, '1', '220.00', '220.00'),
-(10, 2, 23, '1', '3.50', '3.50'),
-(12, 2, 23, '1', '3.00', '3.00'),
-(18, 3, 23, '1', '8.00', '8.00');
+(1, 1, 75, '5', '500.00', '2500.00'),
+(2, 1, 75, '5', '220.00', '1100.00');
 
 -- --------------------------------------------------------
 
@@ -111,14 +109,14 @@ CREATE TABLE IF NOT EXISTS `pedido` (
   `dni` char(9) DEFAULT NULL,
   `direccion` varchar(100) DEFAULT NULL,
   `cp` char(5) DEFAULT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=24 ;
+) ENGINE=InnoDB AUTO_INCREMENT=76 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `pedido`
 --
 
 INSERT INTO `pedido` (`id_pedido`, `estado`, `cantidad`, `fecha_pedido`, `fecha_entrega`, `usuario_id_usuario`, `nombre`, `apellidos`, `mail`, `dni`, `direccion`, `cp`) VALUES
-(23, 'Pendiente', 4, '2015-02-18', NULL, 44, 'cristian', 'Vizcaino', 'xtianrock89@gmail.com', '49109707s', 'gorrion nº 38', '01110');
+(75, 'Pendiente', 10, '2015-02-19', NULL, 44, 'cristian', 'Vizcaino', 'xtianrock89@gmail.com', '49109707s', 'gorrion nº 38', '01110');
 
 -- --------------------------------------------------------
 
@@ -139,15 +137,15 @@ CREATE TABLE IF NOT EXISTS `productos` (
   `categoria_id_cat` int(11) NOT NULL,
   `visible` tinyint(1) DEFAULT NULL,
   `cod_producto` varchar(15) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=36 ;
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `productos`
 --
 
 INSERT INTO `productos` (`id_producto`, `nombre_producto`, `precio_producto`, `descuento`, `imagen_producto`, `iva_producto`, `descripcion`, `anuncio`, `stock`, `categoria_id_cat`, `visible`, `cod_producto`) VALUES
-(1, 'Tarmogoyf x4', '500.00', NULL, 'tarmogoyf.png', NULL, 'Playset de Tarmogoyf NM', NULL, 6, 1, 1, 'tarmogoyf'),
-(2, 'Liliana del velo x4', '220.00', NULL, 'liliana_del_velo.png', NULL, 'Playset de Liliana del velo NM', NULL, 13, 1, 1, 'liliana'),
+(1, 'Tarmogoyf x4', '500.00', NULL, 'tarmogoyf.png', NULL, 'Playset de Tarmogoyf NM', NULL, 10, 1, 1, 'tarmogoyf'),
+(2, 'Liliana del velo x4', '220.00', NULL, 'liliana_del_velo.png', NULL, 'Playset de Liliana del velo NM', NULL, 10, 1, 1, 'liliana'),
 (3, 'Fuerza de voluntad x4', '245.00', NULL, 'fuerza_de_voluntad.png', NULL, 'Playset de fuerza de voluntad Ex+', NULL, 10, 1, 1, 'Fow'),
 (4, 'Laguna ardiente x4', '160.00', NULL, 'laguna_ardiente.png', NULL, 'Playset de Laguna ardiente NM', NULL, 25, 1, 1, 'laguna'),
 (5, 'Relampago promocional x4', '75.00', NULL, 'relampago_promo.png', NULL, 'Playset de relampago promocional NM', NULL, 8, 1, 1, 'relampago'),
@@ -268,7 +266,7 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   `provincias_id_provincia` int(11) NOT NULL,
   `rol` enum('Administrador','Usuario') DEFAULT NULL,
   `activo` tinyint(1) DEFAULT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=48 ;
+) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `usuario`
@@ -355,7 +353,7 @@ MODIFY `id_cat` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 -- AUTO_INCREMENT de la tabla `pedido`
 --
 ALTER TABLE `pedido`
-MODIFY `id_pedido` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=24;
+MODIFY `id_pedido` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=76;
 --
 -- AUTO_INCREMENT de la tabla `productos`
 --

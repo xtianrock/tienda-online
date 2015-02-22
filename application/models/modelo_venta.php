@@ -16,7 +16,7 @@ class modelo_venta extends CI_Model{
 
    public function getPedido($id)
    {
-      return $this->db->from('pedido')->where('id_pedido',$id)->get()->row_array();
+      return $this->db->from('pedido')->where('id_pedido',$id)->get()->row();
    }
 
     public function getLineaPedido($id)

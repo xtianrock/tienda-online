@@ -15,18 +15,18 @@ class Pedido extends MY_Controller {
         parent::__construct();
         $this->load->library('pdf');
         $this->load->library('email');
+        $this->load->helper('stock');
     }
 
     public function procesarCompra()
     {
         $datosStock=array();
         $datosLinea=array();
-        $this->load->helper('stock');
         if (!$this->cart->contents())
         {
             echo 'carrito vacio';
         }
-        elseif($articulosSinStock=faltaStock($this->cart->contents(),$this->Modelo_tienda->getStock()))
+        elseif($articulosSinStock=stockCheck($this->cart->contents(),$this->Modelo_tienda->getStock()))
         {
             echo 'falta stock de los siguientes articulos....';
             echo'<pre>';
@@ -72,19 +72,26 @@ class Pedido extends MY_Controller {
             }
             $this->Modelo_venta->addLineaPedido($datosLinea);
             $this->Modelo_tienda->actualizarStock($datosStock,'id_producto');
+            $this->cart->destroy();
+            redirect('pedido/factura/'.$idPedido);
         }
     }
 
-    public function correo()
+    public function correo($idPedido)
     {
+        $datospedido=$this->Modelo_venta->getPedido($idPedido);
+        echo '<pre>';
+        print_r($datospedido);
+        echo '</pre>';
         $this->email->initialize();
         $this->email->from('xtianrock89@gmail.com', 'Prueba Autom�tica desde CI');
-        $this->email->to('saraalamillo93@gmail.com');
-        $this->email->cc('xtianrock89@gmail.com');
+        $this->email->to($datospedido->mail);
+        $this->email->attach('Factura_pedido_'.$datospedido->id_pedido.'.pdf');
+        //$this->email->cc('xtianrock89@gmail.com');
         //$this->email->bcc('them@their-example.com');
 
         $this->email->subject('Factura');
-        $this->email->message('Mensaje de prueba.');
+        $this->email->message('Gracias por depositar su confianza en nosotros.');
         if ( $this->email->send() )
         {
             echo "<pre>\n\nENVIADO CON EXITO\n</pre>";
@@ -96,7 +103,7 @@ class Pedido extends MY_Controller {
         echo $this->email->print_debugger();
     }
 
-    public function factura()
+    public function factura($idPedido)
     {
         $datosEmpresa=Array(
             'nombre'=>'Mtg Store S.L.',
@@ -112,14 +119,14 @@ class Pedido extends MY_Controller {
         $pdf->SetFont('Times','',12);
         $pdf->SetLineWidth(0.5);
         $pdf->SetFillColor(192);
-        $datospedido=$this->Modelo_venta->getPedido(23);
+        $datospedido=$this->Modelo_venta->getPedido($idPedido);
 
-        $pdf->datosVenta(15,40,$datosEmpresa);
-        $pdf->datosVenta(105,40,$datospedido);
+        $pdf->datosVendedor(15,40,$datosEmpresa);
+        $pdf->datoscliente(105,40,$datospedido);
         $pdf->datosfactura(15,100,$datospedido);
         $pdf->resumen(15,120);
 
-        $lineaspedido=$this->Modelo_venta->getLineaPedido(23);
+        $lineaspedido=$this->Modelo_venta->getLineaPedido($idPedido);
 
 
         $i=0;
@@ -131,7 +138,8 @@ class Pedido extends MY_Controller {
             $pdf->lineapedido('130'+$i*10,$datosProducto,$linea);
             $i++;
         }
-        $pdf->Output();
+        $pdf->Output('Factura_pedido_'.$idPedido.'.pdf','F');
+        redirect('pedido/correo/'.$idPedido);
     }
 
     public function compra()
@@ -139,7 +147,7 @@ class Pedido extends MY_Controller {
         if(!$this->session->userdata('logueado'))
         {
             $this->session->set_flashdata('requiere_login','Es necesario que inicie sesión para continuar con el proceso de compra');
-            redirect('usuarios/login');
+            redirect('usuarios/login/compra');
         }
         else
         {

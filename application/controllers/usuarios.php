@@ -43,8 +43,13 @@ class Usuarios extends MY_Controller
                 $this->cart->destroy();
             }
             $this->session->set_userdata($datos_usuario);
-            redirect('main');
+            if($this->session->flashdata('requiere_login'))
+                redirect('pedido/compra');
+            else
+                redirect('main');
         }
+        if($this->session->flashdata('requiere_login'))
+            $this->session->set_flashdata('requiere_login',TRUE);
         $this->smarty->assign($this->datos);
         $this->smarty->display('login.tpl');
     }
@@ -58,7 +63,7 @@ class Usuarios extends MY_Controller
             $this->datos['mensaje']=validation_errors();
             $vista='registro.tpl';
         }
-        else if($this->Modelo_usuarios->obtenerUsuario($this->input->post('usuario')))
+        else if($this->Modelo_usuarios->getUserByName($this->input->post('usuario')))
         {
             $this->datos['mensaje']="Ya existe un usuario con el nombre de usuario ".$this->input->post('usuario').'.';
             $vista='registro.tpl';

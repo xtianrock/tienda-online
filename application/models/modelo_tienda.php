@@ -35,7 +35,7 @@ class modelo_tienda extends CI_Model{
     {
         if($categoria)
         {
-            return $this->db->from('productos')->where('categoria_id_cat',$categoria)->get();
+            return $this->db->from('productos')->where('categoria_id_cat',$categoria)->get()->result();
         }
         else
         {

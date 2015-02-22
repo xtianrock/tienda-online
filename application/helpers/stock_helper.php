@@ -6,7 +6,7 @@
  * Time: 2:40
  */
 
-function faltaStock($carrito,$productos)
+function stockCheck($carrito,$productos)
 {
     $sinStock=[];
     foreach ($carrito as $articulo)
@@ -23,4 +23,20 @@ function faltaStock($carrito,$productos)
         }
     }
     return $sinStock;
+}
+
+
+function StockUpdate($carrito,$productos)
+{
+    foreach ($carrito as $articulo)
+    {
+        foreach($productos as $producto)
+        {
+            if($articulo['id']==$producto->id_producto)
+            {
+                $producto->stock-=$articulo['qty'];
+            }
+        }
+    }
+    return $productos;
 }

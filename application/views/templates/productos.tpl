@@ -11,13 +11,19 @@
 				{$agregado_carrito}
 				{$num = 1}
 				{$breaker = 3}
-				{foreach $productos->result() as $item}
+				{foreach $productos as $item}
 					{if $num == 1}<div class="row row-margin">{/if}
 					<div class="col-xs-4">
 						<form class="form-signin" action="{$smarty.const.BASEURL}index.php/main/addproduct/" method="post" accept-charset="utf-8"/>
 						<a href="{$smarty.const.BASEURL}index.php/main/productos/{$categoria}/{$item->id_producto}"><button class="btn" type="button">{$item->nombre_producto}</button></a>
 						</br>
-						<input class="cantidad" type="number" min="1" max="{$item->stock}" name="cantidad" value="1"/>
+						{if ($item->stock<1)}
+							<input class="cantidad" type="number" min="0" max="{$item->stock}" name="cantidad" value="0" disabled/> Sin stock
+						{elseif $item->stock<5}
+							<input class="cantidad" type="number" min="1" max="{$item->stock}" name="cantidad" value="1" /> Ultimas unidades!
+						{else}
+							<input class="cantidad" type="number" min="1" max="{$item->stock}" name="cantidad" value="1" />
+						{/if}
 						<p>{$item->precio_producto} €</p>
 						<img class="imagen_producto" src="{$smarty.const.BASEURL}/assets/img/{$item->imagen_producto}">
 						<input type="hidden" name="id_producto" value="{$item->id_producto}">

@@ -49,7 +49,7 @@
 						</form>
 					</div>
 				</div>
-				<a href="{$smarty.const.BASEURL}index.php/pedido/procesarCompra"><button class="btn btn-lg btn-primary btn-block" type="button">Comfirmar compra</button></a>
+				<a href="{$smarty.const.BASEURL}index.php/pedido/procesarCompra"><button class="btn btn-lg btn-primary btn-block" type="button">Confirmar compra</button></a>
 
 			</div>
 	{/block}

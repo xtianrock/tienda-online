@@ -11,5 +11,8 @@ $config=array(
     'smtp_host' => 'ssl://smtp.googlemail.com',
     'smtp_port' => 465,
     'smtp_user' =>'xtianrock89@gmail.com',
-    'smtp_pass' =>'Algoqnoseaobvi0'
+    'smtp_pass' =>'Algoqnoseaobvi0',
+    'mailtype' => 'html',
+    'charset' => 'utf-8',
+    'newline' => "\r\n"
 );

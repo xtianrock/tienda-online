@@ -13,6 +13,7 @@ class Main extends MY_Controller {
         parent::__construct();
         $this->datos['destacados']=$this->Modelo_tienda->getDestacados();
         $this->smarty->assign($this->datos);
+        $this->load->helper('stock');
     }
 
     public function index()
@@ -26,6 +27,7 @@ class Main extends MY_Controller {
         if($idProducto)
         {
             $this->datos['producto'] = $this->Modelo_tienda->getProducto($idProducto);
+            $this->datos['cantidad'] = $this->Modelo_tienda->getProducto($idProducto);
             $this->datos['titulo'] =  $this->datos['producto']->nombre_producto;
             $this->smarty->assign($this->datos);
             $this->smarty->display('detalles.tpl');
@@ -36,7 +38,9 @@ class Main extends MY_Controller {
             $this->datos['agregado_carrito']=$this->session->flashdata('agregado');
             $this->datos['uri']= $this->uri->uri_string();
             $this->datos['categoria']=$categoria;
-            $this->datos['productos'] = $this->Modelo_tienda->getProductos($idCategoria);
+            //recupero los productos de la base de datos,
+            // y actualizo su stock mediante el uso de la funcion muestraStock contenida en el stock_helper
+            $this->datos['productos'] =stockUpdate($this->cart->contents(),$this->Modelo_tienda->getProductos($idCategoria));
             $this->datos['titulo'] =$categoria;
             $this->smarty->assign($this->datos);
             $this->smarty->display('productos.tpl');
@@ -70,11 +74,11 @@ class Main extends MY_Controller {
         $cantidad =  $this->input->post('cantidad');
         $carrito = $this->cart->contents();
         foreach ($carrito as $item) {           //si el id del producto es igual que uno que ya
-            if ($item['id'] == $id_producto) {  //tengamos en la cesta le sumamos uno a la cantidad
-                $cantidad = 1 + $item['qty'];
+            if ($item['id'] == $id_producto) {  //tengamos en la cesta le sumamos la cantidad
+               $cantidad+=$item['qty'];
+                break;
             }
         }
-        //Meto los productos en un array para insertarlos en el carrito
         $datos = array(
             'id' => $id_producto,
             'qty' => $cantidad,

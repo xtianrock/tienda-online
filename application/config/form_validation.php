@@ -19,6 +19,11 @@
              'rules' => 'required|min_length[6]|callback_validarPassword'
          ),
          array(
+             'field' => 'confirmPassword',
+             'label' => 'Confirmar contraseña',
+             'rules' => 'required|min_length[6]|callback_validarPassword'
+         ),
+         array(
              'field' => 'mail',
              'label' => 'Email',
              'rules' => 'valid_email'

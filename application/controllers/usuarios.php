@@ -56,7 +56,7 @@ class Usuarios extends MY_Controller
 
     public function registro()
     {
-        $this->datos['provincias'] = $this->Modelo_tienda->getProvincias()->result_array();
+        $this->datos['provincias'] = $this->Modelo_tienda->getProvincias();
 
         if ($this->form_validation->run('registro') == FALSE)
         {
@@ -68,8 +68,14 @@ class Usuarios extends MY_Controller
             $this->datos['mensaje']="Ya existe un usuario con el nombre de usuario ".$this->input->post('usuario').'.';
             $vista='registro.tpl';
         }
+        else if($this->input->post('password')!=$this->input->post('confirmPassword'))
+        {
+            $this->datos['mensaje']='Las contraseñas deben coincidir.';
+            $vista='registro.tpl';
+        }
         else
         {
+            unset($_POST['confirmPassword']);
             $mensaje=$this->Modelo_usuarios->addUser($this->input->post());
             $this->session->set_flashdata('usuario_insertado',$mensaje);
             redirect('usuarios/login');

@@ -63,7 +63,7 @@ class modelo_tienda extends CI_Model{
     }
     public function getProvincias()
     {
-        return $this->db->from('provincias')->get();
+        return $this->db->from('provincias')->get()->result_array();
     }
     public function getNombreProvincia($id)
     {

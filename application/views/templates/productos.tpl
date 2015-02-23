@@ -28,7 +28,11 @@
 						<img class="imagen_producto" src="{$smarty.const.BASEURL}/assets/img/{$item->imagen_producto}">
 						<input type="hidden" name="id_producto" value="{$item->id_producto}">
 						<input type="hidden" name="uri" value="{$uri}">
-						<a href="{$smarty.const.BASEURL}index.php/main/addProduct"><button class="btn btn-lg btn-primary btn-block" type="submit">Añadir a la cesta</button></a>
+						{if ($item->stock<1)}
+						<button class="btn btn-lg btn-primary btn-block disabled" type="button">Añadir a la cesta</button>
+						{else}
+						<button class="btn btn-lg btn-primary btn-block" type="submit">Añadir a la cesta</button>
+						{/if}
 						</form>
 					</div>
 					{$num=$num+1}

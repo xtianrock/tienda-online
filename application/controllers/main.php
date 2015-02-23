@@ -24,9 +24,10 @@ class Main extends MY_Controller {
     }
     public function productos($categoria,$idProducto=null)
     {
+        $this->datos['uri']= $this->uri->uri_string();
         if($idProducto)
         {
-            $this->datos['producto'] = $this->Modelo_tienda->getProducto($idProducto);
+            $this->datos['producto'] =stockUpdate($this->cart->contents(),$this->Modelo_tienda->getProducto($idProducto));
             $this->datos['cantidad'] = $this->Modelo_tienda->getProducto($idProducto);
             $this->datos['titulo'] =  $this->datos['producto']->nombre_producto;
             $this->smarty->assign($this->datos);
@@ -36,7 +37,6 @@ class Main extends MY_Controller {
         {
             $idCategoria=$this->Modelo_tienda->getCatByName($categoria);
             $this->datos['agregado_carrito']=$this->session->flashdata('agregado');
-            $this->datos['uri']= $this->uri->uri_string();
             $this->datos['categoria']=$categoria;
             //recupero los productos de la base de datos,
             // y actualizo su stock mediante el uso de la funcion muestraStock contenida en el stock_helper
@@ -83,7 +83,8 @@ class Main extends MY_Controller {
             'id' => $id_producto,
             'qty' => $cantidad,
             'price' => $producto->precio_producto,
-            'name' => $producto->nombre_producto
+            'name' => $producto->nombre_producto,
+            'stock'=>$producto->stock
         );
         $this->cart->insert($datos);
         $this->session->set_flashdata('agregado', 'El producto fue agregado correctamente');

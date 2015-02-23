@@ -16,6 +16,7 @@ class Pedido extends MY_Controller {
         $this->load->library('pdf');
         $this->load->library('email');
         $this->load->helper('stock');
+        $this->config->load('pedido_config');
     }
 
     public function procesarCompra()
@@ -24,14 +25,14 @@ class Pedido extends MY_Controller {
         $datosLinea=array();
         if (!$this->cart->contents())
         {
-            echo 'carrito vacio';
+           $this->session->set_flashdata('carrito_vacio','El carrito está vacio');
+            redirect('pedido/resumenCompra');
         }
         elseif($articulosSinStock=stockCheck($this->cart->contents(),$this->Modelo_tienda->getStock()))
         {
-            echo 'falta stock de los siguientes articulos....';
-            echo'<pre>';
-            print_r($articulosSinStock);
-            echo'</pre>';
+            $this->session->set_flashdata('sin_stock','Los siguientes articulos carecen de stock suficiente: '.implode(", ",$articulosSinStock));
+            redirect('pedido/resumenCompra');
+
         }
         else
         {
@@ -39,6 +40,7 @@ class Pedido extends MY_Controller {
             $usuario=$this->Modelo_usuarios->getUserByName($this->session->userdata('usuario'));
             $datosPedido=array(
                 'cantidad'=> $this->cart->total_items(),
+                'importe'=>$this->cart->total(),
                 'fecha_pedido'=>date('Y-m-d'),
                 'usuario_id_usuario'=>$usuario->id_usuario,
                 'nombre'=>$usuario->nombre,
@@ -87,7 +89,7 @@ class Pedido extends MY_Controller {
         $this->email->from('xtianrock89@gmail.com', 'Prueba Autom�tica desde CI');
         $this->email->to($datospedido->mail);
         $this->email->attach('Factura_pedido_'.$datospedido->id_pedido.'.pdf');
-        //$this->email->cc('xtianrock89@gmail.com');
+        $this->email->cc('xtianrock89@gmail.com');
         //$this->email->bcc('them@their-example.com');
 
         $this->email->subject('Factura');
@@ -105,14 +107,6 @@ class Pedido extends MY_Controller {
 
     public function factura($idPedido)
     {
-        $datosEmpresa=Array(
-            'nombre'=>'Mtg Store S.L.',
-            'dni'=>'B-01234567',
-            'mail'=>'MtgStore.com',
-            'direccion'=>'Avd Francisco Rojas nº132',
-            'cp'=>'21465'
-        );
-
         $pdf = new PDF();
         $pdf->AliasNbPages();
         $pdf->AddPage();
@@ -120,29 +114,26 @@ class Pedido extends MY_Controller {
         $pdf->SetLineWidth(0.5);
         $pdf->SetFillColor(192);
         $datospedido=$this->Modelo_venta->getPedido($idPedido);
-
-        $pdf->datosVendedor(15,40,$datosEmpresa);
+        $lineaspedido=$this->Modelo_venta->getLineaPedido($idPedido);
+        $pdf->datosVendedor(15,40,$this->config->item('datosEmpresa'));
         $pdf->datoscliente(105,40,$datospedido);
         $pdf->datosfactura(15,100,$datospedido);
-        $pdf->resumen(15,120);
-
-        $lineaspedido=$this->Modelo_venta->getLineaPedido($idPedido);
-
+        $pdf->resumen(15,120,sizeof($lineaspedido),$datospedido->importe);
 
         $i=0;
         foreach ($lineaspedido as $linea)
         {
-
             $datosProducto=$this->Modelo_tienda->getProducto($linea->productos_id_producto);
 
             $pdf->lineapedido('130'+$i*10,$datosProducto,$linea);
             $i++;
         }
+
         $pdf->Output('Factura_pedido_'.$idPedido.'.pdf','F');
         redirect('pedido/correo/'.$idPedido);
     }
 
-    public function compra()
+    public function resumenCompra()
     {
         if(!$this->session->userdata('logueado'))
         {
@@ -151,6 +142,11 @@ class Pedido extends MY_Controller {
         }
         else
         {
+            if($this->session->flashdata('carrito_vacio'))
+                $this->datos['mensaje']=$this->session->flashdata('carrito_vacio');
+            else
+                $this->datos['mensaje']=$this->session->flashdata('sin_stock');
+
             $this->datos['cliente']=$this->Modelo_usuarios->getUserByName($this->session->userdata('usuario'));
             $this->datos['provincia']=$this->Modelo_tienda->getNombreProvincia($this->datos['cliente']->provincias_id_provincia);
             $this->datos['articulos']=$this->cart->contents();

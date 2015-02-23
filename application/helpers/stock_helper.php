@@ -28,13 +28,26 @@ function stockCheck($carrito,$productos)
 
 function StockUpdate($carrito,$productos)
 {
-    foreach ($carrito as $articulo)
+    if(is_array($productos))
     {
-        foreach($productos as $producto)
+        foreach ($carrito as $articulo)
         {
-            if($articulo['id']==$producto->id_producto)
+            foreach($productos as $producto)
             {
-                $producto->stock-=$articulo['qty'];
+                if($articulo['id']==$producto->id_producto)
+                {
+                    $producto->stock-=$articulo['qty'];
+                }
+            }
+        }
+    }
+    else
+    {
+        foreach ($carrito as $articulo)
+        {
+            if($articulo['id']==$productos->id_producto)
+            {
+                $productos->stock-=$articulo['qty'];
             }
         }
     }

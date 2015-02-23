@@ -28,7 +28,7 @@
                 <select name="provincias_id_provincia" id="inputProvincia" class="form-control">
 
                     {foreach $provincias as $item}
-                        {if {ci helper='form' function='set_value' value='provincia' default='0'}==$item['id_provincia']}
+                        {if {ci helper='form' function='set_value' value='provincias_id_provincia' default='0'}==$item['id_provincia']}
                             <option value="{$item['id_provincia']}" selected>{$item['nombre_provincia']}</option>
                         {else}
                             <option value="{$item['id_provincia']}">{$item['nombre_provincia']}</option>
@@ -38,7 +38,10 @@
             </div>
             <div class="inputs-derecha">
                 <label for="inputPassword" class="control-label">Contraseña</label>
-                <input name="password" type="password" id="inputPassword" class="form-control" placeholder="Contraseña" value="{ci helper='form' function='set_value' value='password'}"  >
+                <input name="password" type="text" id="inputPassword" class="form-control" placeholder="Contraseña" value="{ci helper='form' function='set_value' value='password'}"  >
+
+                <label for="inputConfirmPassword" class="control-label">Confirmar contraseña</label>
+                <input name="confirmPassword" type="text" id="inputConfirmPassword" class="form-control" placeholder="Contraseña" value="{ci helper='form' function='set_value' value='confirmPassword'}"  >
 
                 <label for="inputNombre" class="control-label">Nombre</label>
                 <input name="nombre" type="text" id="inputNombre" class="form-control" placeholder="Nombre" value="{ci helper='form' function='set_value' value='nombre'}" >

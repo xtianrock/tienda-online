@@ -7,7 +7,8 @@
 	{block name=contenido}
 		<div class="col-sm-8 col-sm-offset-2">
 			<div class="row">
-				<h2>Mostrando {$titulo}</h2>
+				<h2>{$titulo}</h2>
+				<h3>{$mensaje}</h3>
 				<div class="col-sm-6">
 					<div class="jumbo jumbotron">
 
@@ -27,10 +28,7 @@
 								{/foreach}
 								<tr id="total">
 									<td><strong>Total:</strong></td>
-									<!--mostramos el total del carrito
-                                    con $this->cart->total()-->
 									<td colspan="1">{$total} euros.</td>
-									<!--creamos un enlace para eliminar el carrito-->
 									<td colspan="4" id="eliminarCarrito"></td>
 								</tr>
 							</table>

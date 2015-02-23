@@ -72,6 +72,11 @@ html,body
     padding: 100px;
     background: #5a0099;
 }
+
+a.deshabilitado {
+    pointer-events: none;
+}
+
 /* make sidebar nav vertical */
 @media (min-width: 768px) {
     .sidebar-nav .navbar .navbar-collapse {

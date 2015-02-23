@@ -24,7 +24,7 @@
 								<td>{$item['rowid']}</td>
 								<td>{$item['name']}</td>
 								<td>{$item['price']}</td>
-								<td><input class="cantidad" type="number" min="0" name="{$item['rowid']}" value="{$item['qty']}"/></td>
+								<td><input class="cantidad" type="number" min="0" max="{$item['stock']}" name="{$item['rowid']}" value="{$item['qty']}"/></td>
 							</tr>
 						{/foreach}
 
@@ -38,7 +38,7 @@
 						</tr>
 					</table>
 					<button class="btn btn-lg btn-primary btn-block" type="submit">Actualizar</button>
-					<a href="{$smarty.const.BASEURL}index.php/pedido/compra"><button class="btn btn-lg btn-primary btn-block" type="button">Completar compra</button></a>
+					<a href="{$smarty.const.BASEURL}index.php/pedido/resumenCompra"><button class="btn btn-lg btn-primary btn-block" type="button">Completar compra</button></a>
 
 				</form>
 			</div>

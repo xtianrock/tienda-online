@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 19-02-2015 a las 04:19:05
+-- Tiempo de generación: 23-02-2015 a las 14:18:57
 -- Versión del servidor: 5.6.21
 -- Versión de PHP: 5.6.3
 
@@ -87,8 +87,9 @@ CREATE TABLE IF NOT EXISTS `linea_pedido` (
 --
 
 INSERT INTO `linea_pedido` (`productos_id_producto`, `productos_categoria_id_cat`, `pedido_id_pedido`, `cantidad`, `precio`, `subtotal`) VALUES
-(1, 1, 75, '5', '500.00', '2500.00'),
-(2, 1, 75, '5', '220.00', '1100.00');
+(31, 6, 86, '1', '2.50', '2.50'),
+(32, 6, 86, '7', '1.50', '10.50'),
+(35, 6, 86, '9', '2.50', '22.50');
 
 -- --------------------------------------------------------
 
@@ -100,6 +101,7 @@ CREATE TABLE IF NOT EXISTS `pedido` (
 `id_pedido` int(11) NOT NULL,
   `estado` enum('Procesado','Pendiente','Recibido','Devuelto') DEFAULT NULL,
   `cantidad` int(11) DEFAULT NULL,
+  `importe` decimal(10,2) NOT NULL,
   `fecha_pedido` date DEFAULT NULL,
   `fecha_entrega` date DEFAULT NULL,
   `usuario_id_usuario` int(11) NOT NULL,
@@ -109,14 +111,14 @@ CREATE TABLE IF NOT EXISTS `pedido` (
   `dni` char(9) DEFAULT NULL,
   `direccion` varchar(100) DEFAULT NULL,
   `cp` char(5) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=76 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=87 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `pedido`
 --
 
-INSERT INTO `pedido` (`id_pedido`, `estado`, `cantidad`, `fecha_pedido`, `fecha_entrega`, `usuario_id_usuario`, `nombre`, `apellidos`, `mail`, `dni`, `direccion`, `cp`) VALUES
-(75, 'Pendiente', 10, '2015-02-19', NULL, 44, 'cristian', 'Vizcaino', 'xtianrock89@gmail.com', '49109707s', 'gorrion nº 38', '01110');
+INSERT INTO `pedido` (`id_pedido`, `estado`, `cantidad`, `importe`, `fecha_pedido`, `fecha_entrega`, `usuario_id_usuario`, `nombre`, `apellidos`, `mail`, `dni`, `direccion`, `cp`) VALUES
+(86, 'Pendiente', 17, '35.50', '2015-02-23', NULL, 44, 'cristian', 'Vizcaino', 'xtianrock89@gmail.com', '49109707s', 'gorrion nº 38', '01110');
 
 -- --------------------------------------------------------
 
@@ -144,39 +146,39 @@ CREATE TABLE IF NOT EXISTS `productos` (
 --
 
 INSERT INTO `productos` (`id_producto`, `nombre_producto`, `precio_producto`, `descuento`, `imagen_producto`, `iva_producto`, `descripcion`, `anuncio`, `stock`, `categoria_id_cat`, `visible`, `cod_producto`) VALUES
-(1, 'Tarmogoyf x4', '500.00', NULL, 'tarmogoyf.png', NULL, 'Playset de Tarmogoyf NM', NULL, 10, 1, 1, 'tarmogoyf'),
-(2, 'Liliana del velo x4', '220.00', NULL, 'liliana_del_velo.png', NULL, 'Playset de Liliana del velo NM', NULL, 10, 1, 1, 'liliana'),
-(3, 'Fuerza de voluntad x4', '245.00', NULL, 'fuerza_de_voluntad.png', NULL, 'Playset de fuerza de voluntad Ex+', NULL, 10, 1, 1, 'Fow'),
-(4, 'Laguna ardiente x4', '160.00', NULL, 'laguna_ardiente.png', NULL, 'Playset de Laguna ardiente NM', NULL, 25, 1, 1, 'laguna'),
-(5, 'Relampago promocional x4', '75.00', NULL, 'relampago_promo.png', NULL, 'Playset de relampago promocional NM', NULL, 8, 1, 1, 'relampago'),
-(6, 'Camino al exilio x4', '30.00', NULL, 'camino_al_exilio.png', NULL, 'Playset de camino al exilio NM', NULL, 41, 1, 1, 'camino'),
+(1, 'Tarmogoyf x4', '500.00', NULL, 'tarmogoyf.png', NULL, 'Playset de Tarmogoyf NM', NULL, 0, 1, 1, 'tarmogoyf'),
+(2, 'Liliana del velo x4', '220.00', NULL, 'liliana_del_velo.png', NULL, 'Playset de Liliana del velo NM', NULL, 1, 1, 1, 'liliana'),
+(3, 'Fuerza de voluntad x4', '245.00', NULL, 'fuerza_de_voluntad.png', NULL, 'Playset de fuerza de voluntad Ex+', NULL, 7, 1, 1, 'Fow'),
+(4, 'Laguna ardiente x4', '160.00', NULL, 'laguna_ardiente.png', NULL, 'Playset de Laguna ardiente NM', NULL, 24, 1, 1, 'laguna'),
+(5, 'Relampago promocional x4', '75.00', NULL, 'relampago_promo.png', NULL, 'Playset de relampago promocional NM', NULL, 0, 1, 1, 'relampago'),
+(6, 'Camino al exilio x4', '30.00', NULL, 'camino_al_exilio.png', NULL, 'Playset de camino al exilio NM', NULL, 39, 1, 1, 'camino'),
 (7, 'Geist de san traft x4', '65.00', NULL, 'geist_de_san_traft.png', NULL, 'Playset de Geist de san traft NM', NULL, 23, 1, 1, 'geist'),
 (10, 'Sobre de Destino reescrito', '3.50', NULL, 'sobre_destino_reescrito.png', NULL, 'Sobre de Destino reescrito en español, cada sobre contiene 12 cartas comunes, 3 cartas infrecuentes y una carta rara o mitica.', NULL, 85, 2, 1, 'fate_booster'),
 (11, 'Sobre de khans de Tarkir', '3.50', NULL, 'sobre_khans_de_tarkir.png', NULL, 'Sobre de khans de Tarkir en español, cada sobre contiene 12 cartas comunes, 3 cartas infrecuentes y una carta rara o mitica.', NULL, 120, 2, 1, 'khans_booster'),
 (12, 'Sobre de magic 2015', '3.00', NULL, 'sobre_m15.png', NULL, 'Sobre de magic 2015 en español, cada sobre contiene 12 cartas comunes, 3 cartas infrecuentes y una carta rara o mitica.', NULL, 74, 2, 1, 'm15_booster'),
 (13, 'Sobre Theros', '2.50', NULL, 'sobre_theros.png', NULL, 'Sobre de Theros en español, cada sobre contiene 12 cartas comunes, 3 cartas infrecuentes y una carta rara o mitica.', NULL, 56, 2, 1, 'booster_theros'),
 (14, 'Sobre de Regreso a Ravnica', '2.50', NULL, 'sobre_regreso_a_ravnica.png', NULL, 'Sobre de Regreso a Ravnica en español, cada sobre contiene 12 cartas comunes, 3 cartas infrecuentes y una carta rara o mitica.', NULL, 23, 2, 1, 'booster_ravnica'),
-(15, 'Dragon Shield Blue', '6.85', NULL, 'tapete_dragon_shield_blue.png', NULL, 'Tapete Dragon Shield Arcane Dragons: Blue Playmat', NULL, 15, 3, 1, 'playmat_dsblue'),
+(15, 'Dragon Shield Blue', '6.85', NULL, 'tapete_dragon_shield_blue.png', NULL, 'Tapete Dragon Shield Arcane Dragons: Blue Playmat', NULL, 13, 3, 1, 'playmat_dsblue'),
 (16, 'Ultra Pro: Tapete Artist Gallery Negro', '8.00', NULL, 'tapete_artist_gallery.png', NULL, 'Tapete Ultra Pro: Tapete Artist Gallery (Negro)', NULL, 12, 3, 1, 'playmat_artist'),
 (17, 'Tapete Magiccardmarket "Wooden Board"', '9.50', NULL, 'tapete_mkm_wooded.png', NULL, 'Tapete Magiccardmarket "Wooden Board"', NULL, 74, 3, 1, 'playmat_wood'),
 (18, 'Dragon Shield - Red Zone Playmat', '8.00', NULL, 'tapete_redzone.png', NULL, 'Tapete Dragon Shield modelo Red Zone Playmat', NULL, 41, 3, 1, 'playmat_redzone'),
 (19, '100 KMC Perfect Sized Sleeves', '3.40', NULL, 'perfect_size.jpg', NULL, 'Dobla la proteccion de tus cartas con estas fundas ajustadas que puedes usar con tus fundas normales.', NULL, 50, 4, 1, 'kmc_perfect'),
-(20, 'KMC Full Sized Sleeves - Matte Black', '5.20', NULL, 'kmc_mat_black.png', NULL, 'Máxima protección y calidad para tus cartas con las nuevas KMC Full Sized Sleeves - Matte Black', NULL, 40, 4, 1, 'kmc_mat_black'),
+(20, 'KMC Full Sized Sleeves - Matte Black', '5.20', NULL, 'kmc_mat_black.png', NULL, 'Máxima protección y calidad para tus cartas con las nuevas KMC Full Sized Sleeves - Matte Black', NULL, 37, 4, 1, 'kmc_mat_black'),
 (21, '100 Dragon Shield Sleeves - Red', '6.50', NULL, 'dragon_shield_red.png', NULL, 'Protege tus cartas con las nuevas fundas dragon shield.', NULL, 80, 4, 1, 'sleeves_ds_red'),
 (22, '80 Fundas MTG Cardback', '8.00', NULL, 'fundas_mtg_back.png', NULL, 'Fantasticas fundas con la imagen del reverso de una carta, lo mas parecido a jugar sin fundas pero con toda la protección.', NULL, 20, 4, 1, 'sleeves_mtg'),
 (23, 'Ultra-Pro: 25 Toploaders Estándar', '2.50', NULL, 'toploaders.png', NULL, 'Maxima proteccion para trasnportar y realizar envios de cartas', NULL, 63, 4, 1, 'toploaders'),
-(24, '50 Fundas Ultra Pro Doge', '3.00', NULL, 'ultra_pro_doge.png', NULL, 'Protege tu baraja con estas divertidas fundas con la calidad de Ultra pro', NULL, 15, 4, 1, 'ultra_pro_doge'),
-(25, '100 Dragon Shield Sleeves - Pink', '6.50', NULL, 'dragon_shield_pink.png', NULL, 'Porque ellas también juegan!', NULL, 20, 4, 1, 'sleeves_ds_pink'),
+(24, '50 Fundas Ultra Pro Doge', '3.00', NULL, 'ultra_pro_doge.png', NULL, 'Protege tu baraja con estas divertidas fundas con la calidad de Ultra pro', NULL, 14, 4, 1, 'ultra_pro_doge'),
+(25, '100 Dragon Shield Sleeves - Pink', '6.50', NULL, 'dragon_shield_pink.png', NULL, 'Porque ellas también juegan!', NULL, 19, 4, 1, 'sleeves_ds_pink'),
 (26, 'Carpeta FOUR Playset', '24.00', NULL, 'carpeta_playset.png', NULL, 'Guarda tus cartas organizandolas por playsets, capacidad para 480 cartas.', NULL, 12, 5, 1, 'playset_binder'),
 (27, 'Ultra Pro Collectors Portfolio - 4-Pocket Nav', '2.50', NULL, 'carpeta_ultrapro_4.png', NULL, 'Lo mejor para llevar nuestro cambio sin ocupar demasiado espacio. Capacidad 80 cartas.', NULL, 31, 5, 1, 'carpeta_up_4'),
 (28, 'Ultra Pro Collectors Portfolio - 9-Pocket Nav', '5.00', NULL, 'carpeta_ultrapro_9.png', NULL, 'Lleva tus cartas siempre contigo con los archivadores de 9 bolsillos UltraPro.\r\nCapacidad 180 cartas.', NULL, 25, 5, 1, 'carpeta_up_9'),
 (29, 'Ultra-Pro: "Pro-Binder" Azul', '15.00', NULL, 'pro_binder_blue.png', NULL, 'Máxima protección y calidad. incluye goma elástica para cerrar.', NULL, 10, 5, 1, 'pro_binder_blue'),
 (30, 'Album "Black Lotus"', '13.00', NULL, 'carpeta_black_lotus.png', NULL, 'Álbum con ilustración de unas las cartas mas míticas. Capacidad 80 cartas.', NULL, 5, 5, 1, 'binder_lotus'),
-(31, 'Ultra-Pro: "Pro-Deck Box" 100+ Negro', '2.50', NULL, 'deck_box_100+.png', NULL, 'Caja para guardar el mazo con capacidad para mas de 100 cartas.', NULL, 40, 6, 1, 'deckbox_100'),
-(32, 'Ultra-Pro Solid Red Deckbox', '1.50', NULL, 'deck_box_red_solid.png', NULL, 'Caja para guardar el mazo con capacidad para 75 cartas', NULL, 70, 6, 1, 'deckbox_red'),
+(31, 'Ultra-Pro: Pro-Deck Box Negro', '2.50', NULL, 'deck_box_100+.png', NULL, 'Caja para guardar el mazo con capacidad para mas de 100 cartas.', NULL, 39, 6, 1, 'deckbox_100'),
+(32, 'Ultra-Pro Solid Red Deckbox', '1.50', NULL, 'deck_box_red_solid.png', NULL, 'Caja para guardar el mazo con capacidad para 75 cartas', NULL, 63, 6, 1, 'deckbox_red'),
 (33, 'Ultra-Pro: Mana Flip Box', '10.00', NULL, 'mana_flip_black.png', NULL, 'Caja para mazos de cuero sintetico y gran capacidad.', NULL, 4, 6, 1, 'flip_box_black'),
-(34, 'Ultra-Pro: Matte Dual Flip Box (Blanco)', '18.00', NULL, 'dual_flip_box_white.png', NULL, 'Fantastica caja de cuero sintetico para dos barajas.', NULL, 6, 6, 1, 'dual_flip_box'),
-(35, 'Mana Symbol Deckbox', '2.50', NULL, 'mana_symbol_blue.png', NULL, 'Caja para mazo de 75 cartas ilustrada con símbolo de maná.', NULL, 15, 6, 1, 'island_deckbox');
+(34, 'Ultra-Pro: Matte Dual Flip Box Blanco', '18.00', NULL, 'dual_flip_box_white.png', NULL, 'Fantastica caja de cuero sintetico para dos barajas.', NULL, 4, 6, 1, 'dual_flip_box'),
+(35, 'Mana Symbol Deckbox', '2.50', NULL, 'mana_symbol_blue.png', NULL, 'Caja para mazo de 75 cartas ilustrada con símbolo de maná.', NULL, 6, 6, 1, 'island_deckbox');
 
 -- --------------------------------------------------------
 
@@ -266,7 +268,7 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   `provincias_id_provincia` int(11) NOT NULL,
   `rol` enum('Administrador','Usuario') DEFAULT NULL,
   `activo` tinyint(1) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `usuario`
@@ -292,7 +294,9 @@ INSERT INTO `usuario` (`id_usuario`, `usuario`, `password`, `mail`, `nombre`, `a
 (44, 'xtianrock89', '$2y$10$weheyOFsUBMKqXYP1g2vvODz61P./XYn9ddq0nNbgvbLEEoVdAY5C', 'xtianrock89@gmail.com', 'cristian', 'Vizcaino', '49109707s', 'gorrion nº 38', '01110', 1, 'Usuario', 1),
 (45, 'asdfqwefd', '$2y$10$IpCtIH6nMSU1SDCPGSuiS.J4sGFxb/cRSVgDG8JmOgv63lTMH3Dtu', 'mconceglieri@hotmail.com', 'María Franco Conceglieri', 'Vizcaino dfsadf', '49109707s', 'Avenida Bulevar de los Azaharaes nº 27', '21110', 1, 'Usuario', 1),
 (46, 'qwerasd', '$2y$10$ciBVlB4qKXM4Cf8tRU5N7eJmez676FTij3CBiQe.4.ZArtbRTYeFa', 'mconceglieri@hotmail.com', 'María Franco Conceglieri', 'Vizcaino dfsadf', '12345677-', 'Avenida Bulevar de los Azaharaes nº 27', '21110', 4, 'Usuario', 1),
-(47, 'qwerasdxsa', '$2y$10$60KeoMzq9MlHisZweMbF9uRIWoboMpxaH5PXIIcuYpGSAyKl7dHSm', 'mconceglieri@hotmail.com', 'María Franco Conceglieri', 'Vizcaino dfsadf', '12345677-', 'Avenida Bulevar de los Azaharaes nº 27', '21110', 1, 'Usuario', 1);
+(47, 'qwerasdxsa', '$2y$10$60KeoMzq9MlHisZweMbF9uRIWoboMpxaH5PXIIcuYpGSAyKl7dHSm', 'mconceglieri@hotmail.com', 'María Franco Conceglieri', 'Vizcaino dfsadf', '12345677-', 'Avenida Bulevar de los Azaharaes nº 27', '21110', 1, 'Usuario', 1),
+(48, 'ikyrock', '$2y$10$gfeni/.nxhKMVITxzhFmfe5mhqznuZY2jt17PRrkmqzeDpTpZUJGK', 'mconceglieri@hotmail.com', 'María Franco Conceglieri', 'Franco', '48954446g', 'Avenida Bulevar de los Azaharaes nº 27', '21110', 21, 'Usuario', 1),
+(49, 'xtianrock89123', '$2y$10$alGr6SCDJCEpjQw5OKAXBuRHbXwuhGvb1LXdRfkj6ymFiKTKIo6.a', 'mconceglieri@hotmail.com', 'María Franco Conceglieri', 'Franco', '49109707s', 'Avenida Bulevar de los Azaharaes nº 27', '21110', 44, 'Usuario', 1);
 
 --
 -- Índices para tablas volcadas
@@ -353,7 +357,7 @@ MODIFY `id_cat` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 -- AUTO_INCREMENT de la tabla `pedido`
 --
 ALTER TABLE `pedido`
-MODIFY `id_pedido` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=76;
+MODIFY `id_pedido` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=87;
 --
 -- AUTO_INCREMENT de la tabla `productos`
 --
@@ -363,7 +367,7 @@ MODIFY `id_producto` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=36;
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=48;
+MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=50;
 --
 -- Restricciones para tablas volcadas
 --

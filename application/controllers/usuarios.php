@@ -44,7 +44,7 @@ class Usuarios extends MY_Controller
             }
             $this->session->set_userdata($datos_usuario);
             if($this->session->flashdata('requiere_login'))
-                redirect('pedido/compra');
+                redirect('pedido/cresumenCmpra');
             else
                 redirect('main');
         }

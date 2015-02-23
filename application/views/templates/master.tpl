@@ -19,7 +19,9 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-3">
-                <img id="logo_tienda" src="{$smarty.const.BASEURL}/assets/img/logo_tienda.png" alt=""/>
+                <a href="{$smarty.const.BASEURL}index.php">
+                    <img id="logo_tienda" src="{$smarty.const.BASEURL}/assets/img/logo_tienda.png" alt=""/>
+                </a>
             </div>
 
             <div class="col-xs-7">
@@ -35,7 +37,7 @@
                         </ul>
                     </li>
                     <li><a href="{$smarty.const.BASEURL}index.php/usuarios/login">Login</a></li>
-                    <li><a href="{$smarty.const.BASEURL}index.php/main/carrito">Carrito</a></li>
+                    <li><a href="{$smarty.const.BASEURL}index.php/main/carrito">Carrito <span class="badge">{$contenido_carrito}</span></a></li>
                     <li><a href="#">Elemento3</a></li>
                     <li><a href="#">Elemento4</a></li>
                 </ul>
@@ -80,7 +82,6 @@
             </div>
         </div>
     </div>
-
     {/block}
 {block name=destacados}
     <div class="col-sm-10 col-sm-offset-1">

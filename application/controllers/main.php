@@ -42,6 +42,17 @@ class Main extends MY_Controller {
             // y actualizo su stock mediante el uso de la funcion muestraStock contenida en el stock_helper
             $this->datos['productos'] =stockUpdate($this->cart->contents(),$this->Modelo_tienda->getProductos($idCategoria));
             $this->datos['titulo'] =$categoria;
+
+            $config['base_url'] = site_url('main/productos');
+            $config['total_rows'] = sizeof($this->datos['productos']);
+            $config['per_page'] =5;
+
+
+            /* Initialize the pagination library with the config array */
+            $this->pagination->initialize($config);
+
+            echo $this->pagination->create_links();
+
             $this->smarty->assign($this->datos);
             $this->smarty->display('productos.tpl');
         }

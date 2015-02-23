@@ -23,7 +23,7 @@ class MY_Controller extends CI_Controller
         {
             $this->datos['session']='Invitado';
         }
-
+        $this->datos['contenido_carrito']=$this->cart->total_items();
         $this->smarty = new Smarty;
         $this->smarty->setTemplateDir(FCPATH . 'application/views/templates');
         // other common stuff; for example you may want a global cart, login/logout, etc.

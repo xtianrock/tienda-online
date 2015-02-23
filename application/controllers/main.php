@@ -22,20 +22,10 @@ class Main extends MY_Controller {
         $this->smarty->assign($this->datos);
         $this->smarty->display('home.tpl');
     }
-    public function productos($categoria,$idProducto=null)
+    public function productos($categoria)
     {
-        $this->datos['uri']= $this->uri->uri_string();
-        if($idProducto)
-        {
-            $this->datos['producto'] =stockUpdate($this->cart->contents(),$this->Modelo_tienda->getProducto($idProducto));
-            $this->datos['cantidad'] = $this->Modelo_tienda->getProducto($idProducto);
-            $this->datos['titulo'] =  $this->datos['producto']->nombre_producto;
-            $this->smarty->assign($this->datos);
-            $this->smarty->display('detalles.tpl');
-        }
-        else
-        {
-            $idCategoria=$this->Modelo_tienda->getCatByName($categoria);
+            $this->datos['uri']= $this->uri->uri_string();
+            $idCategoria=$this->Modelo_tienda->getCatByName($categoria)->id_cat;
             $this->datos['agregado_carrito']=$this->session->flashdata('agregado');
             $this->datos['categoria']=$categoria;
             //recupero los productos de la base de datos,
@@ -43,7 +33,7 @@ class Main extends MY_Controller {
             $this->datos['productos'] =stockUpdate($this->cart->contents(),$this->Modelo_tienda->getProductos($idCategoria));
             $this->datos['titulo'] =$categoria;
 
-            $config['base_url'] = site_url('main/productos');
+            $config['base_url'] = site_url('main/productos/'.$this->Modelo_tienda->getCatByName($categoria)->nombre_cat);
             $config['total_rows'] = sizeof($this->datos['productos']);
             $config['per_page'] =5;
 
@@ -51,11 +41,20 @@ class Main extends MY_Controller {
             /* Initialize the pagination library with the config array */
             $this->pagination->initialize($config);
 
-            echo $this->pagination->create_links();
+            $this->datos['paginador'] = $this->pagination->create_links();
 
             $this->smarty->assign($this->datos);
             $this->smarty->display('productos.tpl');
-        }
+    }
+
+    public function producto($categoria,$idProducto)
+    {
+        $this->datos['uri']= $this->uri->uri_string();
+        $this->datos['producto'] =stockUpdate($this->cart->contents(),$this->Modelo_tienda->getProducto($idProducto));
+        $this->datos['cantidad'] = $this->Modelo_tienda->getProducto($idProducto);
+        $this->datos['titulo'] =  $this->datos['producto']->nombre_producto;
+        $this->smarty->assign($this->datos);
+        $this->smarty->display('detalles.tpl');
     }
 
     public function carrito()

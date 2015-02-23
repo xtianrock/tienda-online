@@ -54,7 +54,7 @@ class modelo_tienda extends CI_Model{
 
     public function getCatByName($categoria)
     {
-        return $this->db->from('categoria')->where('nombre_cat',$categoria)->get()->row()->id_cat;
+        return $this->db->from('categoria')->where('nombre_cat',$categoria)->get()->row();
     }
     public function getCategorias()
     {

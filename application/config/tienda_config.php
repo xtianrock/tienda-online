@@ -12,5 +12,6 @@ $config=array(
         'mail'=>'MtgStore.com',
         'direccion'=>'Avd Francisco Rojas nº132',
         'cp'=>'21465'
-    )
+    ),
+    $articulosPagina=6
 );

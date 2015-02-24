@@ -32,7 +32,7 @@
                         </a>
                         <ul class="dropdown-menu" role="menu">
                             {foreach $categorias->result() as $item}
-                                <li><a href="{$smarty.const.BASEURL}index.php/main/productos/{$item->nombre_cat}">{$item->nombre_cat}</a></li>
+                                <li><a href="{$smarty.const.BASEURL}index.php/main/categorias/{$item->nombre_cat}">{$item->nombre_cat}</a></li>
                             {/foreach}
                         </ul>
                     </li>

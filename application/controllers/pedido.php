@@ -16,7 +16,6 @@ class Pedido extends MY_Controller {
         $this->load->library('pdf');
         $this->load->library('email');
         $this->load->helper('stock');
-        $this->config->load('pedido_config');
     }
 
     public function procesarCompra()

@@ -25,21 +25,33 @@ class modelo_tienda extends CI_Model{
         }
         return $productos;
     }
+    public function countProductos($categoria)
+    {
+        if($categoria==0)
+        {
+            return $this->db->from('productos')->count_all_results();
+        }
+        else
+        {
+            return $this->db->from('productos')->where('categoria_id_cat',$categoria)->count_all_results();
+        }
+
+    }
 
     public function getProducto($id_producto)
     {
         return $this->db->from('productos')->where('id_producto',$id_producto)->get()->row();
     }
 
-    public function getProductos($categoria=null)
+    public function getProductos($categoria,$inicio,$elementos)
     {
-        if($categoria)
+        if($categoria==0)
         {
-            return $this->db->from('productos')->where('categoria_id_cat',$categoria)->get()->result();
+            return $this->db->from('productos')->limit($elementos,$inicio)->get()->result();
         }
         else
         {
-            return $this->db->from('productos')->get();
+            return $this->db->from('productos')->where('categoria_id_cat',$categoria)->limit($elementos,$inicio)->get()->result();         
         }
     }
 

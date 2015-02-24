@@ -22,20 +22,24 @@ class Main extends MY_Controller {
         $this->smarty->assign($this->datos);
         $this->smarty->display('home.tpl');
     }
-    public function productos($categoria)
+    public function categorias($categoria,$inicio=0)
     {
+            $articulosPagina=3;
             $this->datos['uri']= $this->uri->uri_string();
             $idCategoria=$this->Modelo_tienda->getCatByName($categoria)->id_cat;
             $this->datos['agregado_carrito']=$this->session->flashdata('agregado');
             $this->datos['categoria']=$categoria;
             //recupero los productos de la base de datos,
             // y actualizo su stock mediante el uso de la funcion muestraStock contenida en el stock_helper
-            $this->datos['productos'] =stockUpdate($this->cart->contents(),$this->Modelo_tienda->getProductos($idCategoria));
+            $totalProductos =$this->Modelo_tienda->countProductos($idCategoria);
+            $this->datos['productos'] =stockUpdate($this->cart->contents(),$this->Modelo_tienda->getProductos($idCategoria,$inicio,$articulosPagina));
             $this->datos['titulo'] =$categoria;
 
-            $config['base_url'] = site_url('main/productos/'.$this->Modelo_tienda->getCatByName($categoria)->nombre_cat);
-            $config['total_rows'] = sizeof($this->datos['productos']);
-            $config['per_page'] =5;
+
+            $config['base_url'] = site_url('main/categorias/'.$this->Modelo_tienda->getCatByName($categoria)->nombre_cat);
+            $config['total_rows'] = $totalProductos;
+            $config['per_page'] =$articulosPagina;
+            $config['uri_segment'] =4;
 
 
             /* Initialize the pagination library with the config array */
@@ -46,6 +50,7 @@ class Main extends MY_Controller {
             $this->smarty->assign($this->datos);
             $this->smarty->display('productos.tpl');
     }
+
 
     public function producto($categoria,$idProducto)
     {

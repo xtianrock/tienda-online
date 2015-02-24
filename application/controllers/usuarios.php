@@ -44,12 +44,12 @@ class Usuarios extends MY_Controller
             }
             $this->session->set_userdata($datos_usuario);
             if($this->session->flashdata('requiere_login'))
-                redirect('pedido/cresumenCmpra');
+                redirect('pedido/resumenCompra');
             else
                 redirect('main');
         }
         if($this->session->flashdata('requiere_login'))
-            $this->session->set_flashdata('requiere_login',TRUE);
+            $this->session->set_flashdata('requiere_login',' ');
         $this->smarty->assign($this->datos);
         $this->smarty->display('login.tpl');
     }

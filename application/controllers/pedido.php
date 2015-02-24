@@ -16,6 +16,7 @@ class Pedido extends MY_Controller {
         $this->load->library('pdf');
         $this->load->library('email');
         $this->load->helper('stock');
+
     }
 
     public function procesarCompra()
@@ -106,6 +107,13 @@ class Pedido extends MY_Controller {
 
     public function factura($idPedido)
     {
+        $datosEmpresa=Array(
+            'nombre'=>'Mtg Store S.L.',
+            'dni'=>'B-01234567',
+            'mail'=>'MtgStore.com',
+            'direccion'=>'Avd Francisco Rojas nº132',
+            'cp'=>'21465'
+        );
         $pdf = new PDF();
         $pdf->AliasNbPages();
         $pdf->AddPage();
@@ -114,10 +122,11 @@ class Pedido extends MY_Controller {
         $pdf->SetFillColor(192);
         $datospedido=$this->Modelo_venta->getPedido($idPedido);
         $lineaspedido=$this->Modelo_venta->getLineaPedido($idPedido);
-        $pdf->datosVendedor(15,40,$this->config->item('datosEmpresa'));
+        $pdf->datosVendedor(15,40,$datosEmpresa);
         $pdf->datoscliente(105,40,$datospedido);
         $pdf->datosfactura(15,100,$datospedido);
         $pdf->resumen(15,120,sizeof($lineaspedido),$datospedido->importe);
+
 
         $i=0;
         foreach ($lineaspedido as $linea)

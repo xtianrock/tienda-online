@@ -73,7 +73,7 @@ class Pdf extends FPDF
         $this->RoundedRect($x, $y, 85, 50, 3.5, 'DF');
         $this->SetXY($x+5,$y-10);
         $this->Cell(20,10,'Datos Vendedor:',0,1);
-        $this->Line($x+6,$y-3,$x+31,$y-3);
+        $this->Line($x+6,$y-3,$x+35,$y-3);
         $this->SetXY($x+5,$y);
         $this->Cell(20,10,$datos['nombre'],0,1);
         $this->SetXY($x+5,$y+10);
@@ -91,7 +91,7 @@ class Pdf extends FPDF
         $this->RoundedRect($x, $y, 85, 50, 3.5, 'DF');
         $this->SetXY($x+5,$y-10);
         $this->Cell(20,10,'Datos Cliente:',0,1);
-        $this->Line($x+6,$y-3,$x+31,$y-3);
+        $this->Line($x+6,$y-3,$x+30,$y-3);
         $this->SetXY($x+5,$y);
         $this->Cell(20,10,$datos->nombre,0,1);
         $this->SetXY($x+5,$y+10);

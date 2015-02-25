@@ -12,8 +12,6 @@ class MY_Controller extends CI_Controller
     {
         parent::__construct();
         $this->datos['categorias'] = $this->Modelo_tienda->getCategorias();
-
-
         //Si el usuario no ha iniciado sesion sera tratado como invitado.
         if($this->session->userdata('usuario'))
         {
@@ -26,7 +24,7 @@ class MY_Controller extends CI_Controller
         $this->datos['contenido_carrito']=$this->cart->total_items();
         $this->smarty = new Smarty;
         $this->smarty->setTemplateDir(FCPATH . 'application/views/templates');
-        // other common stuff; for example you may want a global cart, login/logout, etc.
+
     }
 
 

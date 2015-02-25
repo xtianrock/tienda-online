@@ -13,6 +13,19 @@ class Pedido extends MY_Controller {
     public function __construct()
     {
         parent::__construct();
+        $this->datos['categorias'] = $this->Modelo_tienda->getCategorias();
+        //Si el usuario no ha iniciado sesion sera tratado como invitado.
+        if($this->session->userdata('usuario'))
+        {
+            $this->datos['session']=$this->session->userdata('usuario');
+        }
+        else
+        {
+            $this->datos['session']='Invitado';
+        }
+        $this->datos['contenido_carrito']=$this->cart->total_items();
+        $this->smarty = new Smarty;
+        $this->smarty->setTemplateDir(FCPATH . 'application/views/templates');
         $this->load->library('pdf');
         $this->load->helper('stock');
     }

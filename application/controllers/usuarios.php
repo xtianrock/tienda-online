@@ -22,6 +22,7 @@ class Usuarios extends MY_Controller
 
     public function login()
     {
+        $this->datos['titulo'] ='Login';
         $this->datos['usuario_insertado']=$this->session->flashdata('usuario_insertado');
         $this->datos['requiere_login']=$this->session->flashdata('requiere_login');
         if ($this->form_validation->run('login') == FALSE)
@@ -56,6 +57,7 @@ class Usuarios extends MY_Controller
 
     public function registro()
     {
+        $this->datos['titulo'] ='Registro';
         $this->datos['provincias'] = $this->Modelo_tienda->getProvincias();
 
         if ($this->form_validation->run('registro') == FALSE)
@@ -66,6 +68,11 @@ class Usuarios extends MY_Controller
         else if($this->Modelo_usuarios->getUserByName($this->input->post('usuario')))
         {
             $this->datos['mensaje']="Ya existe un usuario con el nombre de usuario ".$this->input->post('usuario').'.';
+            $vista='registro.tpl';
+        }
+        else if($this->Modelo_usuarios->getUserByMail($this->input->post('mail')))
+        {
+            $this->datos['mensaje']="Ya existe un usuario con el Email: ".$this->input->post('mail').'.';
             $vista='registro.tpl';
         }
         else if($this->input->post('password')!=$this->input->post('confirmPassword'))
@@ -91,6 +98,84 @@ class Usuarios extends MY_Controller
         $this->session->sess_destroy();
         redirect('main');
     }
+
+    public function resetPassword()
+    {
+        $this->datos['titulo'] ='Restableciendo contraseña';
+        if ($this->form_validation->run('email') == FALSE)
+        {
+            $this->datos['mensaje']=validation_errors();
+            $vista='email.tpl';
+        }
+        else if(!$usuario=$this->Modelo_usuarios->getUserByMail($this->input->post('mail')))
+        {
+            $this->datos['mensaje']='No existe ningun usuario con ese Email';
+            $vista='email.tpl';
+        }
+        else
+        {
+            $usuario=$this->Modelo_usuarios->getUserByMail($this->input->post('mail'));
+            $cadena=$usuario->id_usuario.$usuario->usuario.rand(1,9999999).date('Y-m-d');
+            $token=sha1($cadena);
+            $datos=array(
+                'id_usuario'=> $usuario->id_usuario,
+                'usuario'=>$usuario->usuario,
+                'token'=>$token,
+                'fecha'=>date('Y-m-d')
+            );
+            $this->Modelo_usuarios->addReset($datos);
+            $enlace = BASEURL.'index.php/usuarios/newPassword/'.$token;
+            $this->enviarMail($usuario->mail,$enlace);
+            $this->datos['mensaje']='Se ha enviado un link de restablecimiento a su direccion de correo.';
+            $vista='email.tpl';
+        }
+        $this->smarty->assign($this->datos);
+        $this->smarty->display($vista);
+    }
+    public function newPassword($token)
+    {
+        $this->datos['titulo'] ='Restableciendo contraseña';
+        if(!$reset=$this->Modelo_usuarios->getReset($token))
+        {
+            redirect('main');
+        }
+        else
+        {
+            if ($this->form_validation->run('password') == FALSE)
+            {
+                $this->datos['mensaje']=validation_errors();
+                $vista='password.tpl';
+            }
+            else if($this->input->post('password')!=$this->input->post('confirmPassword'))
+            {
+                $this->datos['mensaje']='Las contraseñas deben coincidir.';
+                $vista='password.tpl';
+            }
+            else
+            {
+                $this->Modelo_usuarios->resetPassword($reset->id_usuario,$this->input->post('password'));
+                $this->datos['mensaje']='La contraseña se ha modificado con exito.';
+                $vista='password.tpl';
+            }
+            $this->smarty->assign($this->datos);
+            $this->smarty->display($vista);
+        }
+
+    }
+
+    function enviarMail($mail,$enlace)
+    {
+        $this->email->initialize();
+        $this->email->from('xtianrock89@gmail.com', 'Prueba Autom�tica desde CI');
+        $this->email->to($mail);
+        $this->email->cc('xtianrock89@gmail.com');
+        //$this->email->bcc('them@their-example.com');
+        $this->email->subject('Restablecer contraseña');
+        $this->email->message($enlace);
+        $this->email->send();
+    }
+
+
 
 
 

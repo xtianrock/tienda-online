@@ -32,6 +32,21 @@ class Modelo_usuarios extends CI_Model{
     {
         return $this->db->from('usuario')->where('id_usuario',$id)->get()->row();
     }
+    public function getUserByMail($mail)
+    {
+        return $this->db->from('usuario')->where('mail',$mail)->get()->row();
+    }
+
+    public function addReset($datos)
+    {
+        $this->db->set($datos);
+        $this->db->insert('reset_password');
+    }
+
+    public function getReset($token)
+    {
+        return $this->db->from('reset_password')->where('token',$token)->get()->row();
+    }
 
     public function login($datos)
     {
@@ -40,6 +55,24 @@ class Modelo_usuarios extends CI_Model{
             return TRUE;
         else
             return FALSE;
+    }
+
+    public function resetPassword($idUsuario,$password)
+    {
+        /*
+         * con este codigo creo el evento que se ejecutará cada 12 horas eliminando los links que tengan mas d eun dia de antiguaedad
+         *
+         CREATE EVENT eliminaLinks
+         ON SCHEDULE EVERY 12 HOUR
+         do
+         DELETE FROM reset_password WHERE fecha <= DATE_SUB(CURTIME(), INTERVAL 1 DAY)
+         */
+        $data = array(
+            'password' => password_hash($password,PASSWORD_DEFAULT)
+        );
+
+        $this->db->where('id_usuario', $idUsuario);
+        $this->db->update('usuario', $data);
     }
 
 } 

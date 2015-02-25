@@ -14,9 +14,7 @@ class Pedido extends MY_Controller {
     {
         parent::__construct();
         $this->load->library('pdf');
-        $this->load->library('email');
         $this->load->helper('stock');
-
     }
 
     public function procesarCompra()
@@ -82,9 +80,6 @@ class Pedido extends MY_Controller {
     public function correo($idPedido)
     {
         $datospedido=$this->Modelo_venta->getPedido($idPedido);
-        echo '<pre>';
-        print_r($datospedido);
-        echo '</pre>';
         $this->email->initialize();
         $this->email->from('xtianrock89@gmail.com', 'Prueba Autom�tica desde CI');
         $this->email->to($datospedido->mail);

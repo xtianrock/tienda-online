@@ -25,9 +25,7 @@
 						<label for="inputPassword" class="sr-only">Contraseña</label>
 						<input name="password" type="password" id="inputPassword" class="form-control" placeholder="Contraserña" value="{ci helper='form' function='set_value' value='password'}" >
 						<div class="checkbox">
-							<label>
-								<input type="checkbox" value="remember-me"> Recordar usuario
-							</label>
+							<a href="{$smarty.const.BASEURL}index.php/usuarios/resetpassword">¿Olvido su contraseña?</a>
 						</div>
 
 						<button class="btn btn-lg btn-primary btn-block" type="submit">Conectar</button>

@@ -37,10 +37,10 @@
             </div>
             <div class="inputs-derecha">
                 <label for="inputPassword" class="control-label">Contraseña</label>
-                <input name="password" type="text" id="inputPassword" class="form-control" placeholder="Contraseña" value="{ci helper='form' function='set_value' value='password'}"  >
+                <input name="password" type="password" id="inputPassword" class="form-control" placeholder="Contraseña" value="{ci helper='form' function='set_value' value='password'}"  >
 
                 <label for="inputConfirmPassword" class="control-label">Confirmar contraseña</label>
-                <input name="confirmPassword" type="text" id="inputConfirmPassword" class="form-control" placeholder="Contraseña" value="{ci helper='form' function='set_value' value='confirmPassword'}"  >
+                <input name="confirmPassword" type="password" id="inputConfirmPassword" class="form-control" placeholder="Contraseña" value="{ci helper='form' function='set_value' value='confirmPassword'}"  >
 
                 <label for="inputNombre" class="control-label">Nombre</label>
                 <input name="nombre" type="text" id="inputNombre" class="form-control" placeholder="Nombre" value="{ci helper='form' function='set_value' value='nombre'}" >

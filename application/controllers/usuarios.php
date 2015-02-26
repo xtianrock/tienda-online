@@ -6,7 +6,7 @@
  * Date: 06/02/2015
  * Time: 2:35
  */
-class Usuarios extends MY_Controller
+class Usuarios extends CI_Controller
 {
     public function __construct()
     {
@@ -58,9 +58,9 @@ class Usuarios extends MY_Controller
             }
             $this->session->set_userdata($datos_usuario);
             if($this->session->flashdata('requiere_login'))
-                redirect('pedido/resumenCompra');
+                redirect(BASEURL.'index.php/pedido/resumenCompra');
             else
-                redirect('main');
+                redirect(BASEURL.'index.php/main');
         }
         if($this->session->flashdata('requiere_login'))
             $this->session->set_flashdata('requiere_login',' ');
@@ -98,7 +98,7 @@ class Usuarios extends MY_Controller
             unset($_POST['confirmPassword']);
             $mensaje=$this->Modelo_usuarios->addUser($this->input->post());
             $this->session->set_flashdata('usuario_insertado',$mensaje);
-            redirect('usuarios/login');
+            redirect(BASEURL.'index.php/usuarios/login');
         }
         $this->smarty->assign($this->datos);
         $this->smarty->display($vista);
@@ -109,7 +109,7 @@ class Usuarios extends MY_Controller
         $array_sesiones = array('usuario' => '', 'logueado' => '');
         $this->session->unset_userdata($array_sesiones);
         $this->session->sess_destroy();
-        redirect('main');
+        redirect(BASEURL.'index.php/main');
     }
 
     public function resetPassword()
@@ -137,7 +137,7 @@ class Usuarios extends MY_Controller
                 'fecha'=>date('Y-m-d')
             );
             $this->Modelo_usuarios->addReset($datos);
-            $enlace = BASEURL.'index.php/usuarios/newPassword/'.$token;
+            $enlace = BASEURL.'usuarios/newPassword/'.$token;
             $this->enviarMail($usuario->mail,$enlace);
             $this->datos['mensaje']='Se ha enviado un link de restablecimiento a su direccion de correo.';
             $vista='email.tpl';
@@ -150,7 +150,7 @@ class Usuarios extends MY_Controller
         $this->datos['titulo'] ='Restableciendo contraseña';
         if(!$reset=$this->Modelo_usuarios->getReset($token))
         {
-            redirect('main');
+            redirect(BASEURL.'index.php/main');
         }
         else
         {

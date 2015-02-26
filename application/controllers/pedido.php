@@ -8,7 +8,7 @@
 
 
 
-class Pedido extends MY_Controller {
+class Pedido extends CI_Controller {
 
     public function __construct()
     {
@@ -37,12 +37,12 @@ class Pedido extends MY_Controller {
         if (!$this->cart->contents())
         {
            $this->session->set_flashdata('carrito_vacio','El carrito está vacio');
-            redirect('pedido/resumenCompra');
+            redirect(BASEURL.'index.php/pedido/resumenCompra');
         }
         elseif($articulosSinStock=stockCheck($this->cart->contents(),$this->Modelo_tienda->getStock()))
         {
             $this->session->set_flashdata('sin_stock','Los siguientes articulos carecen de stock suficiente: '.implode(", ",$articulosSinStock));
-            redirect('pedido/resumenCompra');
+            redirect(BASEURL.'index.php/pedido/resumenCompra');
 
         }
         else
@@ -86,7 +86,7 @@ class Pedido extends MY_Controller {
             $this->Modelo_venta->addLineaPedido($datosLinea);
             $this->Modelo_tienda->actualizarStock($datosStock,'id_producto');
             $this->cart->destroy();
-            redirect('pedido/factura/'.$idPedido);
+            redirect(BASEURL.'index.php/pedido/factura/'.$idPedido);
         }
     }
 
@@ -146,7 +146,7 @@ class Pedido extends MY_Controller {
         }
 
         $pdf->Output('Factura_pedido_'.$idPedido.'.pdf','F');
-        redirect('pedido/correo/'.$idPedido);
+        redirect(BASEURL.'index.php/pedido/correo/'.$idPedido);
     }
 
     public function resumenCompra()
@@ -154,7 +154,7 @@ class Pedido extends MY_Controller {
         if(!$this->session->userdata('logueado'))
         {
             $this->session->set_flashdata('requiere_login','Es necesario que inicie sesión para continuar con el proceso de compra');
-            redirect('usuarios/login/compra');
+            redirect(BASEURL.'index.php/usuarios/login/compra');
         }
         else
         {

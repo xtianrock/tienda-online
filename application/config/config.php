@@ -15,6 +15,7 @@
 |
 */
 $config['base_url']	= 'http://localhost/tienda-online/';
+//$config['base_url']	= 'http://iessansebastian.com/alumnos/2daw1415/cristian/';
 
 /*
 |--------------------------------------------------------------------------

@@ -23,7 +23,19 @@ class Servicio extends JSON_WebServer_Controller {
 
 	public function Lista($offset, $limit)
 	{
-		return $this->Modelo_servicio->Lista($offset, $limit);
+		$destacados=$this->Modelo_servicio->Lista($offset, $limit);
+		foreach ($destacados as $destacado) {
+			$producto = $this->db->select('id_producto,nombre_producto,descripcion,precio_producto,imagen_producto')->from('productos')->where('id_producto', $destacado->productos_id_producto)->get()->row();
+			$categoria = $this->db->select('nombre_cat')->from('categoria')->where('id_cat', $destacado->productos_categoria_id_cat)->get()->row();
+			$listaProductosDevolver[] = array(
+				'nombre' => $producto->nombre_producto,
+				'descripcion' => $producto->descripcion,
+				'precio' => $producto->precio_producto,
+				'img' => BASEURL.'/assets/img/'.$producto->imagen_producto,
+				'url' => BASEURL . 'index.php/main/producto/'.$categoria->nombre_cat.'/'.$producto->id_producto
+			);
+		}
+		return $listaProductosDevolver;
 	}
 
 

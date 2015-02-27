@@ -43,7 +43,7 @@ class modelo_tienda extends CI_Model{
         return $this->db->from('productos')->where('id_producto',$id_producto)->get()->row();
     }
 
-    public function getProductos($categoria,$inicio,$elementos)
+    public function getProductos($categoria,$inicio=0,$elementos=99999)
     {
         if($categoria==0)
         {
@@ -70,7 +70,7 @@ class modelo_tienda extends CI_Model{
     }
     public function getCategorias()
     {
-      return $this->db->from('categoria')->get();
+      return $this->db->from('categoria')->get()->result();
 
     }
     public function getProvincias()
@@ -94,6 +94,16 @@ class modelo_tienda extends CI_Model{
     public function getStockById($id)
     {
         return $this->db->select('stock')->from('productos')->where('id_producto',$id)->get()->row()->stock;
+    }
+
+    public function addProducto($datos)
+    {
+        $this->db->insert('productos', $datos);
+    }
+
+    public function addCategoria($datos)
+    {
+        $this->db->insert('categoria', $datos);
     }
 
 

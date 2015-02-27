@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 25-02-2015 a las 02:45:10
+-- Tiempo de generación: 27-02-2015 a las 03:46:32
 -- Versión del servidor: 5.6.21
 -- Versión de PHP: 5.6.3
 
@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `categoria` (
   `anuncio_cat` text,
   `visible` tinyint(1) DEFAULT NULL,
   `cod_cat` varchar(45) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `categoria`
@@ -148,7 +148,7 @@ CREATE TABLE IF NOT EXISTS `productos` (
   `categoria_id_cat` int(11) NOT NULL,
   `visible` tinyint(1) DEFAULT NULL,
   `cod_producto` varchar(15) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=69 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `productos`
@@ -298,7 +298,7 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   `provincias_id_provincia` int(11) NOT NULL,
   `rol` enum('Administrador','Usuario') DEFAULT NULL,
   `activo` tinyint(1) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `usuario`
@@ -315,7 +315,7 @@ INSERT INTO `usuario` (`id_usuario`, `usuario`, `password`, `mail`, `nombre`, `a
 -- Indices de la tabla `categoria`
 --
 ALTER TABLE `categoria`
- ADD PRIMARY KEY (`id_cat`), ADD UNIQUE KEY `cod_cat_UNIQUE` (`cod_cat`);
+ ADD PRIMARY KEY (`id_cat`);
 
 --
 -- Indices de la tabla `destacado`
@@ -339,7 +339,7 @@ ALTER TABLE `pedido`
 -- Indices de la tabla `productos`
 --
 ALTER TABLE `productos`
- ADD PRIMARY KEY (`id_producto`,`categoria_id_cat`), ADD UNIQUE KEY `cod_producto_UNIQUE` (`cod_producto`), ADD KEY `fk_productos_categoria_idx` (`categoria_id_cat`);
+ ADD PRIMARY KEY (`id_producto`,`categoria_id_cat`), ADD KEY `fk_productos_categoria_idx` (`categoria_id_cat`);
 
 --
 -- Indices de la tabla `provincias`
@@ -367,7 +367,7 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `categoria`
 --
 ALTER TABLE `categoria`
-MODIFY `id_cat` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
+MODIFY `id_cat` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=23;
 --
 -- AUTO_INCREMENT de la tabla `pedido`
 --
@@ -377,7 +377,7 @@ MODIFY `id_pedido` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=90;
 -- AUTO_INCREMENT de la tabla `productos`
 --
 ALTER TABLE `productos`
-MODIFY `id_producto` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=36;
+MODIFY `id_producto` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=69;
 --
 -- AUTO_INCREMENT de la tabla `reset_password`
 --
@@ -387,7 +387,7 @@ MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=52;
+MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=45;
 --
 -- Restricciones para tablas volcadas
 --
@@ -422,14 +422,6 @@ ADD CONSTRAINT `fk_productos_categoria` FOREIGN KEY (`categoria_id_cat`) REFEREN
 --
 ALTER TABLE `usuario`
 ADD CONSTRAINT `fk_usuario_provincias1` FOREIGN KEY (`provincias_id_provincia`) REFERENCES `provincias` (`id_provincia`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
-DELIMITER $$
---
--- Eventos
---
-CREATE DEFINER=`root`@`localhost` EVENT `eliminaLinks` ON SCHEDULE EVERY 12 HOUR STARTS '2015-02-25 02:39:59' ON COMPLETION NOT PRESERVE ENABLE DO DELETE FROM reset_password WHERE fecha <= DATE_SUB(CURTIME(), INTERVAL 1 DAY)$$
-
-DELIMITER ;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

@@ -31,15 +31,22 @@
                             Categorias <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu" role="menu">
-                            {foreach $categorias->result() as $item}
+                            {foreach $categorias as $item}
                                 <li><a href="{$smarty.const.BASEURL}index.php/main/categorias/{$item->nombre_cat}">{$item->nombre_cat}</a></li>
                             {/foreach}
                         </ul>
                     </li>
                     <li><a href="{$smarty.const.BASEURL}index.php/usuarios/login">Login</a></li>
                     <li><a href="{$smarty.const.BASEURL}index.php/main/carrito">Carrito <span class="badge">{$contenido_carrito}</span></a></li>
-                    <li><a href="#">Elemento3</a></li>
-                    <li><a href="#">Elemento4</a></li>
+                    <li role="presentation" class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">
+                            XML <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="{$smarty.const.BASEURL}index.php/main/xml/exportar/">Exportar</a></li>
+                            <li><a href="{$smarty.const.BASEURL}index.php/main/xml/importar/">Importar</a></li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
             <div class="col-xs-2">

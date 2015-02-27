@@ -120,7 +120,68 @@ class Main extends CI_Controller {
     }
 
 
+    public function xml($accion)
+    {
+        if ($accion=='exportar')
+        {
 
+            $productos=$this->Modelo_tienda->getProductos(0);
+            $categorias=$this->Modelo_tienda->getCategorias();
+            //Con esto lo exportamos, basicamente creamos un string en lenguaje xml y lo guardamos en un fichero.
+            $this->exportar('productos',$productos,'producto');
+            $this->exportar('categoria',$categorias,'categoria');
+            $this->datos['mensaje']='los productos y categorias han sido correctamente exportados';
+            $this->datos['enlaces']=TRUE;
+        }
+        else if($accion=='importar')
+        {
+            //Con esto otro cargamos el fichero y lo convertimos en un objeto simpleXml
+            $productos=simplexml_load_file("productos.xml");
+            $categorias=simplexml_load_file("categoria.xml");
+            foreach ($categorias as $categoria)
+            {
+                unset($categoria->id_cat);
+                $this->Modelo_tienda->addCategoria($categoria);
+            }
+            foreach ($productos as $producto)
+            {
+                unset($producto->id_producto);
+                $this->Modelo_tienda->addProducto($producto);
+            }
+            $this->datos['mensaje']='los productos y categorias han sido correctamente importados';
+        }
+        $this->datos['titulo']='XML';
+        $this->smarty->assign($this->datos);
+        $this->smarty->display('xml.tpl');
+    }
+
+    public function ver_xml($archivo)
+    {
+        header('Content-Type: text/xml');
+        readfile($archivo);
+    }
+
+
+    private function exportar($tabla,$datos,$nombreElemento)
+    {
+        $xml= "<?xml version=\"1.0\" ?>";
+        $xml.='<'.$tabla.'>';
+        foreach ($datos as $dato)
+        {
+            $xml.='<'.$nombreElemento.'>';
+            foreach ($dato as $campo=>$valorCampo)
+            {
+                $xml.='<'.$campo.'>'.utf8_encode($valorCampo).'</'.$campo.'>';
+            }
+            $xml.='</'.$nombreElemento.'>';
+        }
+        $xml.='</'.$tabla.'>';
+        file_put_contents($tabla.".xml",$xml);
+        //header('Content-Type: text/xml');
+        //readfile($tabla.'.xml');
+
+
+    }
 
 
 

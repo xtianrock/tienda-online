@@ -38,15 +38,7 @@
                     </li>
                     <li><a href="{$smarty.const.BASEURL}index.php/usuarios/login">Login</a></li>
                     <li><a href="{$smarty.const.BASEURL}index.php/main/carrito">Carrito <span class="badge">{$contenido_carrito}</span></a></li>
-                    <li role="presentation" class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">
-                            XML <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a href="{$smarty.const.BASEURL}index.php/main/xml/exportar/">Exportar</a></li>
-                            <li><a href="{$smarty.const.BASEURL}index.php/main/xml/importar/">Importar</a></li>
-                        </ul>
-                    </li>
+                    <li><a href="{$smarty.const.BASEURL}index.php/main/xml">XML</a></li>
                 </ul>
             </div>
             <div class="col-xs-2">
@@ -56,40 +48,7 @@
         </div>
     </div>
 {/block}
-{block name=menu}
-<div class="row">
-    <div class="col-sm-2">
-        <div id="menu" class="sidebar-nav">
-            <div class="navbar navbar-default" role="navigation">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-navbar-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <span class="visible-xs navbar-brand">Sidebar menu</span>
-                </div>
-                <div class="navbar-collapse collapse sidebar-navbar-collapse">
-                    <ul class="nav navbar-nav">
-                        <li class="active"><a href="#">Menu Item 1</a></li>
-                        <li><a href="#">Menu Item 2</a></li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Categorias <b class="caret"></b></a>
-                            <ul class="dropdown-menu">
-                                {foreach $categorias->result() as $item}
-                                    <li><a href="{$smarty.const.BASEURL}index.php/main/categoria/{$item->id_cat}">{$item->nombre_cat}</a></li>
-                                {/foreach}
-                            </ul>
-                        </li>
-                        <li><a href="#">Menu item 4</a></li>
-                        <li><a href="#">Reviews <span class="badge">1,118</span></a></li>
-                    </ul>
-                </div><!--/.nav-collapse -->
-            </div>
-        </div>
-    </div>
-    {/block}
+
 {block name=destacados}
     <div class="col-sm-10 col-sm-offset-1">
         <div id="destacados" class="jumbotron">

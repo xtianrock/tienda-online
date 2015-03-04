@@ -4,6 +4,7 @@
 {block name=destacados }{/block}
 
 
+
 	{block name=contenido}
 
 

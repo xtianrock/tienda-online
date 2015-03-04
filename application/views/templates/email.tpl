@@ -2,8 +2,6 @@
 {extends 'master.tpl'}
 
 {block name=destacados }{/block}
-
-
 	{block name=contenido}
 
 

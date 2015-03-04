@@ -118,41 +118,42 @@ class Main extends CI_Controller {
         $this->session->set_flashdata('agregado', 'El producto fue agregado correctamente');
         redirect( BASEURL.'index.php/'.$_POST['uri'], 'refresh');
     }
-
-
-    public function xml($accion)
+    public function xml()
     {
-        if ($accion=='exportar')
-        {
-
-            $productos=$this->Modelo_tienda->getProductos(0);
-            $categorias=$this->Modelo_tienda->getCategorias();
-            //Con esto lo exportamos, basicamente creamos un string en lenguaje xml y lo guardamos en un fichero.
-            $this->exportar('productos',$productos,'producto');
-            $this->exportar('categoria',$categorias,'categoria');
-            $this->datos['mensaje']='los productos y categorias han sido correctamente exportados';
-            $this->datos['enlaces']=TRUE;
-        }
-        else if($accion=='importar')
-        {
-            //Con esto otro cargamos el fichero y lo convertimos en un objeto simpleXml
-            $productos=simplexml_load_file("productos.xml");
-            $categorias=simplexml_load_file("categoria.xml");
-            foreach ($categorias as $categoria)
-            {
-                unset($categoria->id_cat);
-                $this->Modelo_tienda->addCategoria($categoria);
-            }
-            foreach ($productos as $producto)
-            {
-                unset($producto->id_producto);
-                $this->Modelo_tienda->addProducto($producto);
-            }
-            $this->datos['mensaje']='los productos y categorias han sido correctamente importados';
-        }
+        $this->smarty->display('xml.tpl');
+    }
+    public function exportar()
+    {
+        $productos=$this->Modelo_tienda->getProductos(0);
+        $categorias=$this->Modelo_tienda->getCategorias();
+        //Con esto lo exportamos, basicamente creamos un string en lenguaje xml y lo guardamos en un fichero.
+        $this->exportarDatos('productos',$productos,'producto');
+        $this->exportarDatos('categoria',$categorias,'categoria');
+        $this->datos['mensaje']='los productos y categorias han sido correctamente exportados';
+        $this->datos['enlaces']=TRUE;
         $this->datos['titulo']='XML';
         $this->smarty->assign($this->datos);
-        $this->smarty->display('xml.tpl');
+        $this->smarty->display('xml-resultado.tpl');
+    }
+    public function importar()
+    { //Con esto otro cargamos el fichero y lo convertimos en un objeto simpleXml
+        $productos=simplexml_load_file("productos.xml");
+        $categorias=simplexml_load_file("categoria.xml");
+        foreach ($categorias as $categoria)
+        {
+            unset($categoria->id_cat);
+            $this->Modelo_tienda->addCategoria($categoria);
+        }
+        foreach ($productos as $producto)
+        {
+            unset($producto->id_producto);
+            $this->Modelo_tienda->addProducto($producto);
+        }
+        $this->datos['mensaje']='los productos y categorias han sido correctamente importados';
+        $this->datos['enlaces']=FALSE;
+        $this->datos['titulo']='XML';
+        $this->smarty->assign($this->datos);
+        $this->smarty->display('xml-resultado.tpl');
     }
 
     public function ver_xml($archivo)
@@ -162,7 +163,7 @@ class Main extends CI_Controller {
     }
 
 
-    private function exportar($tabla,$datos,$nombreElemento)
+    private function exportarDatos($tabla,$datos,$nombreElemento)
     {
         $xml= "<?xml version=\"1.0\" ?>";
         $xml.='<'.$tabla.'>';

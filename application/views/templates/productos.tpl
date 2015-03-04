@@ -1,7 +1,6 @@
 
 {extends 'master.tpl'}
 
-{block name="menu"}{/block}
 {block name="destacados"}{/block}
 
 	{block name=contenido}

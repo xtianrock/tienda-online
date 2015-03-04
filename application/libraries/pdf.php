@@ -6,14 +6,13 @@ class Pdf extends FPDF
 // Cabecera de página
     function Header()
     {
-        // Logo
-        $this->Image(BASEURL.'/assets/img/logo_tienda.png',10,8,33);
+
         // Arial bold 15
         $this->SetFont('Arial','B',15);
         // Movernos a la derecha
         $this->Cell(80);
         // Título
-        $this->Cell(30,10,'Factura',1,0,'C');
+        $this->Cell(30,10,'Lista de paises',1,0,'C');
         // Salto de línea
         $this->Ln(20);
     }
@@ -155,7 +154,7 @@ class Pdf extends FPDF
     {
         $y=($nLineas+2)*10;
         $this->SetXY(168,$y);
-        $this->Cell(20,10,$total,0,1);
+        $this->Cell(20,10,$total,0 ,1);
     }
 }
 

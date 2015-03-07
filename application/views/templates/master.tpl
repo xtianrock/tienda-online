@@ -38,7 +38,16 @@
                     </li>
                     <li><a href="{$smarty.const.BASEURL}index.php/usuarios/login">Login</a></li>
                     <li><a href="{$smarty.const.BASEURL}index.php/main/carrito">Carrito <span class="badge">{$contenido_carrito}</span></a></li>
-                    <li><a href="{$smarty.const.BASEURL}index.php/main/xml">XML</a></li>
+                    <li role="presentation" class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">
+                            XML <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="{$smarty.const.BASEURL}index.php/main/importar">Importar</a></li>
+                            <li><a href="{$smarty.const.BASEURL}index.php/main/exportar">Exportar</a></li>
+                        </ul>
+                    </li>
+
                 </ul>
             </div>
             <div class="col-xs-2">
@@ -70,11 +79,11 @@
         </div>
     </div>
 {/block}
-
+<div id="contenido">
 {block name=contenido}
 
 {/block}
-
+</div>
 
 {block name=footer}
     <div class="container">

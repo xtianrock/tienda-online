@@ -118,12 +118,9 @@ class Main extends CI_Controller {
         $this->session->set_flashdata('agregado', 'El producto fue agregado correctamente');
         redirect( BASEURL.'index.php/'.$_POST['uri'], 'refresh');
     }
-    public function xml()
-    {
-        $this->smarty->display('xml.tpl');
-    }
     public function exportar()
     {
+
         $productos=$this->Modelo_tienda->getProductos(0);
         $categorias=$this->Modelo_tienda->getCategorias();
         //Con esto lo exportamos, basicamente creamos un string en lenguaje xml y lo guardamos en un fichero.
@@ -132,24 +129,14 @@ class Main extends CI_Controller {
         $this->datos['mensaje']='los productos y categorias han sido correctamente exportados';
         $this->datos['enlaces']=TRUE;
         $this->datos['titulo']='XML';
+        $this->datos['ruta']= FCPATH;
         $this->smarty->assign($this->datos);
         $this->smarty->display('xml-resultado.tpl');
     }
     public function importar()
-    { //Con esto otro cargamos el fichero y lo convertimos en un objeto simpleXml
-        $productos=simplexml_load_file("productos.xml");
-        $categorias=simplexml_load_file("categoria.xml");
-        foreach ($categorias as $categoria)
-        {
-            unset($categoria->id_cat);
-            $this->Modelo_tienda->addCategoria($categoria);
-        }
-        foreach ($productos as $producto)
-        {
-            unset($producto->id_producto);
-            $this->Modelo_tienda->addProducto($producto);
-        }
-        $this->datos['mensaje']='los productos y categorias han sido correctamente importados';
+    {
+        $this->datos['productos_importados']=$this->session->flashdata('productos_importados');
+        $this->datos['categorias_importadas']=$this->session->flashdata('categorias_importadas');
         $this->datos['enlaces']=FALSE;
         $this->datos['titulo']='XML';
         $this->smarty->assign($this->datos);
@@ -159,6 +146,12 @@ class Main extends CI_Controller {
     public function ver_xml($archivo)
     {
         header('Content-Type: text/xml');
+        readfile($archivo);
+    }
+    public function descargar_xml($archivo)
+    {
+        header("Content-disposition: attachment; filename=$archivo");
+        header("Content-type: application/octet-stream");
         readfile($archivo);
     }
 
@@ -185,6 +178,42 @@ class Main extends CI_Controller {
     }
 
 
+    public function importarDatos()
+    {
+        if(isset($_FILES['productos']))
+        {
+            if ( is_uploaded_file($_FILES['productos']['tmp_name']) )
+            {
+                echo 'El archivo se ha subido con éxito';
+                $origen = $_FILES['productos']['tmp_name'];
+                $destino = 'productos.xml';
+                move_uploaded_file($origen, $destino);
+                $productos=simplexml_load_file("productos.xml");
+                foreach ($productos as $producto)
+                {
+                    unset($producto->id_producto);
+                    $this->Modelo_tienda->addProducto($producto);
+                }
+                $this->session->set_flashdata('productos_importados', 'Los productos fueron correctamente imortados');
+            }
+        }
+        if(isset($_FILES['categorias'])) {
+            if (is_uploaded_file($_FILES['categorias']['tmp_name'])) {
+                echo 'El archivo se ha subido con éxito';
+                $origen = $_FILES['categorias']['tmp_name'];
+                $destino = 'categoria.xml';
+                move_uploaded_file($origen, $destino);
+                $categorias=simplexml_load_file("categoria.xml");
+                foreach ($categorias as $categoria)
+                {
+                    unset($categoria->id_cat);
+                    $this->Modelo_tienda->addCategoria($categoria);
+                }
+                $this->session->set_flashdata('categorias_importadas', 'Las categorias fueron correctamente imortadas');
 
+            }
+        }
+        redirect( BASEURL.'index.php/main/importar', 'refresh');
+    }
 
 } 

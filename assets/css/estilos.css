@@ -49,6 +49,10 @@ html,body
 .imagen_producto{
     height: 300px;
 }
+.contenido-usuario
+{
+    height: 500px;
+}
 
 .inputs-izquierda
 {

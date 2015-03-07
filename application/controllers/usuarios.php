@@ -189,6 +189,44 @@ class Usuarios extends CI_Controller
     }
 
 
+    function mi_usuario()
+    {
+        $this->datos['usuario']=$this->Modelo_usuarios->getUserByName($this->session->userdata('usuario'));
+        $this->datos['provincia']=$this->Modelo_usuarios->getNombreProvincia($this->datos['usuario']->provincias_id_provincia);
+        $this->smarty->assign($this->datos);
+        $this->smarty->display('usuario.tpl');
+    }
+
+    function cambiar_datos()
+    {
+        $this->datos['usuario']=$this->session->userdata('usuario');
+        $this->datos['provincias'] = $this->Modelo_tienda->getProvincias();
+        if ($this->form_validation->run('cambiar_datos') == FALSE)
+        {
+            $this->datos['mensaje']=validation_errors();
+        }
+        else if($this->Modelo_usuarios->getUserByMail($this->input->post('mail')))
+        {
+            $this->datos['mensaje']="Ya existe un usuario con el Email: ".$this->input->post('mail').'.';
+        }
+        else if($this->input->post('password')!=$this->input->post('confirmPassword'))
+        {
+            $this->datos['mensaje']='Las contraseñas deben coincidir.';
+        }
+        else
+        {
+            $_POST['password']=password_hash($_POST['confirmPassword'],PASSWORD_DEFAULT);
+            unset($_POST['confirmPassword']);
+            $mensaje=$this->Modelo_usuarios->alterUser($this->input->post(),$this->session->userdata('usuario'));
+            $this->session->set_flashdata('usuario_modificado',$mensaje);
+           // redirect(BASEURL.'index.php/usuarios/mi_usuario');
+        }
+        $this->smarty->assign($this->datos);
+        $this->smarty->display('cambio_datos.tpl');
+    }
+
+
+
     function  validarUsuario($input)
     {
         if (preg_match('/^[a-zA-Z0-9üÜáéíóúÁÉÍÓÚñÑ]+[@\.a-zA-Z0-9üÜáéíóúÁÉÍÓÚñÑ@_\-ª]*$/',$input))

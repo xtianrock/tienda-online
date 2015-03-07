@@ -47,7 +47,7 @@
                             <li><a href="{$smarty.const.BASEURL}index.php/main/exportar">Exportar</a></li>
                         </ul>
                     </li>
-
+                    <li><a href="{$smarty.const.BASEURL}index.php/usuarios/mi_usuario">Mi Usuario</a></li>
                 </ul>
             </div>
             <div class="col-xs-2">

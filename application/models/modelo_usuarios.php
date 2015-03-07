@@ -23,6 +23,13 @@ class Modelo_usuarios extends CI_Model{
         $this->db->insert('usuario');
         return "El usuario ".$datos['usuario'].' ha sido creado con exito, ahora ya puede autentificarse usando su nombre de usuario y contraseña.';
     }
+    public function alterUser($datos,$usuario)
+    {
+        print_r($datos);
+        $this->db->where('usuario',$usuario);
+        $this->db->update('usuario',$datos);
+        return "El usuario ".$usuario.' ha sido modificado con exito.';
+    }
 
     public function getUserByName($name)
     {
@@ -55,6 +62,10 @@ class Modelo_usuarios extends CI_Model{
             return TRUE;
         else
             return FALSE;
+    }
+        public function getNombreProvincia($id)
+    {
+        return $this->db->from('provincias')->where('id_provincia',$id)->get()->row()->nombre_provincia;
     }
 
     public function resetPassword($idUsuario,$password)

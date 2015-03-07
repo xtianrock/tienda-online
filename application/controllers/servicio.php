@@ -6,7 +6,6 @@ class Servicio extends JSON_WebServer_Controller {
 
 	public function __construct() {
 		parent::__construct();
-
 		$this->load->model('Modelo_servicio');
 		//$this->Modelo_servicio->Load('productos_tienda01');
 

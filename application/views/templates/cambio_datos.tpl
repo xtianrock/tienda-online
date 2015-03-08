@@ -12,7 +12,7 @@
             <h2 class="form-signin-heading">Actualice sus datos</h2>
             <div class="inputs-izquierda">
                 <label for="inputUsuario" class="">Usuario</label>
-                <input name="usuario" type="text" id="inputUsuario" class="form-control" value="{if isset($post)}{ci helper='form' function='set_value' value='usuario'}{else}{$usuario->usuario}{/if}"  disabled autofocus>
+                <input name="usuario" type="text" id="inputUsuario" class="form-control" value="{$usuario->usuario}"  disabled autofocus>
 
                 <label for="inputEmail" class="control-label">Email</label>
                 <input name="mail" type="text" id="inputEmail" class="form-control" placeholder="Email" value="{if isset($post)}{ci helper='form' function='set_value' value='mail'}{else}{$usuario->mail}{/if}"  autofocus>

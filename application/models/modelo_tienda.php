@@ -16,14 +16,10 @@ class modelo_tienda extends CI_Model{
 
     public function getDestacados()
     {
-        $productos=array();
-        $resultados=$this->db->get('destacado');
-        foreach ($resultados->result() as $elemento)
-        {
-            $producto=$this->db->select('*')->from('productos')->where('id_producto',$elemento->productos_id_producto)->get();
-            $productos[]=$producto->row();
-        }
-        return $productos;
+        $this->db->from('productos');
+        $this->db->join('destacado', 'productos_id_producto= id_producto');
+        $this->db->join('categoria', 'id_cat= categoria_id_cat');
+        return $this->db->get()->result();
     }
     public function countProductos($categoria)
     {

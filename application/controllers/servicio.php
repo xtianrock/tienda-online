@@ -15,11 +15,24 @@ class Servicio extends JSON_WebServer_Controller {
 			'Devuelve una lista de productos de tamaño máximo [limit] comenzando desde la posición desde [offset]');
 	}
 
+	/**
+	 * Funcion que devuelve el numero de elementos destacados
+	 *
+	 * @return mixed nº elementos
+	 */
 	public function Total()
 	{
 		return $this->Modelo_servicio->Total();
 	}
 
+
+	/**
+	 * Funcion que recupera los datos que mostrara el servicio
+	 *
+	 * @param $offset posicion a partir de la cual mostrara
+	 * @param $limit  elementos por pagina
+	 * @return array  datos a mostrar
+	 */
 	public function Lista($offset, $limit)
 	{
 		$destacados=$this->Modelo_servicio->Lista($offset, $limit);

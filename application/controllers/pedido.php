@@ -30,6 +30,9 @@ class Pedido extends CI_Controller {
         $this->load->helper('stock');
     }
 
+    /**
+     * Se encarga del proceso de compra, verifica que hay stock, actualiza el stock en la base de datos, etc
+     */
     public function procesarCompra()
     {
         $datosStock=array();
@@ -90,6 +93,12 @@ class Pedido extends CI_Controller {
         }
     }
 
+
+    /**
+     * Envia un correo al usuario con la factura
+     *
+     * @param $idPedido pedido del cual envia la factura
+     */
     public function correo($idPedido)
     {
         $datospedido=$this->Modelo_venta->getPedido($idPedido);
@@ -99,21 +108,23 @@ class Pedido extends CI_Controller {
         $this->email->attach('Factura_pedido_'.$datospedido->id_pedido.'.pdf');
         $this->email->cc('xtianrock89@gmail.com');
         //$this->email->bcc('them@their-example.com');
-
         $this->email->subject('Factura');
         $this->email->message('Gracias por depositar su confianza en nosotros.');
         if ( $this->email->send() )
         {
-            echo "<pre>\n\nENVIADO CON EXITO\n</pre>";
+            $this->session->set_flashdata('correo','Su pedido se ha grabado correctamente, una copia de la factura se ha enviado a su correo');
         }
-        else
-        {
-            echo "</pre>\n\n**** NO SE HA ENVIADO ****</pre>\n";
-        }
-        echo $this->email->print_debugger();
+        redirect(BASEURL.'index.php/usuarios/mostrar_pedidos');
     }
 
-    public function factura($idPedido)
+
+    /**
+     * Crea la factura del pedido
+     *
+     * @param $idPedido pedido al que le hace la factura
+     * @param null $accion indica que hara con la factura una vez creada
+     */
+    public function factura($idPedido,$accion=null)
     {
         $datosEmpresa=Array(
             'nombre'=>'Mtg Store S.L.',
@@ -145,10 +156,30 @@ class Pedido extends CI_Controller {
             $i++;
         }
 
-        $pdf->Output('Factura_pedido_'.$idPedido.'.pdf','F');
-        redirect(BASEURL.'index.php/pedido/correo/'.$idPedido);
+        if($accion=='ver')
+        {
+            $pdf->Output();
+        }
+        else if ($accion=='descargar')
+        {
+            $archivo='Factura_pedido_'.$idPedido.'.pdf';
+            $pdf->Output($archivo,'F');
+            header("Content-disposition: attachment; filename=$archivo");
+            header("Content-type: application/octet-stream");
+            readfile($archivo);
+        }
+        else
+        {
+            $pdf->Output('Factura_pedido_'.$idPedido.'.pdf','F');
+            redirect(BASEURL.'index.php/pedido/correo/'.$idPedido);
+        }
+
     }
 
+
+    /**
+     * Muestra un resumen de la compra
+     */
     public function resumenCompra()
     {
         if(!$this->session->userdata('logueado'))

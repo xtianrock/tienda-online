@@ -80,6 +80,10 @@ html,body
 a.deshabilitado {
     pointer-events: none;
 }
+table
+{
+    width: 70%;
+}
 
 /* make sidebar nav vertical */
 @media (min-width: 768px) {

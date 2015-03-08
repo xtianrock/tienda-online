@@ -34,6 +34,9 @@ class Usuarios extends CI_Controller
         $this->smarty->display('login.tpl');
     }
 
+    /**
+     * Permite iniciar sesion
+     */
     public function login()
     {
         $this->datos['titulo'] ='Login';
@@ -69,6 +72,9 @@ class Usuarios extends CI_Controller
         $this->smarty->display('login.tpl');
     }
 
+    /**
+     * Permite a los usuarios registrarse en la aplicacion
+     */
     public function registro()
     {
         $this->datos['titulo'] ='Registro';
@@ -105,6 +111,9 @@ class Usuarios extends CI_Controller
         $this->smarty->display($vista);
     }
 
+    /**
+     * Cierra la sesion actual
+     */
     public function logout()
     {
         $array_sesiones = array('usuario' => '', 'logueado' => '');
@@ -113,6 +122,9 @@ class Usuarios extends CI_Controller
         redirect(BASEURL.'index.php/main');
     }
 
+    /**
+     * Permite restablecer la contraseña de un usuario
+     */
     public function resetPassword()
     {
         $this->datos['titulo'] ='Restableciendo contraseña';
@@ -146,6 +158,12 @@ class Usuarios extends CI_Controller
         $this->smarty->assign($this->datos);
         $this->smarty->display($vista);
     }
+
+    /**
+     * Soliucita una nueva contraseña al usuario
+     *
+     * @param $token token que debe coincidir con el almacenado en la base de datos
+     */
     public function newPassword($token)
     {
         $this->datos['titulo'] ='Restableciendo contraseña';
@@ -177,6 +195,12 @@ class Usuarios extends CI_Controller
 
     }
 
+    /**
+     * Envia el mail para restablecer la contraseña
+     *
+     * @param $mail direccion a la que enviar
+     * @param $enlace enlace desde el cual el usuario puede restablecer la contraseña
+     */
     function enviarMail($mail,$enlace)
     {
         $this->email->initialize();
@@ -189,7 +213,9 @@ class Usuarios extends CI_Controller
         $this->email->send();
     }
 
-
+    /**
+     * Muestra el panel de usuario
+     */
     function mi_usuario()
     {
         $this->datos['titulo'] ='Mi Usuario';
@@ -199,6 +225,9 @@ class Usuarios extends CI_Controller
         $this->smarty->display('usuario.tpl');
     }
 
+    /**
+     * Permite cmabiar los datos del usuario
+     */
     function cambiar_datos()
     {
         $this->datos['titulo'] ='Mis datos';
@@ -227,16 +256,19 @@ class Usuarios extends CI_Controller
         $this->smarty->display('cambio_datos.tpl');
     }
 
+    /**
+     * Muestra los pedidos del usuario de la sesion
+     */
     function mostrar_pedidos()
     {
         $this->datos['titulo'] ='Mis pedidos';
+        $this->datos['mensaje'] =$this->session->flashdata('correo');
         $this->datos['pedidos'] = $this->Modelo_venta->getPedidoByUserName($this->session->userdata('usuario'));
-        print_r($this->datos['pedidos']);
         $this->smarty->assign($this->datos);
         $this->smarty->display('lista_pedidos.tpl');
     }
 
-
+//Funciones de validacion
 
     function  validarUsuario($input)
     {

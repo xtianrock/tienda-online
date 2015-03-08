@@ -12,7 +12,7 @@ class Pdf extends FPDF
         // Movernos a la derecha
         $this->Cell(80);
         // Título
-        $this->Cell(30,10,'Lista de paises',1,0,'C');
+        $this->Cell(30,10,'Factura',1,0,'C');
         // Salto de línea
         $this->Ln(20);
     }

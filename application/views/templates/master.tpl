@@ -58,27 +58,7 @@
     </div>
 {/block}
 
-{block name=destacados}
-    <div class="col-sm-10 col-sm-offset-1">
-        <div id="destacados" class="jumbotron">
-            <h2>Productos destacados</h2>
-            <div class="row">
-                {foreach $destacados as $item}
-                    <div class="col-xs-4">
-                        <ul>
-                            <li>{$item->id_producto}</li>
-                            <li>{$item->nombre_producto}</li>
-                            <li>{$item->precio_producto}</li>
-                            <li>{$item->descripcion}</li>
-                        </ul>
-                        <img class="imagen_producto" src="{$smarty.const.BASEURL}/assets/img/{$item->imagen_producto}" >
-                    </div>
-                {/foreach}
-            </div>
-            <p><a class="btn btn-primary btn-lg" href="#" role="button">Ver todos</a></p>
-        </div>
-    </div>
-{/block}
+
 <div id="contenido">
 {block name=contenido}
 

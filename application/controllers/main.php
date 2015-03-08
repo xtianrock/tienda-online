@@ -28,6 +28,9 @@ class Main extends CI_Controller {
         $this->load->helper('stock');
     }
 
+    /**
+     * Será la entrada de nuestra tienda, en ella s emostraran los productos destacados
+     */
     public function index()
     {
         $this->datos['titulo'] ='Home';
@@ -35,6 +38,13 @@ class Main extends CI_Controller {
         $this->smarty->assign($this->datos);
         $this->smarty->display('home.tpl');
     }
+
+    /**
+     * Muestra los productos ordenados por categorias y los pagina
+     *
+     * @param $categoria categoria a mostrar
+     * @param int $inicio nº de elementos que debe mostrar el paginador
+     */
     public function categorias($categoria,$inicio=0)
     {
             $articulosPagina=3;
@@ -54,17 +64,19 @@ class Main extends CI_Controller {
             $config['per_page'] =$articulosPagina;
             $config['uri_segment'] =4;
 
-
-            /* Initialize the pagination library with the config array */
             $this->pagination->initialize($config);
-
             $this->datos['paginador'] = $this->pagination->create_links();
-
             $this->smarty->assign($this->datos);
             $this->smarty->display('productos.tpl');
     }
 
 
+    /**
+     * Muestra los detalles del producto.
+     *
+     * @param $categoria No hace nada, solo muestra informacion en la url.
+     * @param $idProducto producto amostrar
+     */
     public function producto($categoria,$idProducto)
     {
         $this->datos['uri']= $this->uri->uri_string();
@@ -75,6 +87,10 @@ class Main extends CI_Controller {
         $this->smarty->display('detalles.tpl');
     }
 
+
+    /**
+     * Muestra el contenido del carrito
+     */
     public function carrito()
     {
         if($this->input->post())  //Modifico las cantidades de los articulos
@@ -95,6 +111,10 @@ class Main extends CI_Controller {
         $this->smarty->display('carrito.tpl');
     }
 
+
+    /**
+     * Añade el producto recibido por post al carrito
+     */
     public function addProduct()
     {
         $id_producto = $this->input->post('id_producto');
@@ -118,6 +138,11 @@ class Main extends CI_Controller {
         $this->session->set_flashdata('agregado', 'El producto fue agregado correctamente');
         redirect( BASEURL.'index.php/'.$_POST['uri'], 'refresh');
     }
+
+
+    /**
+     * Permite exportar tanto las categorias como los productos a formato xml
+     */
     public function exportar()
     {
 
@@ -133,6 +158,10 @@ class Main extends CI_Controller {
         $this->smarty->assign($this->datos);
         $this->smarty->display('xml-resultado.tpl');
     }
+
+    /**
+     * Permite la importacion de las categorias y los productos desde archivos en formato xml
+     */
     public function importar()
     {
         $this->datos['productos_importados']=$this->session->flashdata('productos_importados');
@@ -143,11 +172,23 @@ class Main extends CI_Controller {
         $this->smarty->display('xml-resultado.tpl');
     }
 
+
+    /**
+     * permite ver un xml exportado.
+     *
+     * @param $archivo nombre del archivo que se abrir (productos o categorias)
+     */
     public function ver_xml($archivo)
     {
         header('Content-Type: text/xml');
         readfile($archivo);
     }
+
+    /**
+     * Permite descargar el archivo xml
+     *
+     * @param $archivo  nombre del archivo que se abrir (productos o categorias)
+     */
     public function descargar_xml($archivo)
     {
         header("Content-disposition: attachment; filename=$archivo");
@@ -156,6 +197,13 @@ class Main extends CI_Controller {
     }
 
 
+    /**
+     * Se encarga de exportar los datos de la base de datos a formato xml.
+     *
+     * @param $tabla tabla que se exporta
+     * @param $datos  Conjuntos de datos devueltos por la consulta sql
+     * @param $nombreElemento nombre que s ele dara al archivo
+     */
     private function exportarDatos($tabla,$datos,$nombreElemento)
     {
         $xml= "<?xml version=\"1.0\" ?>";
@@ -171,13 +219,11 @@ class Main extends CI_Controller {
         }
         $xml.='</'.$tabla.'>';
         file_put_contents($tabla.".xml",$xml);
-        //header('Content-Type: text/xml');
-        //readfile($tabla.'.xml');
-
-
     }
 
-
+    /**
+     *Se encarga de realizar la importacion desde los ficheros subidos al servidor
+     */
     public function importarDatos()
     {
         if(isset($_FILES['productos']))

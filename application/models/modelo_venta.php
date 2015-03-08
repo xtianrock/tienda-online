@@ -19,6 +19,14 @@ class modelo_venta extends CI_Model{
       return $this->db->from('pedido')->where('id_pedido',$id)->get()->row();
    }
 
+    public function getPedidoByUserName($usuario)
+    {
+        $this->db->from('usuario');
+        $this->db->join('pedido', 'usuario_id_usuario= id_usuario');
+        $this->db->where('usuario',$usuario);
+        return $this->db->get()->result();
+    }
+
     public function getLineaPedido($id)
     {
         return $this->db->from('linea_pedido')->where('pedido_id_pedido',$id)->get()->result();

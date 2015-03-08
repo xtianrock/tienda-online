@@ -70,14 +70,6 @@ class Modelo_usuarios extends CI_Model{
 
     public function resetPassword($idUsuario,$password)
     {
-        /*
-         * con este codigo creo el evento que se ejecutará cada 12 horas eliminando los links que tengan mas d eun dia de antiguaedad
-         *
-         CREATE EVENT eliminaLinks
-         ON SCHEDULE EVERY 12 HOUR
-         do
-         DELETE FROM reset_password WHERE fecha <= DATE_SUB(CURTIME(), INTERVAL 1 DAY)
-         */
         $data = array(
             'password' => password_hash($password,PASSWORD_DEFAULT)
         );

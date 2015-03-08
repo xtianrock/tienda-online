@@ -10,7 +10,7 @@
                 <div class="col-xs-6 col-lg-offset-3">
                     <ul class="nav nav-pills">
                         <li><a href="{$smarty.const.BASEURL}index.php/usuarios/cambiar_datos">Cambiar datos Personales </a></li>
-                        <li><a href="{$smarty.const.BASEURL}index.php/main/Exportar">Ver pedidos</a></li>
+                        <li><a href="{$smarty.const.BASEURL}index.php/usuarios/mostrar_pedidos">Ver pedidos</a></li>
                     </ul>
                 </div>
             </div>

@@ -25,6 +25,7 @@ class Usuarios extends CI_Controller
         $this->smarty = new Smarty;
         $this->smarty->setTemplateDir(FCPATH . 'application/views/templates');
         $this->load->model('Modelo_usuarios');
+        $this->load->model('Modelo_venta');
         $this->smarty->assign($this->datos);
     }
 
@@ -191,6 +192,7 @@ class Usuarios extends CI_Controller
 
     function mi_usuario()
     {
+        $this->datos['titulo'] ='Mi Usuario';
         $this->datos['usuario']=$this->Modelo_usuarios->getUserByName($this->session->userdata('usuario'));
         $this->datos['provincia']=$this->Modelo_usuarios->getNombreProvincia($this->datos['usuario']->provincias_id_provincia);
         $this->smarty->assign($this->datos);
@@ -199,6 +201,7 @@ class Usuarios extends CI_Controller
 
     function cambiar_datos()
     {
+        $this->datos['titulo'] ='Mis datos';
         $this->datos['usuario']=$this->Modelo_usuarios->getUserByName($this->session->userdata('usuario'));
         $this->datos['provincias'] = $this->Modelo_tienda->getProvincias();
         print_r($this->input->post());
@@ -222,6 +225,15 @@ class Usuarios extends CI_Controller
         }
         $this->smarty->assign($this->datos);
         $this->smarty->display('cambio_datos.tpl');
+    }
+
+    function mostrar_pedidos()
+    {
+        $this->datos['titulo'] ='Mis pedidos';
+        $this->datos['pedidos'] = $this->Modelo_venta->getPedidoByUserName($this->session->userdata('usuario'));
+        print_r($this->datos['pedidos']);
+        $this->smarty->assign($this->datos);
+        $this->smarty->display('lista_pedidos.tpl');
     }
 
 

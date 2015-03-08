@@ -199,15 +199,14 @@ class Usuarios extends CI_Controller
 
     function cambiar_datos()
     {
-        $this->datos['usuario']=$this->session->userdata('usuario');
+        $this->datos['usuario']=$this->Modelo_usuarios->getUserByName($this->session->userdata('usuario'));
         $this->datos['provincias'] = $this->Modelo_tienda->getProvincias();
+        print_r($this->input->post());
+        if ($this->input->post())
+            $this->datos['post']=true;
         if ($this->form_validation->run('cambiar_datos') == FALSE)
         {
             $this->datos['mensaje']=validation_errors();
-        }
-        else if($this->Modelo_usuarios->getUserByMail($this->input->post('mail')))
-        {
-            $this->datos['mensaje']="Ya existe un usuario con el Email: ".$this->input->post('mail').'.';
         }
         else if($this->input->post('password')!=$this->input->post('confirmPassword'))
         {
@@ -219,7 +218,7 @@ class Usuarios extends CI_Controller
             unset($_POST['confirmPassword']);
             $mensaje=$this->Modelo_usuarios->alterUser($this->input->post(),$this->session->userdata('usuario'));
             $this->session->set_flashdata('usuario_modificado',$mensaje);
-           // redirect(BASEURL.'index.php/usuarios/mi_usuario');
+            redirect(BASEURL.'index.php/usuarios/mi_usuario');
         }
         $this->smarty->assign($this->datos);
         $this->smarty->display('cambio_datos.tpl');
